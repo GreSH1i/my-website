@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="uk" class="light style-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>КТ у Дніпрі — Євро Сервіс Україна | Кардіоцентр</title>
+    <meta name="description" content="КТ-діагностика у Дніпрі на Philips Brilliance CT у Кардіоцентрі. 16-зрізова конфігурація, робоча станція Vitrea, запис за телефоном 0 800 33 03 64.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#2563eb',
+                            cyan: '#06b6d4',
+                            accent: '#10b981'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <style>
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; transition: background-color 0.3s, color 0.3s; overflow-x: hidden; }
+        section { scroll-margin-top: 92px; }
+        ::selection { background: #2563eb; color: #fff; }
+        input::placeholder, select { color: #64748b; }
+        .section-shell { max-width: 1320px; margin-left: auto; margin-right: auto; }
+        .nav-link { position: relative; }
+        .nav-link::after { content: ''; position: absolute; left: 0; right: 0; bottom: -10px; height: 2px; border-radius: 999px; background: #2563eb; transform: scaleX(0); transition: transform .25s ease; }
+        .nav-link.active { color: #2563eb; }
+        .nav-link.active::after { transform: scaleX(1); }
+        .reveal { opacity: 0; transform: translateY(14px); transition: opacity .55s ease, transform .55s ease; }
+        .reveal.visible { opacity: 1; transform: translateY(0); }
+        .booking-card { box-shadow: 0 18px 50px -24px rgba(15, 23, 42, .25); }
+        .service-item { transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+        .service-item:hover { transform: translateY(-3px); box-shadow: 0 24px 55px -28px rgba(15, 23, 42, .25); border-color: rgba(37, 99, 235, .22); }
+        .mobile-action-bar { padding-bottom: max(10px, env(safe-area-inset-bottom)); }
+        details[open] { border-color: rgba(37, 99, 235, .22); }
+        summary::-webkit-details-marker { display: none; }
+        
+        .light body { 
+            background: #f8fafc;
+            color: #0f172a;
+        }
+
+        .dark body { 
+            background: #090d16;
+            color: #f1f5f9;
+        }
+
+        .card-ui { 
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(20px); 
+            border: 1px solid rgba(226, 232, 240, 0.8); 
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.04); 
+        }
+        .dark .card-ui { 
+            background: rgba(15, 23, 42, 0.65); 
+            border-color: rgba(255, 255, 255, 0.08); 
+        }
+
+        .nav-glass { 
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(12px); 
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8); 
+        }
+        .dark .nav-glass { 
+            background: rgba(8, 12, 20, 0.85); 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+        }
+
+        .phone-mockup {
+            border: 4px solid #0f172a;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px -18px rgba(0, 0, 0, 0.28);
+            background: #000;
+        }
+
+        #ct-3d-canvas {
+            width: 100%;
+            height: 100%;
+            cursor: grab;
+        }
+        #ct-3d-canvas:active {
+            cursor: grabbing;
+        }
+    </style>
+</head>
+<body class="min-h-screen selection:bg-blue-500 selection:text-white relative">
+
+    <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 relative z-10">
+        <div class="max-w-[1320px] mx-auto flex flex-wrap justify-between items-center gap-2">
+            <div class="flex items-center gap-6">
+                <span><i class="fa-solid fa-location-dot text-blue-500 mr-1.5"></i><span data-lang-ua="м. Дніпро, вул. Князя Володимира Великого, 28 (Кардіоцентр)" data-lang-en="Dnipro, Kniaz Volodymyr Velyky str., 28 (Cardio Center)">м. Дніпро, вул. Князя Володимира Великого, 28 (Кардіоцентр)</span></span>
+                <span class="hidden md:inline"><i class="fa-regular fa-clock text-blue-500 mr-1.5"></i><span data-lang-ua="Пн–Пт: 08:00 – 17:00" data-lang-en="Mon–Fri: 08:00 – 17:00">Пн–Пт: 08:00 – 17:00</span></span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="https://www.esu-center.com.ua/" target="_blank" rel="noopener" class="hidden sm:inline font-semibold text-slate-300 hover:text-white transition" data-lang-ua="Основний сайт ↗" data-lang-en="Main website ↗">Основний сайт ↗</a>
+                <a href="tel:0800330364" class="font-bold text-white hover:text-blue-400 transition"><i class="fa-solid fa-phone text-emerald-400 mr-1.5"></i> 0 800 33 03 64</a>
+            </div>
+        </div>
+    </div>
+
+    <nav class="sticky top-0 z-50 nav-glass transition-colors">
+        <div class="max-w-[1320px] mx-auto px-4 py-3.5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-extrabold text-xl shadow-md shadow-blue-500/20">
+                    ЄС
+                </div>
+                <div>
+                    <span class="font-extrabold text-lg tracking-tight block leading-none">Євро Сервіс Україна</span>
+                    <span class="text-[10px] text-blue-600 font-bold uppercase tracking-wider" data-lang-ua="КТ • Кардіоцентр, Дніпро" data-lang-en="CT • Cardio Center, Dnipro">КТ • Кардіоцентр, Дніпро</span>
+                </div>
+            </div>
+
+            <div class="hidden lg:flex items-center gap-8 text-sm font-semibold text-slate-600 dark:text-slate-300">
+                <a href="#about" data-nav-link class="nav-link hover:text-blue-600 transition" data-lang-ua="Обладнання" data-lang-en="Equipment">Обладнання</a>
+                <a href="#process" data-nav-link class="nav-link hover:text-blue-600 transition" data-lang-ua="Як проходить КТ" data-lang-en="CT Process">Як проходить КТ</a>
+                <a href="#vitrea" data-nav-link class="nav-link hover:text-blue-600 transition">3D Vitrea</a>
+                <a href="#services" data-nav-link class="nav-link hover:text-blue-600 transition" data-lang-ua="Послуги та ціни" data-lang-en="Services & Prices">Послуги та ціни</a>
+                <a href="#faq" data-nav-link class="nav-link hover:text-blue-600 transition" data-lang-ua="Питання" data-lang-en="FAQ">Питання</a>
+                <a href="#booking" data-nav-link class="nav-link hover:text-blue-600 transition" data-lang-ua="Контакти" data-lang-en="Contacts">Контакти</a>
+            </div>
+
+            <div class="flex items-center gap-3">
+                <button type="button" aria-label="Змінити мову" onclick="toggleLanguage()" id="lang-btn" class="px-2.5 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 font-bold text-xs hover:text-blue-600 transition">
+                    UA
+                </button>
+
+                <button type="button" aria-label="Змінити тему" onclick="toggleTheme()" class="w-9 h-9 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center hover:text-blue-600 transition">
+                    <i id="theme-icon" class="fa-solid fa-sun text-amber-500"></i>
+                </button>
+
+                <a href="#booking" class="hidden sm:inline-flex px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition shadow-lg shadow-blue-600/20" data-lang-ua="Записатися" data-lang-en="Book Now">
+                    Записатися
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <section id="about" class="py-12 md:py-20 px-4 relative z-10">
+        <div class="max-w-[1320px] mx-auto grid lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-7 space-y-6">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-600 dark:bg-blue-900/30 dark:border-blue-800 dark:text-blue-300 text-xs font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+                    <span data-lang-ua="База Дніпропетровського кардіоцентру" data-lang-en="Based on Dnipropetrovsk Cardio Center">База Дніпропетровського кардіоцентру</span>
+                </div>
+                
+                <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight text-slate-900 dark:text-white">
+                    <span data-lang-ua="КТ-діагностика у Кардіоцентрі на" data-lang-en="CT diagnostics at the Cardio Center on">КТ-діагностика у Кардіоцентрі на</span> 
+                    <span class="text-blue-600">Philips Brilliance 64</span>
+                </h1>
+                
+                <p class="text-slate-600 dark:text-slate-400 text-base md:text-lg leading-relaxed max-w-2xl" data-lang-ua="Комп’ютерна томографія на Philips Brilliance у 16-зрізовій конфігурації з розширеним аналізом результатів на робочій станції Vitrea. Запис на зручний час у Дніпрі." data-lang-en="CT on Philips Brilliance in a 16-slice configuration with advanced result analysis on the Vitrea workstation. Appointments in Dnipro.">
+                    Комп’ютерна томографія на Philips Brilliance у 16-зрізовій конфігурації з розширеним аналізом результатів на робочій станції Vitrea. Запис на зручний час у Дніпрі.
+                </p>
+
+                <div class="grid sm:grid-cols-3 gap-4 pt-2">
+                    <div class="card-ui p-4 rounded-2xl">
+                        <div class="text-2xl font-extrabold text-blue-600">16 <span data-lang-ua="зрізів" data-lang-en="slices" class="text-sm font-normal text-slate-500">зрізів</span></div>
+                        <div class="text-xs text-slate-500 mt-2" data-lang-ua="Конфігурація КТ-системи" data-lang-en="CT system configuration">Конфігурація КТ-системи</div>
+                    </div>
+                    <div class="card-ui p-4 rounded-2xl">
+                        <div class="text-2xl font-extrabold text-blue-600">Vitrea</div>
+                        <div class="text-xs text-slate-500 mt-2" data-lang-ua="Розширена 3D-візуалізація" data-lang-en="Advanced 3D visualization">Розширена 3D-візуалізація</div>
+                    </div>
+                    <div class="card-ui p-4 rounded-2xl">
+                        <div class="text-2xl font-extrabold text-emerald-600" data-lang-ua="Кардіоцентр" data-lang-en="Cardio Center">Кардіоцентр</div>
+                        <div class="text-xs text-slate-500 mt-2" data-lang-ua="вул. Князя Володимира Великого, 28" data-lang-en="28 Kniaz Volodymyr Velyky St.">вул. Князя Володимира Великого, 28</div>
+                    </div>
+                </div>
+
+                <div class="flex flex-wrap gap-4 pt-4">
+                    <a href="#booking" class="px-8 py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition shadow-xl shadow-blue-600/20 flex items-center gap-3">
+                        <span data-lang-ua="Записатися на зручний час" data-lang-en="Book an appointment">Записатися на зручний час</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5">
+                <div class="card-ui p-6 rounded-3xl relative space-y-4">
+                    <div class="flex items-center justify-between pb-1">
+                        <div>
+                            <span class="text-[10px] text-blue-600 font-extrabold uppercase tracking-widest block" data-lang-ua="Інтерактивна модель" data-lang-en="Interactive model">Інтерактивна модель</span>
+                            <h3 class="font-bold text-slate-900 dark:text-white text-base">Philips Brilliance 64</h3>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-emerald-50 text-emerald-600 dark:bg-emerald-950/40 dark:text-emerald-400 text-xs font-semibold border border-emerald-200/60 dark:border-emerald-800/40" data-lang-ua="Кардіоцентр, Дніпро" data-lang-en="Cardio Center, Dnipro">Кардіоцентр, Дніпро</span>
+                    </div>
+
+                    <div class="w-full h-80 rounded-2xl relative overflow-hidden bg-gradient-to-b from-slate-200/70 via-blue-50/50 to-slate-200/80 dark:from-slate-900 dark:via-slate-950 dark:to-slate-900 border border-slate-300/60 dark:border-slate-800 shadow-inner">
+                        
+                        <div class="absolute top-4 left-4 z-10 pointer-events-none">
+                            <span class="text-[10px] font-semibold text-slate-700 dark:text-slate-300 bg-white/90 dark:bg-slate-800/90 px-3 py-1.5 rounded-full backdrop-blur border border-slate-200 dark:border-slate-700 shadow-sm">
+                                <i class="fa-solid fa-cube text-blue-600 mr-1.5"></i> Interactive 3D
+                            </span>
+                        </div>
+
+                        <div class="absolute bottom-4 right-4 z-10 pointer-events-none">
+                            <span class="text-[10px] font-semibold text-slate-700 dark:text-slate-300 bg-white/90 dark:bg-slate-800/90 px-3 py-1.5 rounded-full backdrop-blur border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-1.5">
+                                <i class="fa-solid fa-arrows-rotate text-blue-600"></i>
+                                <span data-lang-ua="360° Огляд" data-lang-en="360° View">360° Огляд</span>
+                            </span>
+                        </div>
+
+                        <canvas id="ct-3d-canvas"></canvas>
+                    </div>
+
+                    <div class="space-y-2 text-xs pt-1">
+                        <div class="flex justify-between items-center p-2.5 rounded-xl bg-slate-100/80 dark:bg-slate-800/50">
+                            <span class="text-slate-500" data-lang-ua="Конфігурація системи:" data-lang-en="System configuration:">Конфігурація системи:</span>
+                            <span class="font-bold text-slate-900 dark:text-white" data-lang-ua="16 зрізів" data-lang-en="16 slices">16 зрізів</span>
+                        </div>
+                        <div class="flex justify-between items-center p-2.5 rounded-xl bg-slate-100/80 dark:bg-slate-800/50">
+                            <span class="text-slate-500" data-lang-ua="Робоча станція:" data-lang-en="Workstation:">Робоча станція:</span>
+                            <span class="font-bold text-blue-600">Vitrea</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="py-10 px-4 relative z-10">
+        <div class="max-w-[1320px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="card-ui p-6 rounded-2xl text-center reveal">
+                <div class="text-2xl md:text-3xl font-extrabold text-blue-600 mb-2">Philips</div>
+                <div class="text-xs text-slate-500" data-lang-ua="КТ-система Brilliance" data-lang-en="Brilliance CT system">КТ-система Brilliance</div>
+            </div>
+            <div class="card-ui p-6 rounded-2xl text-center reveal">
+                <div class="text-2xl md:text-3xl font-extrabold text-blue-600 mb-2">16</div>
+                <div class="text-xs text-slate-500" data-lang-ua="зрізів у конфігурації системи" data-lang-en="slices in the system configuration">зрізів у конфігурації системи</div>
+            </div>
+            <div class="card-ui p-6 rounded-2xl text-center reveal">
+                <div class="text-2xl md:text-3xl font-extrabold text-cyan-600 mb-2">Vitrea</div>
+                <div class="text-xs text-slate-500" data-lang-ua="2D/3D-аналіз для лікаря" data-lang-en="2D/3D analysis for the radiologist">2D/3D-аналіз для лікаря</div>
+            </div>
+            <div class="card-ui p-6 rounded-2xl text-center reveal">
+                <div class="text-2xl md:text-3xl font-extrabold text-emerald-600 mb-2">Дніпро</div>
+                <div class="text-xs text-slate-500" data-lang-ua="КТ-кабінет у Кардіоцентрі" data-lang-en="CT room at the Cardio Center">КТ-кабінет у Кардіоцентрі</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="process" class="py-16 px-4 bg-slate-100/60 dark:bg-slate-900/40 border-y border-slate-200/60 dark:border-slate-800 relative z-10">
+        <div class="max-w-[1320px] mx-auto grid lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-7 space-y-8">
+                <div>
+                    <span class="text-xs font-bold text-blue-600 uppercase tracking-widest" data-lang-ua="Простий процес" data-lang-en="Simple process">Простий процес</span>
+                    <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900 dark:text-white mt-1" data-lang-ua="Як проходить обстеження у нашому центрі" data-lang-en="How examination works in our center">Як проходить обстеження у нашому центрі</h2>
+                </div>
+
+                <div class="space-y-6">
+                    <div class="flex gap-4 items-start">
+                        <div class="w-10 h-10 rounded-2xl bg-blue-600 text-white font-extrabold flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">1</div>
+                        <div>
+                            <h4 class="font-bold text-base text-slate-900 dark:text-white" data-lang-ua="Швидкий та зручний запис" data-lang-en="Quick & easy booking">Швидкий та зручний запис</h4>
+                            <p class="text-xs text-slate-500 mt-1" data-lang-ua="Залиште заявку на сайті або зателефонуйте. Адміністратор підбере точний час без черг." data-lang-en="Leave a request or call us. The administrator will select an exact time without queues.">Залиште заявку на сайті або зателефонуйте. Адміністратор підбере точний час без черг.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 items-start">
+                        <div class="w-10 h-10 rounded-2xl bg-blue-600 text-white font-extrabold flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">2</div>
+                        <div>
+                            <h4 class="font-bold text-base text-slate-900 dark:text-white" data-lang-ua="Прихід у центр (Кардіоцентр)" data-lang-en="Arrival at the center">Прихід у центр (Кардіоцентр)</h4>
+                            <p class="text-xs text-slate-500 mt-1" data-lang-ua="Приємна атмосфера, ввічливий персонал. Вас зустрінуть та проведуть до кабінету КТ." data-lang-en="Pleasant atmosphere and polite staff will guide you directly to the CT room.">Приємна атмосфера, ввічливий персонал. Вас зустрінуть та проведуть до кабінету КТ.</p>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 items-start">
+                        <div class="w-10 h-10 rounded-2xl bg-blue-600 text-white font-extrabold flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">3</div>
+                        <div>
+                            <h4 class="font-bold text-base text-slate-900 dark:text-white" data-lang-ua="Проведення сканування" data-lang-en="CT scanning">Проведення сканування</h4>
+                            <p class="text-xs text-slate-500 mt-1" data-lang-ua="Під час сканування потрібно спокійно лежати та виконувати короткі команди персоналу. Тривалість залежить від виду дослідження." data-lang-en="During scanning, remain still and follow the staff’s brief instructions. Duration depends on the examination type.">Під час сканування потрібно спокійно лежати та виконувати короткі команди персоналу. Тривалість залежить від виду дослідження.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 flex justify-center">
+                <div class="phone-mockup w-full max-w-[300px] overflow-hidden relative group">
+                    <div class="absolute top-0 inset-x-0 bg-gradient-to-b from-slate-950/90 via-slate-950/60 to-transparent p-4 z-10 pointer-events-none">
+                        <span class="font-bold text-xs text-white block" data-lang-ua="Візит пацієнта" data-lang-en="Patient Visit">Візит пацієнта</span>
+                        <span class="text-[10px] text-slate-300 block" data-lang-ua="Реальний процес КТ-діагностики" data-lang-en="Real CT process">Реальний процес КТ-діагностики</span>
+                    </div>
+
+                    <button type="button" aria-label="Увімкнути або вимкнути звук відео" onclick="toggleAudio('video1')" class="absolute top-3 right-3 z-20 bg-slate-900/80 hover:bg-blue-600 text-white px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 border border-slate-700">
+                        <i class="fa-solid fa-volume-high text-[10px]"></i> <span data-lang-ua="Звук" data-lang-en="Sound">Звук</span>
+                    </button>
+
+                    <video id="video1" class="w-full h-[530px] object-cover" controls autoplay muted loop playsinline>
+                        <source src="IMG_2868.mp4" type="video/mp4">
+                        <source src="IMG_2868" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="vitrea" class="py-16 px-4 relative z-10">
+        <div class="max-w-[1320px] mx-auto grid lg:grid-cols-12 gap-12 items-center">
+            
+            <div class="lg:col-span-5 flex justify-center order-2 lg:order-1">
+                <div class="phone-mockup w-full max-w-[300px] overflow-hidden relative group">
+                    <div class="absolute top-0 inset-x-0 bg-gradient-to-b from-slate-950/90 via-slate-950/60 to-transparent p-4 z-10 pointer-events-none">
+                        <span class="font-bold text-xs text-white block" data-lang-ua="Робота з Vitrea 3D" data-lang-en="Working with Vitrea 3D">Робота з Vitrea 3D</span>
+                        <span class="text-[10px] text-slate-300 block" data-lang-ua="Аналіз лікарем-рентгенологом" data-lang-en="Radiologist analysis">Аналіз лікарем-рентгенологом</span>
+                    </div>
+
+                    <button type="button" aria-label="Увімкнути або вимкнути звук відео" onclick="toggleAudio('video2')" class="absolute top-3 right-3 z-20 bg-slate-900/80 hover:bg-blue-600 text-white px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 border border-slate-700">
+                        <i class="fa-solid fa-volume-high text-[10px]"></i> <span data-lang-ua="Звук" data-lang-en="Sound">Звук</span>
+                    </button>
+
+                    <video id="video2" class="w-full h-[530px] object-cover" controls autoplay muted loop playsinline>
+                        <source src="IMG_2869.mp4" type="video/mp4">
+                        <source src="IMG_2869" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+            <div class="lg:col-span-7 space-y-6 order-1 lg:order-2">
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-widest" data-lang-ua="3D-Технологія" data-lang-en="3D Technology">3D-Технологія</span>
+                <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900 dark:text-white" data-lang-ua="Розширений аналіз КТ на робочій станції Vitrea" data-lang-en="Advanced CT analysis on the Vitrea workstation">Розширений аналіз КТ на робочій станції Vitrea</h2>
+                <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed" data-lang-ua="Vitrea — спеціалізована робоча станція для лікарів-рентгенологів. Вона допомагає детально переглядати результати КТ, створювати 2D/3D-реконструкції, виконувати вимірювання та аналізувати досліджувану ділянку з різних ракурсів." data-lang-en="Vitrea is a specialized workstation for radiologists. It helps review CT results in detail, create 2D/3D reconstructions, take measurements and analyze the examined area from different views.">
+                    Vitrea — спеціалізована робоча станція для лікарів-рентгенологів. Вона допомагає детально переглядати результати КТ, створювати 2D/3D-реконструкції, виконувати вимірювання та аналізувати досліджувану ділянку з різних ракурсів.
+                </p>
+
+                <div class="grid sm:grid-cols-2 gap-4 pt-2">
+                    <div class="card-ui p-5 rounded-2xl">
+                        <i class="fa-solid fa-cube text-blue-600 text-xl mb-2"></i>
+                        <h4 class="font-bold text-sm text-slate-900 dark:text-white" data-lang-ua="3D-моделювання" data-lang-en="3D Modeling">3D-моделювання</h4>
+                        <p class="text-xs text-slate-500 mt-1" data-lang-ua="Об’ємні реконструкції допомагають лікарю розглядати анатомічні структури з різних ракурсів." data-lang-en="Volumetric reconstructions help the radiologist view anatomical structures from different angles.">Об’ємні реконструкції допомагають лікарю розглядати анатомічні структури з різних ракурсів.</p>
+                    </div>
+                    <div class="card-ui p-5 rounded-2xl">
+                        <i class="fa-solid fa-bullseye text-blue-600 text-xl mb-2"></i>
+                        <h4 class="font-bold text-sm text-slate-900 dark:text-white" data-lang-ua="Вимірювання та аналіз" data-lang-en="Measurement & analysis">Вимірювання та аналіз</h4>
+                        <p class="text-xs text-slate-500 mt-1" data-lang-ua="Інструменти Vitrea допомагають виконувати вимірювання та детальніше аналізувати дані дослідження." data-lang-en="Vitrea tools support measurements and more detailed analysis of examination data.">Інструменти Vitrea допомагають виконувати вимірювання та детальніше аналізувати дані дослідження.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="services" class="py-16 px-4 bg-slate-100/60 dark:bg-slate-900/40 border-y border-slate-200/60 dark:border-slate-800 relative z-10">
+        <div class="max-w-[1320px] mx-auto space-y-8">
+            <div class="text-center max-w-3xl mx-auto">
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-widest" data-lang-ua="Популярні дослідження" data-lang-en="Popular examinations">Популярні дослідження</span>
+                <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900 dark:text-white mt-1" data-lang-ua="Послуги КТ-діагностики" data-lang-en="CT Diagnostic Services">Послуги КТ-діагностики</h2>
+                <p class="text-sm text-slate-500 mt-3" data-lang-ua="Нижче — кілька популярних позицій. Повний актуальний перелік послуг і цін доступний на основному сайті «Євро Сервіс Україна»." data-lang-en="Below are several popular options. The full current service and price list is available on the main Euro Service Ukraine website.">Нижче — кілька популярних позицій. Повний актуальний перелік послуг і цін доступний на основному сайті «Євро Сервіс Україна».</p>
+            </div>
+            <div class="relative w-full max-w-xl mx-auto">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
+                <input type="text" id="serviceSearch" onkeyup="filterServices()" placeholder="Пошук серед показаних послуг..." class="w-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl pl-10 pr-4 py-3.5 text-sm focus:outline-none focus:border-blue-600 transition shadow-sm">
+            </div>
+
+            <div id="servicesGrid" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="service-item card-ui p-6 rounded-3xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-600 text-[11px] font-bold" data-lang-ua="Без контрасту" data-lang-en="Without contrast">Без контрасту</span>
+                            <span class="text-xs text-slate-400"><i class="fa-regular fa-clock mr-1"></i> 10–15 хв</span>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-1 service-name" data-lang-ua="КТ головного мозку" data-lang-en="Brain CT">КТ головного мозку</h3>
+                        <p class="text-slate-500 text-xs mb-4" data-lang-ua="Діагностика травм, інсультів, порушень кровообігу та утворень." data-lang-en="Diagnostics of trauma, stroke, circulatory disorders and masses.">Діагностика травм, інсультів, порушень кровообігу та утворень.</p>
+                        
+                        <div class="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl mb-4 text-[11px] space-y-1">
+                            <div class="font-bold text-slate-700 dark:text-slate-300" data-lang-ua="У вартість входить:" data-lang-en="Price includes:">У вартість входить:</div>
+                            <div class="text-slate-500"><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Матеріали дослідження</div>
+                            <div class="text-slate-500"><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Опис лікаря-рентгенолога</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-4">
+                        <span class="text-2xl font-extrabold text-blue-600">1 200 <span class="text-xs font-normal text-slate-400">грн</span></span>
+                        <a href="#booking" onclick="selectService('КТ головного мозку')" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition" data-lang-ua="Записатися" data-lang-en="Book">Записатися</a>
+                    </div>
+                </div>
+
+                <div class="service-item card-ui p-6 rounded-3xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <span class="px-2.5 py-1 rounded-lg bg-blue-50 text-blue-600 text-[11px] font-bold" data-lang-ua="Без контрасту" data-lang-en="Without contrast">Без контрасту</span>
+                            <span class="text-xs text-slate-400"><i class="fa-regular fa-clock mr-1"></i> 10 хв</span>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-1 service-name" data-lang-ua="КТ органів грудної клітки" data-lang-en="Chest CT">КТ органів грудної клітки</h3>
+                        <p class="text-slate-500 text-xs mb-4" data-lang-ua="Оцінка стану легень, бронхів, плеври, пневмонії та новоутворень." data-lang-en="Assessment of lungs, bronchi, pleura, pneumonia and masses.">Оцінка стану легень, бронхів, плеври, пневмонії та новоутворень.</p>
+                        
+                        <div class="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl mb-4 text-[11px] space-y-1">
+                            <div class="font-bold text-slate-700 dark:text-slate-300" data-lang-ua="У вартість входить:" data-lang-en="Price includes:">У вартість входить:</div>
+                            <div class="text-slate-500"><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Матеріали дослідження</div>
+                            <div class="text-slate-500"><i class="fa-solid fa-check text-emerald-500 mr-1"></i> Опис лікаря-рентгенолога</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between border-t border-slate-100 dark:border-slate-800 pt-4">
+                        <span class="text-2xl font-extrabold text-blue-600">1 400 <span class="text-xs font-normal text-slate-400">грн</span></span>
+                        <a href="#booking" onclick="selectService('КТ органів грудної клітки')" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition" data-lang-ua="Записатися" data-lang-en="Book">Записатися</a>
+                    </div>
+                </div>
+
+                <div class="service-item card-ui p-6 rounded-3xl flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3 gap-3">
+                            <span class="px-2.5 py-1 rounded-lg bg-purple-50 text-purple-600 dark:bg-purple-950/30 dark:text-purple-300 text-[11px] font-bold" data-lang-ua="З контрастуванням" data-lang-en="With contrast">З контрастуванням</span>
+                            <span class="text-xs text-slate-400" data-lang-ua="За призначенням" data-lang-en="As indicated">За призначенням</span>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white mb-1 service-name" data-lang-ua="КТ з контрастним посиленням" data-lang-en="Contrast-enhanced CT">КТ з контрастним посиленням</h3>
+                        <p class="text-slate-500 text-xs mb-4" data-lang-ua="Контрастування застосовується для окремих видів КТ. Необхідність, підготовку та вартість уточнюйте у адміністратора." data-lang-en="Contrast is used for selected CT examinations. Please confirm indication, preparation and price with the administrator.">Контрастування застосовується для окремих видів КТ. Необхідність, підготовку та вартість уточнюйте у адміністратора.</p>
+                        <div class="bg-slate-50 dark:bg-slate-800/50 p-3 rounded-xl mb-4 text-[11px] space-y-1.5">
+                            <div class="font-bold text-slate-700 dark:text-slate-300" data-lang-ua="Перед записом:" data-lang-en="Before booking:">Перед записом:</div>
+                            <div class="text-slate-500"><i class="fa-solid fa-check text-emerald-500 mr-1"></i> <span data-lang-ua="Уточніть вид дослідження" data-lang-en="Confirm examination type">Уточніть вид дослідження</span></div>
+                            <div class="text-slate-500"><i class="fa-solid fa-check text-emerald-500 mr-1"></i> <span data-lang-ua="Адміністратор повідомить підготовку" data-lang-en="Administrator will explain preparation">Адміністратор повідомить підготовку</span></div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between gap-3 border-t border-slate-100 dark:border-slate-800 pt-4">
+                        <span class="text-base font-extrabold text-blue-600" data-lang-ua="Вартість уточнюйте" data-lang-en="Ask for price">Вартість уточнюйте</span>
+                        <a href="#booking" onclick="selectService('КТ з контрастним посиленням')" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition" data-lang-ua="Записатися" data-lang-en="Book">Записатися</a>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+                <a href="https://www.esu-center.com.ua/price/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm font-bold text-slate-700 dark:text-slate-200 hover:border-blue-400 hover:text-blue-600 transition shadow-sm">
+                    <span data-lang-ua="Повний актуальний прайс" data-lang-en="Full current price list">Повний актуальний прайс</span>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                </a>
+                <a href="tel:0800330364" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-blue-50 dark:bg-blue-950/30 text-blue-600 dark:text-blue-300 text-sm font-bold hover:bg-blue-100 dark:hover:bg-blue-950/50 transition">
+                    <i class="fa-solid fa-phone text-xs"></i> 0 800 33 03 64
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contrast" class="py-14 px-4 relative z-10">
+        <div class="max-w-4xl mx-auto">
+            <div class="card-ui rounded-3xl p-6 md:p-8 border-l-4 border-l-blue-600 reveal">
+                <div class="flex flex-col md:flex-row md:items-center gap-5">
+                    <div class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-droplet text-lg"></i>
+                    </div>
+                    <div class="flex-1">
+                        <h3 class="text-lg md:text-xl font-extrabold text-slate-900 dark:text-white" data-lang-ua="КТ з контрастуванням" data-lang-en="Contrast-enhanced CT">КТ з контрастуванням</h3>
+                        <p class="text-sm text-slate-500 mt-2 leading-relaxed" data-lang-ua="Підготовка залежить від виду дослідження та стану пацієнта. Перед записом адміністратор підкаже, які документи або аналізи потрібні саме для вашого обстеження." data-lang-en="Preparation depends on the examination type and the patient’s condition. Before booking, the administrator will explain which documents or tests are needed for your examination.">Підготовка залежить від виду дослідження та стану пацієнта. Перед записом адміністратор підкаже, які документи або аналізи потрібні саме для вашого обстеження.</p>
+                    </div>
+                    <a href="tel:0800330364" class="px-5 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs transition whitespace-nowrap" data-lang-ua="Уточнити підготовку" data-lang-en="Ask about preparation">Уточнити підготовку</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-16 px-4 relative z-10">
+        <div class="max-w-4xl mx-auto space-y-8">
+            <div class="text-center">
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-widest" data-lang-ua="Відповіді на питання" data-lang-en="Frequently Asked Questions">Відповіді на питання</span>
+                <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900 dark:text-white mt-1" data-lang-ua="Часті запитання пацієнтів" data-lang-en="Patient FAQs">Часті запитання пацієнтів</h2>
+            </div>
+
+            <div class="space-y-4">
+                <details class="card-ui p-5 rounded-2xl group">
+                    <summary class="font-bold cursor-pointer list-none flex justify-between items-center text-sm md:text-base text-slate-900 dark:text-white">
+                        <span data-lang-ua="Чи потрібна спеціальна підготовка до КТ?" data-lang-en="Is special preparation required for CT?">Чи потрібна спеціальна підготовка до КТ?</span>
+                        <i class="fa-solid fa-chevron-down text-xs text-blue-600 group-open:rotate-180 transition"></i>
+                    </summary>
+                    <p class="text-xs md:text-sm text-slate-500 mt-3 leading-relaxed" data-lang-ua="Підготовка залежить від виду КТ та необхідності контрастування. Під час запису повідомте адміністратору, яке саме дослідження вам призначили, — вам підкажуть актуальні вимоги до підготовки." data-lang-en="Preparation depends on the type of CT and whether contrast is needed. When booking, tell the administrator which examination was prescribed and they will explain the current preparation requirements.">
+                        Підготовка залежить від виду КТ та необхідності контрастування. Під час запису повідомте адміністратору, яке саме дослідження вам призначили, — вам підкажуть актуальні вимоги до підготовки.
+                    </p>
+                </details>
+
+                <details class="card-ui p-5 rounded-2xl group">
+                    <summary class="font-bold cursor-pointer list-none flex justify-between items-center text-sm md:text-base text-slate-900 dark:text-white">
+                        <span data-lang-ua="Коли будуть готові результати обстеження?" data-lang-en="When will the test results be ready?">Коли будуть готові результати обстеження?</span>
+                        <i class="fa-solid fa-chevron-down text-xs text-blue-600 group-open:rotate-180 transition"></i>
+                    </summary>
+                    <p class="text-xs md:text-sm text-slate-500 mt-3 leading-relaxed" data-lang-ua="Термін підготовки висновку залежить від виду та складності дослідження. На основному сайті «Євро Сервіс Україна» зазначено, що висновок видається у день обстеження або наступного робочого дня; точний термін підкаже реєстратор." data-lang-en="Report timing depends on the type and complexity of the examination. Euro Service Ukraine states that reports are issued on the day of the examination or the next working day; the registrar will confirm the exact timing.">
+                        Термін підготовки висновку залежить від виду та складності дослідження. На основному сайті «Євро Сервіс Україна» зазначено, що висновок видається у день обстеження або наступного робочого дня; точний термін підкаже реєстратор.
+                    </p>
+                </details>
+
+                <details class="card-ui p-5 rounded-2xl group">
+                    <summary class="font-bold cursor-pointer list-none flex justify-between items-center text-sm md:text-base text-slate-900 dark:text-white">
+                        <span data-lang-ua="Що потрібно знати про променеве навантаження при КТ?" data-lang-en="What should I know about radiation exposure during CT?">Що потрібно знати про променеве навантаження при КТ?</span>
+                        <i class="fa-solid fa-chevron-down text-xs text-blue-600 group-open:rotate-180 transition"></i>
+                    </summary>
+                    <p class="text-xs md:text-sm text-slate-500 mt-3 leading-relaxed" data-lang-ua="КТ використовує рентгенівське випромінювання, тому дослідження виконують за медичними показаннями. Протокол сканування підбирає персонал з урахуванням виду дослідження; якщо у вас є запитання щодо протипоказань або попередніх обстежень, повідомте про це під час запису." data-lang-en="CT uses X-rays, so examinations are performed for medical indications. Staff select the scanning protocol for the examination type; if you have questions about contraindications or prior scans, mention them when booking.">
+                        КТ використовує рентгенівське випромінювання, тому дослідження виконують за медичними показаннями. Протокол сканування підбирає персонал з урахуванням виду дослідження; якщо у вас є запитання щодо протипоказань або попередніх обстежень, повідомте про це під час запису.
+                    </p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section id="booking" class="py-16 md:py-24 px-4 bg-slate-100/60 dark:bg-slate-900/40 border-t border-slate-200/60 dark:border-slate-800 relative z-10">
+        <div class="max-w-[1320px] mx-auto space-y-12">
+            
+            <div class="text-center max-w-2xl mx-auto">
+                <span class="text-xs font-bold text-blue-600 uppercase tracking-widest" data-lang-ua="Локація та Запис" data-lang-en="Location & Booking">Локація та Запис</span>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mt-1" data-lang-ua="Чекаємо на вас у нашому центрі" data-lang-en="We are waiting for you">Чекаємо на вас у нашому центрі</h2>
+                <p class="text-slate-500 text-sm mt-2">
+                    м. Дніпро, вул. Князя Володимира Великого, 28 (Будівля Кардіологічного центру)
+                </p>
+            </div>
+
+            <div class="grid lg:grid-cols-12 gap-8 items-start">
+                
+                <div class="lg:col-span-7 card-ui p-4 rounded-3xl space-y-4">
+                    <div class="w-full h-80 rounded-2xl overflow-hidden relative border border-slate-200 dark:border-slate-800">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2645.243574892015!2d35.0442345!3d48.4710156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40de3ce272589e13%3A0x6b6379963e1d6d81!2z0LLRg9C7LiDQmtC90Y_Qt9GPINCS0L7Qu9C-0LTQuNC80LjRgNCwINCS0LXQu9C40LrQvtCz0L4sIDI4LCDQlNC90ZbQv9GA0L8sINCU0L3RltC_0YDQvtC_0LXRgtGA0L7QstGB0YzQutCwINC-0LHQu9Cw0YHRgtGMLCA0OTAwMA!5e0!3m2!1suk!2sua!4v1700000000000!5m2!1suk!2sua" 
+                            width="100%" 
+                            height="100%" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy">
+                        </iframe>
+                    </div>
+
+                    <div class="flex flex-wrap items-center justify-between gap-4 p-2">
+                        <div class="flex items-center gap-3">
+                            <i class="fa-solid fa-square-parking text-blue-600 text-xl"></i>
+                            <span class="text-xs text-slate-500" data-lang-ua="Є безкоштовна парковка для пацієнтів" data-lang-en="Free parking for patients">Є безкоштовна парковка для пацієнтів</span>
+                        </div>
+                        <a href="https://maps.google.com/?q=м.+Дніпро,+вул.+Князя+Володимира+Великого,+28" target="_blank" class="px-4 py-2 rounded-xl bg-blue-50 text-blue-600 hover:bg-blue-600 hover:text-white font-bold text-xs transition flex items-center gap-2">
+                            <span data-lang-ua="Google Maps" data-lang-en="Google Maps">Google Maps</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 card-ui booking-card p-8 rounded-3xl">
+                    <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white mb-1" data-lang-ua="Записатися на КТ" data-lang-en="Book an appointment">Записатися на КТ</h3>
+                    <p class="text-slate-500 text-xs mb-6" data-lang-ua="Оберіть дослідження та залиште контакт. До підключення онлайн-відправки запис підтверджується телефоном:" data-lang-en="Choose an examination and leave your contact. Until online submission is connected, appointments are confirmed by phone:">Оберіть дослідження та залиште контакт. До підключення онлайн-відправки запис підтверджується телефоном:</p>
+
+                    <form onsubmit="handleFormSubmit(event)" class="space-y-4">
+                        <div>
+                            <label class="text-xs font-bold text-slate-500 block mb-1" data-lang-ua="Ваше Ім'я" data-lang-en="Your Name">Ваше Ім'я</label>
+                            <input type="text" required placeholder="Іван" class="w-full min-h-[50px] bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:border-blue-600 transition">
+                        </div>
+
+                        <div>
+                            <label class="text-xs font-bold text-slate-500 block mb-1" data-lang-ua="Номер телефону" data-lang-en="Phone Number">Номер телефону</label>
+                            <input type="tel" required placeholder="+380 (__) ___-__-__" class="w-full min-h-[50px] bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:border-blue-600 transition">
+                        </div>
+
+                        <div>
+                            <label class="text-xs font-bold text-slate-500 block mb-1" data-lang-ua="Дослідження" data-lang-en="Examination">Дослідження</label>
+                            <select id="serviceSelect" required class="w-full min-h-[50px] bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:border-blue-600 transition">
+                                <option value="" data-lang-ua="Оберіть дослідження" data-lang-en="Choose an examination">Оберіть дослідження</option>
+                                <option value="КТ головного мозку" data-lang-ua="КТ головного мозку" data-lang-en="Brain CT">КТ головного мозку</option>
+                                <option value="КТ органів грудної клітки" data-lang-ua="КТ органів грудної клітки" data-lang-en="Chest CT">КТ органів грудної клітки</option>
+                                <option value="КТ з контрастним посиленням" data-lang-ua="КТ з контрастним посиленням" data-lang-en="Contrast-enhanced CT">КТ з контрастним посиленням</option>
+                                <option value="Інше КТ-дослідження" data-lang-ua="Інше КТ-дослідження" data-lang-en="Other CT examination">Інше КТ-дослідження</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="text-xs font-bold text-slate-500 block mb-1" data-lang-ua="Зручний час для дзвінка" data-lang-en="Preferred callback time">Зручний час для дзвінка</label>
+                            <select class="w-full min-h-[50px] bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-3.5 text-sm focus:outline-none focus:border-blue-600 transition">
+                                <option data-lang-ua="Будь-коли у робочі години" data-lang-en="Any time during working hours">Будь-коли у робочі години</option>
+                                <option data-lang-ua="08:00–11:00" data-lang-en="08:00–11:00">08:00–11:00</option>
+                                <option data-lang-ua="11:00–14:00" data-lang-en="11:00–14:00">11:00–14:00</option>
+                                <option data-lang-ua="14:00–17:00" data-lang-en="14:00–17:00">14:00–17:00</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="w-full py-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-sm transition shadow-lg shadow-blue-600/20 flex items-center justify-center gap-2">
+                            <span data-lang-ua="Перейти до дзвінка" data-lang-en="Call to confirm">Перейти до дзвінка</span>
+                            <i class="fa-solid fa-arrow-right text-xs"></i>
+                        </button>
+                        <p class="text-[11px] leading-relaxed text-slate-400 text-center" data-lang-ua="Форма підготовлена до підключення CRM або пошти. Наразі для підтвердження запису натисніть кнопку та зателефонуйте адміністратору." data-lang-en="The form is ready to be connected to a CRM or email service. For now, confirm the appointment by calling the administrator.">Форма підготовлена до підключення CRM або пошти. Наразі для підтвердження запису натисніть кнопку та зателефонуйте адміністратору.</p>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-6 border-t border-slate-200 dark:border-slate-800 text-slate-400 text-xs relative z-10 mb-16 md:mb-0">
+        <div class="max-w-[1320px] mx-auto px-4 flex flex-col md:flex-row items-center justify-between gap-3 text-center md:text-left">
+            <p>© 2026 ТОВ «Євро Сервіс Україна». м. Дніпро, вул. Князя Володимира Великого, 28.</p>
+            <div class="flex items-center gap-4">
+                <a href="https://www.esu-center.com.ua/" target="_blank" rel="noopener" class="hover:text-blue-600 transition" data-lang-ua="Основний сайт" data-lang-en="Main website">Основний сайт</a>
+                <a href="tel:0800330364" class="hover:text-blue-600 transition">0 800 33 03 64</a>
+            </div>
+        </div>
+    </footer>
+
+    <div class="mobile-action-bar fixed md:hidden bottom-0 inset-x-0 z-[60] bg-white/95 dark:bg-slate-950/95 backdrop-blur border-t border-slate-200 dark:border-slate-800 px-3 pt-2">
+        <div class="grid grid-cols-2 gap-2 max-w-lg mx-auto">
+            <a href="tel:0800330364" class="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white font-bold text-sm flex items-center justify-center gap-2"><i class="fa-solid fa-phone text-emerald-500"></i><span data-lang-ua="Подзвонити" data-lang-en="Call">Подзвонити</span></a>
+            <a href="#booking" class="h-11 rounded-xl bg-blue-600 text-white font-bold text-sm flex items-center justify-center gap-2"><i class="fa-regular fa-calendar-check"></i><span data-lang-ua="Записатися" data-lang-en="Book">Записатися</span></a>
+        </div>
+    </div>
+
+    <script>
+        let currentLang = 'ua';
+
+        function toggleAudio(videoId) {
+            const video = document.getElementById(videoId);
+            if (video) {
+                video.muted = !video.muted;
+            }
+        }
+
+        function filterServices() {
+            let input = document.getElementById('serviceSearch').value.toLowerCase();
+            let items = document.getElementsByClassName('service-item');
+            for (let i = 0; i < items.length; i++) {
+                let name = items[i].querySelector('.service-name').innerText.toLowerCase();
+                items[i].style.display = name.includes(input) ? "flex" : "none";
+            }
+        }
+
+        function toggleTheme() {
+            const html = document.documentElement;
+            const icon = document.getElementById('theme-icon');
+            if (html.classList.contains('dark')) {
+                html.classList.remove('dark');
+                html.classList.add('light');
+                icon.className = "fa-solid fa-sun text-amber-500";
+            } else {
+                html.classList.remove('light');
+                html.classList.add('dark');
+                icon.className = "fa-solid fa-moon text-blue-400";
+            }
+        }
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ua' ? 'en' : 'ua';
+            document.getElementById('lang-btn').innerText = currentLang.toUpperCase();
+
+            document.querySelectorAll('[data-lang-ua]').forEach(el => {
+                if (currentLang === 'en') {
+                    el.innerText = el.getAttribute('data-lang-en');
+                } else {
+                    el.innerText = el.getAttribute('data-lang-ua');
+                }
+            });
+        }
+
+        function selectService(serviceName) {
+            const select = document.getElementById('serviceSelect');
+            if (!select) return;
+            const option = Array.from(select.options).find(opt => opt.value === serviceName);
+            if (option) select.value = serviceName;
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            window.location.href = 'tel:0800330364';
+        }
+
+        // Плавное появление блоков и подсветка текущего раздела меню.
+        window.addEventListener('DOMContentLoaded', () => {
+            document.querySelectorAll('.card-ui, .service-item').forEach((el, index) => {
+                if (!el.classList.contains('reveal')) el.classList.add('reveal');
+                el.style.transitionDelay = `${Math.min(index % 4, 3) * 55}ms`;
+            });
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        revealObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.08 });
+            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+            const navLinks = Array.from(document.querySelectorAll('[data-nav-link]'));
+            const sectionObserver = new IntersectionObserver((entries) => {
+                const visible = entries.filter(e => e.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+                if (!visible) return;
+                navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === `#${visible.target.id}`));
+            }, { rootMargin: '-25% 0px -60% 0px', threshold: [0.01, 0.15, 0.4] });
+            ['about','process','vitrea','services','faq','booking'].forEach(id => {
+                const section = document.getElementById(id);
+                if (section) sectionObserver.observe(section);
+            });
+        });
+
+        /* --- ВЫСОКОКОНТРАСТНАЯ 3D-МОДЕЛЬ С ОБЪЕМНЫМ ОСВЕЩЕНИЕМ И ТЕНЯМИ --- */
+        window.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('ct-3d-canvas');
+            if (!canvas) return;
+
+            const scene = new THREE.Scene();
+
+            // CAMERA
+            const camera = new THREE.PerspectiveCamera(38, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+            camera.position.set(3.4, 2.0, 4.0);
+
+            // RENDERER
+            const renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+            renderer.setSize(canvas.clientWidth, canvas.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+            // CONTROLS
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.dampingFactor = 0.05;
+            controls.enableZoom = false;
+            controls.maxPolarAngle = Math.PI / 2 + 0.05;
+
+            // LIGHTING (Контрастное студийное освещение)
+            const ambientLight = new THREE.AmbientLight(0xffffff, 1.2);
+            scene.add(ambientLight);
+
+            const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
+            keyLight.position.set(6, 10, 6);
+            scene.add(keyLight);
+
+            // Заполняющий синий свет для объёма и красивого блика
+            const fillLight = new THREE.DirectionalLight(0x3b82f6, 1.4);
+            fillLight.position.set(-6, -2, -4);
+            scene.add(fillLight);
+
+            const scannerGroup = new THREE.Group();
+
+            // 1. Корпус томографа (Благородный медицинский пластик с чётким контуром)
+            const bodyGeo = new THREE.CylinderGeometry(1.4, 1.4, 0.68, 64, 1, true);
+            const bodyMat = new THREE.MeshStandardMaterial({
+                color: 0xe2e8f0, // Контрастный мягко-серый оттенок
+                roughness: 0.2,
+                metalness: 0.25
+            });
+            const bodyMesh = new THREE.Mesh(bodyGeo, bodyMat);
+            bodyMesh.rotation.x = Math.PI / 2;
+            scannerGroup.add(bodyMesh);
+
+            // Лицевая и задняя панель кольца
+            const panelGeo = new THREE.RingGeometry(0.85, 1.4, 64);
+            const panelMat = new THREE.MeshStandardMaterial({
+                color: 0xf1f5f9,
+                roughness: 0.15,
+                metalness: 0.1
+            });
+            const backMesh = new THREE.Mesh(panelGeo, panelMat);
+            backMesh.position.z = -0.34;
+            scannerGroup.add(backMesh);
+
+            const frontMesh = backMesh.clone();
+            frontMesh.position.z = 0.34;
+            scannerGroup.add(frontMesh);
+
+            // 2. Внутренняя туннельная апертура (Глубокий синий контрастный туннель)
+            const innerRingGeo = new THREE.CylinderGeometry(0.86, 0.86, 0.67, 64, 1, true);
+            const innerRingMat = new THREE.MeshStandardMaterial({
+                color: 0x1e3a8a, // Насыщенный темно-синий для глубокого контраста
+                roughness: 0.3,
+                metalness: 0.4
+            });
+            const innerRing = new THREE.Mesh(innerRingGeo, innerRingMat);
+            innerRing.rotation.x = Math.PI / 2;
+            scannerGroup.add(innerRing);
+
+            // 3. Кушетка / Стол (Яркий контрастный матрас)
+            const tableGroup = new THREE.Group();
+
+            // Основание стола
+            const bedGeo = new THREE.BoxGeometry(0.72, 0.06, 2.6);
+            const bedMat = new THREE.MeshStandardMaterial({
+                color: 0xcbf1f9,
+                roughness: 0.3,
+                metalness: 0.1
+            });
+            const bed = new THREE.Mesh(bedGeo, bedMat);
+            bed.position.set(0, -0.25, 0.6);
+            tableGroup.add(bed);
+
+            // Матрас с фирменным синим цветом
+            const matGeo = new THREE.BoxGeometry(0.66, 0.05, 2.5);
+            const matMat = new THREE.MeshStandardMaterial({
+                color: 0x2563eb, // Четкий яркий синий
+                roughness: 0.3
+            });
+            const mat = new THREE.Mesh(matGeo, matMat);
+            mat.position.set(0, -0.20, 0.6);
+            tableGroup.add(mat);
+
+            // Станина стола
+            const standGeo = new THREE.CylinderGeometry(0.28, 0.38, 0.5, 32);
+            const standMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, roughness: 0.2 });
+            const stand = new THREE.Mesh(standGeo, standMat);
+            stand.position.set(0, -0.5, 1.3);
+            tableGroup.add(stand);
+
+            scannerGroup.add(tableGroup);
+
+            // 4. Тень под томографом для заземления модели в пространстве
+            const shadowGeo = new THREE.PlaneGeometry(3.5, 3.5);
+            const shadowMat = new THREE.MeshBasicMaterial({
+                color: 0x0f172a,
+                transparent: true,
+                opacity: 0.12
+            });
+            const shadowPlane = new THREE.Mesh(shadowGeo, shadowMat);
+            shadowPlane.rotation.x = -Math.PI / 2;
+            shadowPlane.position.y = -0.76;
+            scannerGroup.add(shadowPlane);
+
+            // 5. Контрастное лазерное кольцо сканера
+            const laserRingGeo = new THREE.TorusGeometry(0.88, 0.012, 16, 100);
+            const laserRingMat = new THREE.MeshBasicMaterial({
+                color: 0x06b6d4,
+                transparent: true,
+                opacity: 0.95
+            });
+            const laserRing = new THREE.Mesh(laserRingGeo, laserRingMat);
+            laserRing.position.z = 0;
+            scannerGroup.add(laserRing);
+
+            // Световой луч
+            const waveGeo = new THREE.CylinderGeometry(0.87, 0.87, 0.12, 64, 1, true);
+            const waveMat = new THREE.MeshBasicMaterial({
+                color: 0x38bdf8,
+                transparent: true,
+                opacity: 0.3,
+                side: THREE.DoubleSide
+            });
+            const waveMesh = new THREE.Mesh(waveGeo, waveMat);
+            waveMesh.rotation.x = Math.PI / 2;
+            scannerGroup.add(waveMesh);
+
+            scannerGroup.position.y = 0.05;
+            scene.add(scannerGroup);
+
+            // ANIMATION LOOP
+            const clock = new THREE.Clock();
+
+            function animate() {
+                requestAnimationFrame(animate);
+
+                const time = clock.getElapsedTime();
+
+                // Плавный поворот
+                scannerGroup.rotation.y = Math.sin(time * 0.4) * 0.3;
+
+                // Движение сканера
+                const laserZ = Math.sin(time * 1.6) * 0.28;
+                laserRing.position.z = laserZ;
+                waveMesh.position.z = laserZ;
+
+                controls.update();
+                renderer.render(scene, camera);
+            }
+
+            animate();
+
+            // RESIZE HANDLER
+            window.addEventListener('resize', () => {
+                if (!canvas.parentElement) return;
+                const width = canvas.parentElement.clientWidth;
+                const height = canvas.parentElement.clientHeight;
+                camera.aspect = width / height;
+                camera.updateProjectionMatrix();
+                renderer.setSize(width, height);
+            });
+        });
+    </script>
+</body>
+</html>
