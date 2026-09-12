@@ -387,8 +387,18 @@
             .ct-stage-label { right: 10px; bottom: 10px; }
         }
 
-        #ct-3d-canvas { width: 100%; height: 100%; cursor: grab; display:block; }
+        #ct-3d-canvas { width: 100%; height: 100%; cursor: grab; display:block; touch-action:none; }
         #ct-3d-canvas:active { cursor: grabbing; }
+        .ct-drag-hint {
+            position:absolute; right:14px; top:14px; z-index:3;
+            display:inline-flex; align-items:center; gap:7px;
+            padding:7px 10px; border-radius:999px;
+            color:#dbeafe; background:rgba(4,12,26,.72);
+            border:1px solid rgba(125,211,252,.18);
+            font-size:9px; font-weight:800; letter-spacing:.02em;
+            backdrop-filter:blur(10px); pointer-events:none;
+        }
+        @media (max-width:640px){ .ct-drag-hint{font-size:8px;padding:6px 8px;right:10px;top:10px;} }
 
         .section-deep {
             position: relative;
@@ -1095,40 +1105,6 @@ body .service-item h3{font-size:22px!important;line-height:1.3}
  .reveal{opacity:1!important;transform:none!important}
 }
 
-
-/* --- Focused refinement: interactive CT, balanced hero, stats cards --- */
-@media (min-width:1024px){
-  #about>div{align-items:center!important;}
-  .hero-copy{padding-right:24px;}
-  .hero-visual-card{width:min(100%,520px);}
-  body .hero-model-shell{height:420px!important;aspect-ratio:auto!important;}
-}
-.hero-visual-card{max-width:520px;}
-.ct-view canvas{width:100%;height:100%;display:block;cursor:grab;touch-action:none;}
-.ct-view canvas:active{cursor:grabbing;}
-.ct-drag-hint{position:absolute;right:14px;top:14px;z-index:3;padding:7px 10px;border-radius:999px;background:rgba(4,12,26,.74);border:1px solid rgba(125,211,252,.18);color:#cfe8f7;font-size:10px;font-weight:700;letter-spacing:.01em;backdrop-filter:blur(10px);}
-.ct-drag-hint i{color:#7dd3fc;margin-right:5px;}
-.network-mini-intro .eyebrow{font-weight:800!important;letter-spacing:.14em!important;}
-.network-mini-intro h3{font-weight:600!important;}
-.hero-network-stats{gap:14px!important;margin-top:18px!important;}
-.hero-stat{min-height:112px!important;padding:22px 20px!important;border:1px solid rgba(191,219,254,.88)!important;border-left:1px solid rgba(191,219,254,.88)!important;border-radius:20px!important;background:rgba(255,255,255,.82)!important;box-shadow:0 18px 40px -30px rgba(15,23,42,.32)!important;backdrop-filter:blur(12px)!important;opacity:1;transform:none;}
-.dark .hero-stat{background:rgba(15,23,42,.62)!important;border-color:rgba(255,255,255,.09)!important;}
-.hero-stat .stat-number{font-size:clamp(2rem,3.1vw,2.75rem)!important;font-weight:700!important;}
-.hero-stat .stat-label{font-size:11px!important;font-weight:600!important;text-transform:uppercase!important;letter-spacing:.08em!important;margin-top:10px!important;}
-.hero-network-stats.counting .hero-stat{animation:statRise .6s cubic-bezier(.2,.8,.2,1) both;}
-.hero-network-stats.counting .hero-stat:nth-child(2){animation-delay:.08s}.hero-network-stats.counting .hero-stat:nth-child(3){animation-delay:.16s}.hero-network-stats.counting .hero-stat:nth-child(4){animation-delay:.24s}
-@keyframes statRise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-@media(max-width:767px){
-  .hero-visual-card{max-width:100%;}
-  body .hero-model-shell{height:320px!important;aspect-ratio:auto!important;}
-  .ct-drag-hint{top:10px;right:10px;font-size:9px;padding:6px 8px;}
-  .hero-network-stats{gap:12px!important;row-gap:12px!important;}
-  .hero-stat{min-height:94px!important;padding:17px 16px!important;border-radius:18px!important;}
-  .hero-stat:nth-child(odd){border-left:1px solid rgba(191,219,254,.88)!important;padding-left:16px!important;}
-  .hero-stat .stat-number{font-size:30px!important;}
-  .network-mini-intro .eyebrow{display:block!important;font-size:11px!important;}
-}
-
 </style>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
@@ -1218,10 +1194,20 @@ body .service-item h3{font-size:22px!important;line-height:1.3}
                     </div>
 
 
-<div id="ctModelStage" data-mode="3d" class="ct-model-stage w-full overflow-hidden hero-model-shell"><figure id="ct-view-2d" class="ct-view" aria-hidden="true">
+<div id="ctModelStage" data-mode="3d" class="ct-model-stage w-full overflow-hidden hero-model-shell ct-stage-interactive">
+    <div class="ct-grid-overlay" aria-hidden="true"></div>
+    <div class="ct-scan-line" aria-hidden="true"></div>
+    <figure id="ct-view-2d" class="ct-view" aria-hidden="true">
         <img class="ct-view-media" src="data:image/svg+xml;utf8,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20900%20900%27%3E%0A%20%20%3Cdefs%3E%0A%20%20%20%20%3CradialGradient%20id%3D%27bg%27%20cx%3D%2750%25%27%20cy%3D%2745%25%27%20r%3D%2755%25%27%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%270%25%27%20stop-color%3D%27%231e293b%27/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%2755%25%27%20stop-color%3D%27%230f172a%27/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%27100%25%27%20stop-color%3D%27%23020617%27/%3E%0A%20%20%20%20%3C/radialGradient%3E%0A%20%20%20%20%3ClinearGradient%20id%3D%27scan%27%20x1%3D%270%27%20y1%3D%270%27%20x2%3D%271%27%20y2%3D%271%27%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%270%25%27%20stop-color%3D%27%23dbeafe%27/%3E%0A%20%20%20%20%20%20%3Cstop%20offset%3D%27100%25%27%20stop-color%3D%27%2364748b%27/%3E%0A%20%20%20%20%3C/linearGradient%3E%0A%20%20%3C/defs%3E%0A%20%20%3Crect%20width%3D%27900%27%20height%3D%27900%27%20rx%3D%2760%27%20fill%3D%27url%28%23bg%29%27/%3E%0A%20%20%3Cg%20opacity%3D%27.16%27%3E%0A%20%20%20%20%3Ccircle%20cx%3D%27450%27%20cy%3D%27450%27%20r%3D%27265%27%20fill%3D%27none%27%20stroke%3D%27%2338bdf8%27%20stroke-width%3D%272%27/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%27450%27%20cy%3D%27450%27%20r%3D%27220%27%20fill%3D%27none%27%20stroke%3D%27%2338bdf8%27%20stroke-width%3D%272%27/%3E%0A%20%20%20%20%3Ccircle%20cx%3D%27450%27%20cy%3D%27450%27%20r%3D%27175%27%20fill%3D%27none%27%20stroke%3D%27%2338bdf8%27%20stroke-width%3D%272%27/%3E%0A%20%20%20%20%3Cline%20x1%3D%27180%27%20y1%3D%27450%27%20x2%3D%27720%27%20y2%3D%27450%27%20stroke%3D%27%2338bdf8%27%20stroke-width%3D%272%27/%3E%0A%20%20%20%20%3Cline%20x1%3D%27450%27%20y1%3D%27180%27%20x2%3D%27450%27%20y2%3D%27720%27%20stroke%3D%27%2338bdf8%27%20stroke-width%3D%272%27/%3E%0A%20%20%3C/g%3E%0A%20%20%3Cg%20transform%3D%27translate%28450%20450%29%27%3E%0A%20%20%20%20%3Cpath%20d%3D%27M%200%20-212%20C%2088%20-212%20176%20-168%20214%20-88%20C%20256%200%20226%20114%20158%20182%20C%2087%20252%20-7%20295%20-74%20252%20C%20-147%20206%20-174%20122%20-194%2047%20C%20-217%20-40%20-208%20-130%20-143%20-180%20C%20-103%20-210%20-47%20-212%200%20-212%20Z%27%20fill%3D%27%23d6b29c%27/%3E%0A%20%20%20%20%3Cpath%20d%3D%27M%20-98%20-122%20C%20-145%20-102%20-176%20-64%20-184%20-14%20C%20-193%2041%20-171%2095%20-126%20130%20C%20-80%20167%20-11%20182%2045%20168%20C%20101%20154%20144%20122%20174%2075%20C%20207%2024%20211%20-38%20184%20-89%20C%20156%20-141%2099%20-175%2033%20-183%20C%20-14%20-189%20-60%20-173%20-98%20-122%20Z%27%20fill%3D%27%23b3292f%27%20opacity%3D%27.82%27/%3E%0A%20%20%20%20%3Cpath%20d%3D%27M%2054%20-188%20C%2086%20-162%20102%20-127%20104%20-89%20C%20108%20-43%2095%200%2071%2040%20C%2051%2072%2024%20103%20-11%20123%20C%20-31%20134%20-45%20125%20-46%2099%20C%20-47%2050%20-47%209%20-74%20-24%20C%20-95%20-49%20-130%20-67%20-134%20-102%20C%20-138%20-139%20-109%20-170%20-66%20-188%20C%20-29%20-203%2019%20-211%2054%20-188%20Z%27%20fill%3D%27%23efd7be%27%20opacity%3D%27.92%27/%3E%0A%20%20%20%20%3Cpath%20d%3D%27M%20-31%20-251%20C%20-11%20-267%2011%20-267%2031%20-251%20C%2051%20-235%2053%20-203%2039%20-185%20C%2025%20-169%207%20-168%20-7%20-176%20C%20-25%20-185%20-41%20-217%20-31%20-251%20Z%27%20fill%3D%27%2394a3b8%27/%3E%0A%20%20%20%20%3Cpath%20d%3D%27M%20-95%20-205%20C%20-78%20-224%20-53%20-231%20-33%20-221%20C%20-13%20-211%20-6%20-185%20-17%20-165%20C%20-28%20-145%20-53%20-137%20-74%20-144%20C%20-96%20-152%20-111%20-184%20-95%20-205%20Z%27%20fill%3D%27%2394a3b8%27/%3E%0A%20%20%20%20%3Cpath%20d%3D%27M%2092%20-205%20C%2075%20-224%2050%20-231%2030%20-221%20C%2010%20-211%203%20-185%2014%20-165%20C%2025%20-145%2050%20-137%2071%20-144%20C%2093%20-152%20108%20-184%2092%20-205%20Z%27%20fill%3D%27%2394a3b8%27/%3E%0A%20%20%20%20%3Cg%20fill%3D%27none%27%20stroke%3D%27url%28%23scan%29%27%20stroke-width%3D%275%27%20stroke-linecap%3D%27round%27%20opacity%3D%27.75%27%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%27M%20-135%2038%20C%20-97%208%20-52%20-14%20-8%20-23%20C%2045%20-35%20102%20-41%20166%20-20%27/%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%27M%20-120%20102%20C%20-69%2075%20-3%2055%2065%2052%20C%20113%2050%20148%2060%20182%2079%27/%3E%0A%20%20%20%20%20%20%3Cpath%20d%3D%27M%20-68%20-84%20C%20-32%20-63%204%20-49%2041%20-45%20C%2085%20-40%20122%20-50%20152%20-73%27/%3E%0A%20%20%20%20%3C/g%3E%0A%20%20%3C/g%3E%0A%20%20%3Cg%20fill%3D%27%23e2e8f0%27%20opacity%3D%27.8%27%3E%0A%20%20%20%20%3Ctext%20x%3D%2784%27%20y%3D%2798%27%20font-size%3D%2724%27%20font-family%3D%27Arial%2C%20sans-serif%27%20letter-spacing%3D%273%27%3ECT%20SLICE%3C/text%3E%0A%20%20%20%20%3Ctext%20x%3D%2784%27%20y%3D%27126%27%20font-size%3D%2716%27%20font-family%3D%27Arial%2C%20sans-serif%27%20letter-spacing%3D%272%27%20opacity%3D%27.75%27%3E2D%20cross-sectional%20view%3C/text%3E%0A%20%20%3C/g%3E%0A%3C/svg%3E" width="900" height="900" alt="Ілюстративне 2D-зображення КТ-зрізу" data-alt-ua="Ілюстративне 2D-зображення КТ-зрізу" data-alt-en="Illustrative 2D CT slice" decoding="async">
         <span class="ct-image-label" aria-hidden="true">2D / SLICE</span>
-    </figure><figure id="ct-view-3d" class="ct-view is-active" aria-hidden="false"><canvas id="ct-3d-canvas" aria-label="Інтерактивна 3D-візуалізація серця"></canvas><span class="ct-image-label" aria-hidden="true">3D / VOLUME</span><span class="ct-drag-hint" aria-hidden="true"><i class="fa-solid fa-hand-pointer"></i> <span data-lang-ua="Перетягніть для огляду" data-lang-en="Drag to inspect">Перетягніть для огляду</span></span></figure></div><div id="ctViewStatus" class="ct-view-status" role="status" aria-live="polite">3D · Об’ємне зображення</div>
+    </figure>
+    <figure id="ct-view-3d" class="ct-view is-active" aria-hidden="false">
+        <canvas id="ct-3d-canvas" aria-label="Інтерактивна 3D-реконструкція серця"></canvas>
+        <span class="ct-image-label" aria-hidden="true">3D / VOLUME</span>
+        <span class="ct-drag-hint" aria-hidden="true"><i class="fa-solid fa-hand-pointer"></i> Перетягніть для огляду</span>
+    </figure>
+</div>
+<div id="ctViewStatus" class="ct-view-status" role="status" aria-live="polite">3D · Об’ємне зображення</div>
 <p data-lang-ua="Ілюстрації. Не є діагностичними знімками." data-lang-en="Illustrations. Not diagnostic images." class="ct-illustration-note">Ілюстрації. Не є діагностичними знімками.</p>                    <div class="ct-process-row relative z-10">
                         <div class="ct-process-step"><b>01</b><span data-lang-ua="КТ-зріз" data-lang-en="CT slice">КТ-зріз</span></div>
                         <div class="ct-process-step"><b>02</b><span data-lang-ua="Обробка" data-lang-en="Processing">Обробка</span></div>
@@ -1549,6 +1535,9 @@ function setCTView(mode) {
     }
   });
   updateViewStatus();
+  if (selected === '3d' && typeof window.ct3dResize === 'function') {
+    requestAnimationFrame(() => window.ct3dResize());
+  }
 }
 function updateViewStatus() {
   const mode = document.getElementById('ctModelStage').dataset.mode;
@@ -1582,6 +1571,181 @@ function initCTInspect() {
   stage.addEventListener('pointerleave', reset);
   reset();
 }
+function initInteractiveHeart3D() {
+  const canvas = document.getElementById('ct-3d-canvas');
+  if (!canvas || typeof THREE === 'undefined') return;
+
+  const stage = document.getElementById('ctModelStage');
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+  camera.position.set(0.05, 0.08, 6.0);
+
+  let renderer;
+  try {
+    renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
+  } catch (error) {
+    console.warn('WebGL unavailable for 3D heart:', error);
+    return;
+  }
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.outputEncoding = THREE.sRGBEncoding;
+  renderer.setClearColor(0x000000, 0);
+
+  const controls = new THREE.OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.06;
+  controls.enableZoom = false;
+  controls.enablePan = false;
+  controls.minPolarAngle = Math.PI * 0.30;
+  controls.maxPolarAngle = Math.PI * 0.70;
+  controls.rotateSpeed = 0.70;
+
+  const group = new THREE.Group();
+  group.position.set(0.20, -0.05, 0);
+  group.rotation.set(-0.08, -0.30, 0.03);
+  scene.add(group);
+
+  const anatomy = new THREE.Group();
+  anatomy.rotation.set(-0.10, 0.20, -0.08);
+  group.add(anatomy);
+
+  const myocardiumMat = new THREE.MeshPhysicalMaterial({
+    color: 0x8f2433, roughness: 0.52, metalness: 0.02,
+    clearcoat: 0.18, clearcoatRoughness: 0.58,
+    transparent: true, opacity: 0.96,
+    emissive: 0x25060a, emissiveIntensity: 0.22
+  });
+  const myocardiumLightMat = new THREE.MeshPhysicalMaterial({
+    color: 0xb53643, roughness: 0.48, metalness: 0.02,
+    clearcoat: 0.12, clearcoatRoughness: 0.62,
+    transparent: true, opacity: 0.95,
+    emissive: 0x25060a, emissiveIntensity: 0.18
+  });
+  const atriumMat = new THREE.MeshPhysicalMaterial({
+    color: 0xa62d3d, roughness: 0.50,
+    transparent: true, opacity: 0.92,
+    emissive: 0x1f0508, emissiveIntensity: 0.18
+  });
+
+  const ellipsoid = (scale, pos, rot, mat) => {
+    const mesh = new THREE.Mesh(new THREE.SphereGeometry(1, 52, 36), mat);
+    mesh.scale.set(...scale);
+    mesh.position.set(...pos);
+    mesh.rotation.set(...rot);
+    anatomy.add(mesh);
+    return mesh;
+  };
+
+  ellipsoid([0.88,1.38,0.72],[-0.24,-0.34,0.02],[0.10,-0.10,0.25],myocardiumMat);
+  ellipsoid([0.76,1.10,0.57],[0.43,-0.24,0.27],[-0.02,0.18,-0.30],myocardiumLightMat);
+  ellipsoid([0.56,0.80,0.50],[-0.08,-1.28,0.00],[0.05,0.0,0.12],myocardiumMat);
+  ellipsoid([0.57,0.55,0.46],[-0.47,0.88,-0.18],[0.0,-0.10,0.14],atriumMat);
+  ellipsoid([0.61,0.66,0.48],[0.53,0.78,-0.06],[0.02,0.15,-0.16],atriumMat);
+
+  const shell = new THREE.Mesh(
+    new THREE.SphereGeometry(1, 38, 28),
+    new THREE.MeshBasicMaterial({ color:0xfda4af, transparent:true, opacity:0.04, wireframe:true, depthWrite:false })
+  );
+  shell.scale.set(1.18,1.70,0.94);
+  shell.position.set(0.02,-0.06,0);
+  anatomy.add(shell);
+
+  const tube = (points, radius, color, opacity=0.95, segments=48) => {
+    const curve = new THREE.CatmullRomCurve3(points);
+    const geo = new THREE.TubeGeometry(curve, segments, radius, 10, false);
+    const mat = new THREE.MeshPhysicalMaterial({
+      color, roughness:0.34, metalness:0.02, clearcoat:0.18,
+      transparent:true, opacity, emissive:color, emissiveIntensity:0.08
+    });
+    const mesh = new THREE.Mesh(geo, mat);
+    anatomy.add(mesh);
+    return mesh;
+  };
+
+  tube([
+    new THREE.Vector3(-0.05,0.78,0.10), new THREE.Vector3(0.02,1.25,0.06),
+    new THREE.Vector3(0.22,1.70,0.02), new THREE.Vector3(0.62,1.92,-0.05),
+    new THREE.Vector3(0.98,1.70,-0.15), new THREE.Vector3(1.02,1.25,-0.22)
+  ],0.092,0xb9404b,0.97,56);
+  tube([new THREE.Vector3(0.42,1.82,-0.04),new THREE.Vector3(0.34,2.12,-0.04),new THREE.Vector3(0.26,2.36,-0.03)],0.034,0xc95a61,0.92,26);
+  tube([new THREE.Vector3(0.62,1.89,-0.07),new THREE.Vector3(0.68,2.16,-0.08),new THREE.Vector3(0.80,2.34,-0.09)],0.033,0xc95a61,0.92,26);
+  tube([new THREE.Vector3(0.78,1.83,-0.10),new THREE.Vector3(0.95,2.04,-0.12),new THREE.Vector3(1.15,2.17,-0.13)],0.031,0xc95a61,0.92,26);
+  tube([new THREE.Vector3(0.26,0.86,0.26),new THREE.Vector3(0.40,1.16,0.34),new THREE.Vector3(0.34,1.48,0.31)],0.072,0x4b8fae,0.90,40);
+  tube([new THREE.Vector3(0.34,1.46,0.31),new THREE.Vector3(-0.16,1.52,0.26),new THREE.Vector3(-0.70,1.48,0.16)],0.045,0x4b8fae,0.86,32);
+  tube([new THREE.Vector3(0.34,1.46,0.31),new THREE.Vector3(0.72,1.55,0.26),new THREE.Vector3(1.12,1.48,0.14)],0.045,0x4b8fae,0.86,32);
+  tube([new THREE.Vector3(0.61,1.05,-0.22),new THREE.Vector3(0.69,1.48,-0.27),new THREE.Vector3(0.72,2.34,-0.30)],0.058,0x5e91ad,0.84,36);
+  tube([new THREE.Vector3(0.50,0.28,-0.26),new THREE.Vector3(0.58,-0.32,-0.31),new THREE.Vector3(0.56,-1.58,-0.30)],0.054,0x5e91ad,0.82,36);
+
+  // Coronary vessels.
+  tube([new THREE.Vector3(-0.02,1.12,0.65),new THREE.Vector3(-0.12,0.72,0.70),new THREE.Vector3(-0.22,0.30,0.73),new THREE.Vector3(-0.30,-0.18,0.69),new THREE.Vector3(-0.24,-1.20,0.42)],0.021,0xe2bd78,0.92,58);
+  tube([new THREE.Vector3(-0.05,0.93,0.62),new THREE.Vector3(0.26,0.73,0.65),new THREE.Vector3(0.58,0.48,0.61),new THREE.Vector3(0.76,-0.34,0.42)],0.018,0xd9ac62,0.88,48);
+  tube([new THREE.Vector3(-0.18,0.35,0.71),new THREE.Vector3(-0.62,0.20,0.61),new THREE.Vector3(-1.02,-0.42,0.33)],0.014,0xe5c98d,0.82,38);
+
+  const baseScale = 0.74;
+  anatomy.scale.set(baseScale,baseScale,baseScale);
+  anatomy.position.set(0.02,-0.12,0);
+
+  const ring1 = new THREE.Mesh(
+    new THREE.TorusGeometry(1.82,0.008,8,160),
+    new THREE.MeshBasicMaterial({color:0x38bdf8,transparent:true,opacity:0.16})
+  );
+  ring1.rotation.set(Math.PI/2.2,0.48,0);
+  group.add(ring1);
+  const ring2 = new THREE.Mesh(
+    new THREE.TorusGeometry(2.05,0.006,8,160),
+    new THREE.MeshBasicMaterial({color:0x2563eb,transparent:true,opacity:0.13})
+  );
+  ring2.rotation.set(Math.PI/2.0,0,0.72);
+  group.add(ring2);
+
+  const scanPlane = new THREE.Mesh(
+    new THREE.PlaneGeometry(3.7,3.9),
+    new THREE.MeshBasicMaterial({color:0x22d3ee,transparent:true,opacity:0.04,side:THREE.DoubleSide,depthWrite:false})
+  );
+  scanPlane.rotation.y = Math.PI/2;
+  group.add(scanPlane);
+
+  const key = new THREE.DirectionalLight(0xffffff,1.75); key.position.set(3.2,4.5,5.5); scene.add(key);
+  const rim = new THREE.DirectionalLight(0x67e8f9,1.25); rim.position.set(-4,1,2); scene.add(rim);
+  const fill = new THREE.PointLight(0xb94a5b,0.72,12); fill.position.set(1.5,-1,3.5); scene.add(fill);
+  scene.add(new THREE.AmbientLight(0x9ccfff,0.58));
+
+  const resize = () => {
+    const rect = canvas.getBoundingClientRect();
+    const width = Math.max(1, Math.round(rect.width));
+    const height = Math.max(1, Math.round(rect.height));
+    if (canvas.width !== Math.round(width * renderer.getPixelRatio()) || canvas.height !== Math.round(height * renderer.getPixelRatio())) {
+      renderer.setSize(width,height,false);
+      camera.aspect = width/height;
+      camera.updateProjectionMatrix();
+    }
+  };
+  window.ct3dResize = resize;
+  window.addEventListener('resize', resize, {passive:true});
+  if ('ResizeObserver' in window) new ResizeObserver(resize).observe(canvas.parentElement);
+  requestAnimationFrame(resize);
+
+  const clock = new THREE.Clock();
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function animate(){
+    requestAnimationFrame(animate);
+    resize();
+    const t = clock.getElapsedTime();
+    if (!reducedMotion.matches && stage?.dataset.mode === '3d') {
+      group.rotation.y += 0.0009;
+      ring1.rotation.z = t*0.08;
+      ring2.rotation.y = -t*0.06;
+      scanPlane.position.x = Math.sin(t*0.78)*1.55;
+      scanPlane.material.opacity = 0.03 + (Math.sin(t*1.6)+1)*0.012;
+      const pulse = 1 + Math.sin(t*1.55)*0.005;
+      anatomy.scale.set(baseScale*pulse,baseScale*pulse,baseScale*pulse);
+    }
+    controls.update();
+    renderer.render(scene,camera);
+  }
+  animate();
+}
+
 function setupStatCounters() {
   const statsSection = document.querySelector('.hero-network-stats');
   const statNumbers = Array.from(document.querySelectorAll('.hero-stat .stat-number[data-count]'));
@@ -1773,64 +1937,11 @@ function setupVideos() {
   document.addEventListener('visibilitychange', () => videos.forEach(sync));
   reduced.addEventListener('change', () => { if (reduced.matches) videos.forEach(pause); });
 }
-function setupStatsCounter() {
-  const wrap = document.querySelector('.hero-network-stats');
-  if (!wrap) return;
-  const numbers = [...wrap.querySelectorAll('.stat-number[data-count]')];
-  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const renderFinal = () => numbers.forEach(el => { const target = Number(el.dataset.count || 0); el.textContent = target.toLocaleString('uk-UA').replace(/\u00a0/g, ' '); });
-  if (reduced || !('IntersectionObserver' in window)) { renderFinal(); return; }
-  numbers.forEach(el => el.textContent = '0');
-  const obs = new IntersectionObserver(entries => {
-    if (!entries.some(e => e.isIntersecting)) return;
-    wrap.classList.add('counting');
-    const start = performance.now(), duration = 1300;
-    const tick = now => {
-      const p = Math.min(1, (now - start) / duration), eased = 1 - Math.pow(1 - p, 3);
-      numbers.forEach(el => { const target = Number(el.dataset.count || 0); el.textContent = Math.round(target * eased).toLocaleString('uk-UA').replace(/\u00a0/g, ' '); });
-      if (p < 1) requestAnimationFrame(tick); else renderFinal();
-    };
-    requestAnimationFrame(tick); obs.disconnect();
-  }, { threshold: .35 });
-  obs.observe(wrap);
-}
-
-function setupInteractiveHeart() {
-  const canvas = document.getElementById('ct-3d-canvas');
-  if (!canvas || typeof THREE === 'undefined') return;
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(38, 1, .1, 100); camera.position.set(.05,.1,6.1);
-  const renderer = new THREE.WebGLRenderer({canvas,antialias:true,alpha:true}); renderer.setPixelRatio(Math.min(window.devicePixelRatio||1,2)); renderer.outputEncoding=THREE.sRGBEncoding;
-  const controls = new THREE.OrbitControls(camera, renderer.domElement); controls.enableDamping=true; controls.dampingFactor=.06; controls.enableZoom=false; controls.enablePan=false; controls.minPolarAngle=Math.PI*.28; controls.maxPolarAngle=Math.PI*.72;
-  const group = new THREE.Group(); group.position.set(.28,-.12,0); group.rotation.set(-.08,-.34,.03); scene.add(group);
-  const anatomy = new THREE.Group(); anatomy.rotation.set(-.1,.2,-.08); group.add(anatomy);
-  const heartMat=new THREE.MeshPhysicalMaterial({color:0x9a2f3d,roughness:.5,clearcoat:.15,transparent:true,opacity:.96,emissive:0x210508,emissiveIntensity:.18});
-  const heartLight=new THREE.MeshPhysicalMaterial({color:0xb6414f,roughness:.47,clearcoat:.12,transparent:true,opacity:.95,emissive:0x210508,emissiveIntensity:.15});
-  const atriumMat=new THREE.MeshPhysicalMaterial({color:0xa73b49,roughness:.5,transparent:true,opacity:.93});
-  const ellipsoid=(s,p,r,m)=>{const x=new THREE.Mesh(new THREE.SphereGeometry(1,48,34),m);x.scale.set(...s);x.position.set(...p);x.rotation.set(...r);anatomy.add(x);return x;};
-  ellipsoid([.88,1.38,.72],[-.24,-.34,.02],[.10,-.10,.25],heartMat); ellipsoid([.76,1.10,.57],[.43,-.24,.27],[-.02,.18,-.30],heartLight); ellipsoid([.56,.80,.50],[-.08,-1.28,0],[.05,0,.12],heartMat); ellipsoid([.57,.55,.46],[-.47,.88,-.18],[0,-.10,.14],atriumMat); ellipsoid([.61,.66,.48],[.53,.78,-.06],[.02,.15,-.16],atriumMat);
-  const shell=new THREE.Mesh(new THREE.SphereGeometry(1,36,26),new THREE.MeshBasicMaterial({color:0xfda4af,transparent:true,opacity:.045,wireframe:true,depthWrite:false})); shell.scale.set(1.18,1.70,.94); shell.position.set(.02,-.06,0); anatomy.add(shell);
-  function tube(points,radius,color,opacity=.95,segments=44){const curve=new THREE.CatmullRomCurve3(points);const mesh=new THREE.Mesh(new THREE.TubeGeometry(curve,segments,radius,10,false),new THREE.MeshPhysicalMaterial({color,roughness:.32,clearcoat:.18,transparent:true,opacity,emissive:color,emissiveIntensity:.07})); anatomy.add(mesh); return mesh;}
-  tube([new THREE.Vector3(-.05,.78,.10),new THREE.Vector3(.02,1.25,.06),new THREE.Vector3(.22,1.70,.02),new THREE.Vector3(.62,1.92,-.05),new THREE.Vector3(.98,1.70,-.15),new THREE.Vector3(.90,.82,-.28)],.09,0xc35a63,.97,56);
-  tube([new THREE.Vector3(.42,1.82,-.04),new THREE.Vector3(.34,2.12,-.04),new THREE.Vector3(.26,2.36,-.03)],.033,0xd27b80,.92,24);
-  tube([new THREE.Vector3(.62,1.89,-.07),new THREE.Vector3(.68,2.16,-.08),new THREE.Vector3(.80,2.34,-.09)],.032,0xd27b80,.92,24);
-  tube([new THREE.Vector3(.28,.88,.25),new THREE.Vector3(.40,1.18,.34),new THREE.Vector3(.34,1.48,.31),new THREE.Vector3(-.62,1.47,.16)],.055,0x69a9c3,.88,48);
-  tube([new THREE.Vector3(.60,1.02,-.22),new THREE.Vector3(.69,1.55,-.27),new THREE.Vector3(.72,2.28,-.30)],.052,0x6d9db7,.82,42);
-  tube([new THREE.Vector3(-.02,1.10,.65),new THREE.Vector3(-.15,.64,.70),new THREE.Vector3(-.27,.15,.72),new THREE.Vector3(-.31,-.40,.64),new THREE.Vector3(-.24,-1.12,.43)],.019,0xe4bd79,.9,60);
-  tube([new THREE.Vector3(-.04,.91,.62),new THREE.Vector3(.28,.70,.65),new THREE.Vector3(.60,.43,.60),new THREE.Vector3(.74,-.28,.43)],.016,0xd8a962,.85,46);
-  anatomy.scale.set(.78,.78,.78); anatomy.position.set(.02,-.15,0);
-  const ring1=new THREE.Mesh(new THREE.TorusGeometry(1.82,.008,8,160),new THREE.MeshBasicMaterial({color:0x38bdf8,transparent:true,opacity:.15})); ring1.rotation.x=Math.PI/2.2; ring1.rotation.y=.48; group.add(ring1);
-  const ring2=new THREE.Mesh(new THREE.TorusGeometry(2.05,.006,8,160),new THREE.MeshBasicMaterial({color:0x2563eb,transparent:true,opacity:.13})); ring2.rotation.x=Math.PI/2; ring2.rotation.z=.72; group.add(ring2);
-  const scanPlane=new THREE.Mesh(new THREE.PlaneGeometry(3.7,3.9),new THREE.MeshBasicMaterial({color:0x22d3ee,transparent:true,opacity:.045,side:THREE.DoubleSide,depthWrite:false})); scanPlane.rotation.y=Math.PI/2; group.add(scanPlane);
-  const key=new THREE.DirectionalLight(0xffffff,1.7); key.position.set(3.2,4.5,5.5); scene.add(key); const rim=new THREE.DirectionalLight(0x67e8f9,1.2); rim.position.set(-4,1,2); scene.add(rim); const fill=new THREE.PointLight(0xb94a5b,.68,12); fill.position.set(1.5,-1,3.5); scene.add(fill); scene.add(new THREE.AmbientLight(0x9ccfff,.58));
-  const resize=()=>{const r=canvas.getBoundingClientRect();if(!r.width||!r.height)return;camera.aspect=r.width/r.height;camera.updateProjectionMatrix();renderer.setSize(r.width,r.height,false);}; resize(); if('ResizeObserver' in window)new ResizeObserver(resize).observe(canvas.parentElement); else window.addEventListener('resize',resize);
-  const clock=new THREE.Clock(); const animate=()=>{requestAnimationFrame(animate);const t=clock.getElapsedTime();group.rotation.y+=.00085;ring1.rotation.z=t*.08;ring2.rotation.y=-t*.055;scanPlane.position.x=Math.sin(t*.78)*1.58;scanPlane.material.opacity=.03+(Math.sin(t*1.6)+1)*.012;const pulse=1+Math.sin(t*1.55)*.005;anatomy.scale.set(.78*pulse,.78*pulse,.78*pulse);controls.update();renderer.render(scene,camera);}; animate();
-}
-
 document.addEventListener('DOMContentLoaded', () => {
   applyTheme(preference.read('esu-theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'));
   applyLanguage(preference.read('esu-language') || 'ua');
   setCTView('3d');
+  initInteractiveHeart3D();
   initCTInspect();
   setupStatCounters();
   setupVideos();
