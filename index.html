@@ -92,7 +92,7 @@
         }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <style>
@@ -105,7 +105,7 @@
             scroll-padding-top: 104px;
         }
         body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             transition: background-color .3s, color .3s;
             overflow-x: hidden;
             min-height: 100vh;
@@ -789,6 +789,149 @@
             #vitrea h2 { font-size: 1.8rem !important; }
             .hero-analysis-grid .scan-data-pill p { font-size: 10.5px !important; }
         }
+
+
+        /* --- Minimal redesign pass --- */
+        .hero-network-stats {
+            display:grid;
+            grid-template-columns:repeat(4,minmax(0,1fr));
+            gap:10px;
+            margin-top:18px;
+        }
+        .hero-stat {
+            padding:14px 14px 13px;
+            border-radius:18px;
+            background:rgba(255,255,255,.72);
+            border:1px solid rgba(191,219,254,.74);
+            box-shadow:0 14px 34px -28px rgba(15,23,42,.28);
+            backdrop-filter:blur(12px);
+        }
+        .dark .hero-stat { background:rgba(15,23,42,.55); border-color:rgba(255,255,255,.08); }
+        .hero-stat .stat-number { color:#2563eb; font-size:clamp(1.35rem,2.1vw,1.85rem); font-weight:800; }
+        .hero-stat .stat-label { color:#64748b; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.12em; margin-top:5px; line-height:1.35; }
+
+        .ct-mode-switch {
+            display:inline-grid;
+            grid-template-columns:1fr 1fr;
+            padding:4px;
+            border-radius:999px;
+            background:rgba(3,12,27,.72);
+            border:1px solid rgba(125,211,252,.16);
+        }
+        .ct-mode-button {
+            min-width:64px;
+            padding:8px 14px;
+            border-radius:999px;
+            font-size:11px;
+            font-weight:800;
+            color:#94a3b8;
+            transition:.22s ease;
+        }
+        .ct-mode-button.active { color:#fff; background:#2563eb; box-shadow:0 8px 22px -12px rgba(37,99,235,.9); }
+        .ct-model-stage { position:relative; }
+        .ct-model-stage #ct-3d-canvas { transition:opacity .28s ease, transform .28s ease; }
+        .ct-2d-panel {
+            position:absolute;
+            inset:0;
+            z-index:4;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            padding:34px;
+            opacity:0;
+            pointer-events:none;
+            transform:scale(.97);
+            transition:opacity .28s ease, transform .28s ease;
+            background:radial-gradient(circle at 50% 45%, rgba(56,189,248,.08), transparent 42%);
+        }
+        .ct-model-stage[data-mode="2d"] #ct-3d-canvas { opacity:0; transform:scale(.97); pointer-events:none; }
+        .ct-model-stage[data-mode="2d"] .ct-2d-panel { opacity:1; transform:scale(1); }
+        .ct-slice-svg { width:min(78%,360px); filter:drop-shadow(0 24px 35px rgba(0,0,0,.32)); }
+        .ct-info-accordion {
+            border:1px solid rgba(125,211,252,.14);
+            background:rgba(255,255,255,.045);
+            border-radius:18px;
+            overflow:hidden;
+        }
+        .ct-info-accordion summary {
+            cursor:pointer;
+            list-style:none;
+            display:flex;
+            align-items:center;
+            justify-content:space-between;
+            gap:16px;
+            padding:14px 16px;
+            color:#e2e8f0;
+            font-size:12px;
+            font-weight:800;
+        }
+        .ct-info-accordion summary::-webkit-details-marker { display:none; }
+        .ct-info-accordion .accordion-body { padding:0 16px 16px; color:#94a3b8; font-size:12px; line-height:1.7; }
+        .ct-info-accordion[open] .accordion-chevron { transform:rotate(180deg); }
+        .accordion-chevron { transition:transform .2s ease; }
+
+        .minimal-step { display:grid; grid-template-columns:38px 1fr; gap:14px; align-items:start; }
+        .minimal-step-index {
+            width:38px;height:38px;border-radius:13px;background:#2563eb;color:#fff;
+            display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;
+            box-shadow:0 12px 28px -16px rgba(37,99,235,.9);
+        }
+        .minimal-step h4 { font-size:15px; font-weight:800; color:#fff; }
+        .minimal-step p { font-size:13px; color:#94a3b8; margin-top:3px; line-height:1.55; }
+
+        .minimal-feature-card {
+            border:1px solid rgba(191,219,254,.72);
+            border-radius:20px;
+            padding:18px;
+            background:rgba(255,255,255,.68);
+            box-shadow:0 16px 36px -30px rgba(15,23,42,.3);
+        }
+        .dark .minimal-feature-card { background:rgba(15,23,42,.55); border-color:rgba(255,255,255,.08); }
+
+        .doctor-minimal {
+            overflow:hidden;
+            border-radius:22px;
+            border:1px solid rgba(191,219,254,.68);
+            background:rgba(255,255,255,.7);
+            box-shadow:0 14px 36px -30px rgba(15,23,42,.28);
+        }
+        .dark .doctor-minimal { background:rgba(15,23,42,.58); border-color:rgba(255,255,255,.08); }
+        .doctor-minimal .doctor-photo-wrap { height:210px; border:0; border-radius:0; }
+        .doctor-minimal .doctor-copy { padding:16px 17px 18px; }
+        .doctor-minimal h3 { font-size:16px; font-weight:800; }
+        .doctor-minimal .role { font-size:11px; color:#2563eb; font-weight:700; margin-top:4px; }
+        .doctor-minimal .experience { font-size:11px; color:#64748b; margin-top:9px; }
+
+        .prep-compact { padding:18px; border-radius:20px; min-height:160px; }
+        .prep-compact .prep-icon { width:38px;height:38px;border-radius:13px;display:flex;align-items:center;justify-content:center;margin-bottom:18px; }
+        .prep-compact h3 { font-size:15px; font-weight:800; }
+        .prep-compact p { font-size:12px; line-height:1.65; margin-top:8px; color:#64748b; }
+
+        .booking-heading { margin-bottom:28px; }
+        .booking-form-card { max-width:820px; }
+        .contact-compact-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+        .contact-compact {
+            padding:18px;
+            border-radius:20px;
+            border:1px solid rgba(191,219,254,.62);
+            background:rgba(255,255,255,.62);
+        }
+        .dark .contact-compact { background:rgba(15,23,42,.52); border-color:rgba(255,255,255,.08); }
+
+        .phone-error { color:#dc2626; font-size:11px; margin-top:7px; display:none; }
+        .phone-error.show { display:block; }
+
+        @media (max-width: 767px) {
+            .hero-network-stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+            .hero-stat { padding:12px; min-height:84px; }
+            .ct-2d-panel { padding:20px; }
+            .ct-mode-button { min-width:56px; padding:7px 11px; }
+            .minimal-step { grid-template-columns:34px 1fr; gap:12px; }
+            .minimal-step-index { width:34px;height:34px;border-radius:11px; }
+            .doctor-minimal .doctor-photo-wrap { height:190px; }
+            .contact-compact-grid { grid-template-columns:1fr; }
+        }
+
     </style>
 </head>
 <body class="min-h-screen selection:bg-blue-500 selection:text-white relative">
@@ -801,7 +944,6 @@
                 <span class="hidden md:inline"><i class="fa-regular fa-clock text-blue-500 mr-1.5"></i><span data-lang-ua="Пн–Пт: 08:00 – 17:00" data-lang-en="Mon–Fri: 08:00 – 17:00">Пн–Пт: 08:00 – 17:00</span></span>
             </div>
             <div class="flex items-center gap-4 flex-wrap justify-end">
-                <a href="https://www.esu-center.com.ua/" target="_blank" rel="noopener" class="hidden sm:inline font-semibold text-slate-300 hover:text-white transition" data-lang-ua="Основний сайт ↗" data-lang-en="Main website ↗">Основний сайт ↗</a>
                 <a href="tel:0800330364" class="font-bold text-white hover:text-blue-400 transition"><i class="fa-solid fa-phone text-emerald-400 mr-1.5"></i> 0 800 33 03 64</a>
             </div>
         </div>
@@ -836,261 +978,139 @@
         </div>
     </nav>
 
-    <section id="about" class="py-10 md:py-20 px-4">
+    <section id="about" class="py-10 md:py-16 px-4">
         <div class="max-w-[1320px] mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            <div class="lg:col-span-7 space-y-6">
-                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-600 dark:bg-blue-900/30 dark:border-blue-800 dark:text-blue-300 text-xs font-semibold soft-panel reveal">
-                    <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-                    <span data-lang-ua="База Дніпропетровського кардіоцентру" data-lang-en="Based on Dnipropetrovsk Cardio Center">База Дніпропетровського кардіоцентру</span>
-                </div>
-
+            <div class="lg:col-span-7 space-y-5">
                 <div class="reveal">
-                    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-tight text-slate-900 dark:text-white">
-                        <span data-lang-ua="КТ-діагностика на" data-lang-en="CT diagnostics on">КТ-діагностика на</span>
-                        <span class="text-blue-600">Philips Brilliance 64</span>
+                    <span class="text-xs font-extrabold text-blue-600 uppercase tracking-[0.18em]" data-lang-ua="Технологічне обладнання" data-lang-en="Advanced equipment">Технологічне обладнання</span>
+                    <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight leading-[1.02] text-slate-900 dark:text-white mt-3">
+                        <span data-lang-ua="КТ Philips Brilliance 64" data-lang-en="Philips Brilliance 64 CT">КТ Philips Brilliance 64</span>
+                        <span class="text-blue-600"> + Vitrea</span>
                     </h1>
-                    <p class="text-slate-600 dark:text-slate-400 text-base md:text-lg leading-relaxed max-w-2xl mt-4" data-lang-ua="Комп’ютерна томографія у Кардіоцентрі Дніпра на Philips Brilliance 64 у 16-зрізовій конфігурації. Для поглибленого аналізу КТ-даних лікарі використовують спеціалізовану робочу станцію Vitrea." data-lang-en="Computed tomography at the Dnipro Cardio Center on Philips Brilliance 64 in a 16-slice configuration. Radiologists use the specialized Vitrea workstation for advanced CT data analysis.">Комп’ютерна томографія у Кардіоцентрі Дніпра на Philips Brilliance 64 у 16-зрізовій конфігурації. Для поглибленого аналізу КТ-даних лікарі використовують спеціалізовану робочу станцію Vitrea.</p>
+                    <p class="text-slate-600 dark:text-slate-400 text-base md:text-lg leading-relaxed max-w-2xl mt-4" data-lang-ua="КТ у Кардіоцентрі Дніпра. 16-зрізова конфігурація та 2D/3D-аналіз даних." data-lang-en="CT at the Dnipro Cardio Center. 16-slice configuration with 2D/3D data analysis.">КТ у Кардіоцентрі Дніпра. 16-зрізова конфігурація та 2D/3D-аналіз даних.</p>
                 </div>
 
-                <div class="hero-facts grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 pt-2">
-                    <div class="card-ui p-4 rounded-2xl reveal">
-                        <div class="text-2xl font-extrabold text-blue-600">16 <span class="text-sm font-normal text-slate-500" data-lang-ua="зрізів" data-lang-en="slices">зрізів</span></div>
-                        <div class="text-xs text-slate-500 mt-2" data-lang-ua="Конфігурація КТ-системи" data-lang-en="CT system configuration">Конфігурація КТ-системи</div>
-                    </div>
-                    <div class="card-ui p-4 rounded-2xl reveal">
-                        <div class="text-2xl font-extrabold text-blue-600">Vitrea</div>
-                        <div class="text-xs text-slate-500 mt-2" data-lang-ua="Робоча станція для 2D/3D-аналізу" data-lang-en="Workstation for 2D/3D analysis">Робоча станція для 2D/3D-аналізу</div>
-                    </div>
-                    <div class="card-ui p-4 rounded-2xl reveal">
-                        <div class="text-2xl font-extrabold text-emerald-600" data-lang-ua="Кардіоцентр" data-lang-en="Cardio Center">Кардіоцентр</div>
-                        <div class="text-xs text-slate-500 mt-2" data-lang-ua="вул. Князя Володимира Великого, 28" data-lang-en="28 Kniaz Volodymyr Velyky St.">вул. Князя Володимира Великого, 28</div>
-                    </div>
-                    <div class="card-ui p-4 rounded-2xl reveal sm:hidden">
-                        <div class="text-2xl font-extrabold text-blue-600">Philips</div>
-                        <div class="text-xs text-slate-500 mt-2" data-lang-ua="КТ-система Brilliance" data-lang-en="Brilliance CT system">КТ-система Brilliance</div>
-                    </div>
+                <div class="flex flex-wrap gap-3 pt-2 reveal">
+                    <a href="#booking" class="px-7 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition shadow-xl shadow-blue-600/20 flex items-center gap-3">
+                        <span data-lang-ua="Записатися" data-lang-en="Book">Записатися</span><i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                    <a href="#services" class="px-7 py-3.5 rounded-2xl soft-panel text-slate-700 dark:text-slate-200 font-bold text-sm transition flex items-center gap-3">
+                        <span data-lang-ua="Послуги та ціни" data-lang-en="Services & prices">Послуги та ціни</span><i class="fa-solid fa-stethoscope text-xs"></i>
+                    </a>
                 </div>
 
-                <div class="flex flex-wrap gap-4 pt-4 reveal">
-                    <a href="#booking" class="px-8 py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition shadow-xl shadow-blue-600/20 flex items-center gap-3">
-                        <span data-lang-ua="Записатися на зручний час" data-lang-en="Book an appointment">Записатися на зручний час</span>
-                        <i class="fa-solid fa-arrow-right text-xs"></i>
-                    </a>
-                    <a href="#services" class="px-8 py-4 rounded-2xl soft-panel text-slate-700 dark:text-slate-200 font-bold text-sm transition flex items-center gap-3">
-                        <span data-lang-ua="Подивитися послуги" data-lang-en="View services">Подивитися послуги</span>
-                        <i class="fa-solid fa-stethoscope text-xs"></i>
-                    </a>
+                <div class="hero-network-stats reveal" aria-label="Статистика мережі">
+                    <div class="hero-stat"><div class="stat-number" data-count="4">4</div><div class="stat-label" data-lang-ua="центри" data-lang-en="centers">центри</div></div>
+                    <div class="hero-stat"><div class="stat-number" data-count="12">12</div><div class="stat-label" data-lang-ua="років досвіду" data-lang-en="years">років досвіду</div></div>
+                    <div class="hero-stat"><div class="stat-number" data-count="6">6</div><div class="stat-label" data-lang-ua="лікарів" data-lang-en="doctors">лікарів</div></div>
+                    <div class="hero-stat"><div class="stat-number" data-count="200555">200 555</div><div class="stat-label" data-lang-ua="описів" data-lang-en="reports">описів</div></div>
                 </div>
             </div>
+
             <div class="lg:col-span-5">
                 <div class="hero-visual-card p-5 md:p-6 rounded-[2rem] relative space-y-4 reveal text-white">
-                    <div class="flex items-start justify-between gap-4 flex-wrap relative z-10">
+                    <div class="relative z-10 flex items-start justify-between gap-4 flex-wrap">
                         <div>
-                            <span class="text-[10px] text-cyan-300 font-extrabold uppercase tracking-[0.22em] block" data-lang-ua="Vitrea Advanced Visualization" data-lang-en="Vitrea Advanced Visualization">Vitrea Advanced Visualization</span>
-                            <h3 class="font-extrabold text-white text-xl md:text-2xl mt-1" data-lang-ua="Від КТ-зрізу до 3D-реконструкції" data-lang-en="From CT slice to 3D reconstruction">Від КТ-зрізу до 3D-реконструкції</h3>
-                            <p class="text-xs text-slate-400 mt-1 max-w-md" data-lang-ua="Наочна демонстрація того, як пошарові КТ-дані можуть бути представлені лікарю у 2D та 3D." data-lang-en="A visual demonstration of how layered CT data can be presented to a radiologist in 2D and 3D.">Наочна демонстрація того, як пошарові КТ-дані можуть бути представлені лікарю у 2D та 3D.</p>
+                            <span class="text-[10px] text-cyan-300 font-extrabold uppercase tracking-[0.22em] block">Vitrea Advanced Visualization</span>
+                            <h3 class="font-extrabold text-white text-xl md:text-2xl mt-1" data-lang-ua="Від 2D-зрізу до 3D-реконструкції" data-lang-en="From a 2D slice to 3D reconstruction">Від 2D-зрізу до 3D-реконструкції</h3>
                         </div>
-                        <span class="px-3 py-1.5 rounded-full hero-chip text-[11px] font-semibold"><i class="fa-solid fa-wave-square text-cyan-300 mr-1.5"></i>2D → 3D</span>
+                        <div class="ct-mode-switch" role="group" aria-label="2D або 3D режим">
+                            <button type="button" class="ct-mode-button" id="ctMode2D" onclick="setCTView('2d')">2D</button>
+                            <button type="button" class="ct-mode-button active" id="ctMode3D" onclick="setCTView('3d')">3D</button>
+                        </div>
                     </div>
 
-                    <div class="w-full h-[390px] md:h-[420px] rounded-[1.6rem] relative overflow-hidden hero-model-shell">
-                        <div class="absolute top-4 left-4 z-10 pointer-events-none">
-                            <span class="text-[10px] font-semibold px-3 py-1.5 rounded-full hero-chip">
-                                <i class="fa-solid fa-heart-pulse text-rose-300 mr-1.5"></i><span data-lang-ua="Анатомічна 3D-візуалізація" data-lang-en="Anatomical 3D visualization">Анатомічна 3D-візуалізація</span>
-                            </span>
-                        </div>
-                        <div class="absolute top-4 right-4 z-10 pointer-events-none">
-                            <span class="text-[10px] font-semibold px-3 py-1.5 rounded-full hero-chip">
-                                <i class="fa-solid fa-hand-pointer text-blue-300 mr-1.5"></i><span data-lang-ua="Перетягніть для огляду" data-lang-en="Drag to rotate">Перетягніть для огляду</span>
-                            </span>
-                        </div>
-
+                    <div id="ctModelStage" data-mode="3d" class="ct-model-stage w-full h-[365px] md:h-[400px] rounded-[1.6rem] overflow-hidden hero-model-shell">
                         <div class="ct-story-stage" aria-hidden="true">
                             <div class="ct-slice-stack">
                                 <div class="ct-slice-thumb" data-label="AXIAL"></div>
                                 <div class="ct-slice-thumb" data-label="CORONAL"></div>
                             </div>
                             <div class="ct-flow-arrow"></div>
-                            <div class="ct-stage-label">3D VOLUME · VITREA</div>
+                            <div class="ct-stage-label">VITREA · 3D</div>
                         </div>
-
+                        <div class="ct-2d-panel" aria-hidden="true">
+                            <svg class="ct-slice-svg" viewBox="0 0 420 420" role="img" aria-label="Схематичний 2D КТ-зріз">
+                                <defs>
+                                    <radialGradient id="ctBg" cx="50%" cy="45%" r="58%"><stop offset="0" stop-color="#dbe4ee"/><stop offset=".55" stop-color="#7f8b99"/><stop offset="1" stop-color="#1b2634"/></radialGradient>
+                                    <filter id="soft"><feGaussianBlur stdDeviation="3"/></filter>
+                                </defs>
+                                <circle cx="210" cy="210" r="174" fill="#071426" stroke="#38bdf8" stroke-opacity=".35" stroke-width="3"/>
+                                <ellipse cx="210" cy="210" rx="135" ry="151" fill="url(#ctBg)" opacity=".95"/>
+                                <ellipse cx="145" cy="200" rx="56" ry="82" fill="#263341" opacity=".88"/>
+                                <ellipse cx="275" cy="200" rx="56" ry="82" fill="#263341" opacity=".88"/>
+                                <ellipse cx="210" cy="235" rx="53" ry="70" fill="#c2cad2" opacity=".88"/>
+                                <ellipse cx="210" cy="236" rx="30" ry="45" fill="#8d98a5" opacity=".9"/>
+                                <circle cx="210" cy="116" r="18" fill="#f2f5f8" opacity=".9"/>
+                                <circle cx="210" cy="210" r="122" fill="none" stroke="#e2e8f0" stroke-opacity=".18" stroke-width="2"/>
+                                <line x1="70" y1="210" x2="350" y2="210" stroke="#22d3ee" stroke-opacity=".48" stroke-width="2"/>
+                                <line x1="210" y1="70" x2="210" y2="350" stroke="#22d3ee" stroke-opacity=".35" stroke-width="2"/>
+                                <text x="210" y="392" text-anchor="middle" fill="#cbd5e1" font-size="15" font-family="Montserrat, sans-serif" font-weight="700">AXIAL CT · 2D</text>
+                            </svg>
+                        </div>
                         <canvas id="ct-3d-canvas"></canvas>
                     </div>
 
                     <div class="ct-process-row relative z-10">
-                        <div class="ct-process-step"><b>01</b><span data-lang-ua="КТ-зрізи" data-lang-en="CT slices">КТ-зрізи</span></div>
-                        <div class="ct-process-step"><b>02</b><span data-lang-ua="Обробка даних" data-lang-en="Data processing">Обробка даних</span></div>
-                        <div class="ct-process-step"><b>03</b><span data-lang-ua="3D-реконструкція" data-lang-en="3D reconstruction">3D-реконструкція</span></div>
+                        <div class="ct-process-step"><b>01</b><span data-lang-ua="КТ-зріз" data-lang-en="CT slice">КТ-зріз</span></div>
+                        <div class="ct-process-step"><b>02</b><span data-lang-ua="Обробка" data-lang-en="Processing">Обробка</span></div>
+                        <div class="ct-process-step"><b>03</b><span data-lang-ua="3D" data-lang-en="3D">3D</span></div>
                     </div>
 
-                    <div class="hero-analysis-grid grid grid-cols-2 gap-2 md:gap-3 relative z-10">
-                        <div class="scan-data-pill rounded-2xl p-4">
-                            <div class="flex items-center gap-2 text-cyan-300 text-xs font-bold uppercase tracking-wider"><i class="fa-solid fa-layer-group"></i><span data-lang-ua="2D-перегляд" data-lang-en="2D review">2D-перегляд</span></div>
-                            <p class="text-sm text-slate-300 mt-2" data-lang-ua="Лікар переглядає пошарові КТ-зображення у різних площинах." data-lang-en="The radiologist reviews layered CT images in different planes.">Лікар переглядає пошарові КТ-зображення у різних площинах.</p>
-                        </div>
-                        <div class="scan-data-pill rounded-2xl p-4">
-                            <div class="flex items-center gap-2 text-blue-300 text-xs font-bold uppercase tracking-wider"><i class="fa-solid fa-cube"></i><span data-lang-ua="3D-представлення" data-lang-en="3D representation">3D-представлення</span></div>
-                            <p class="text-sm text-slate-300 mt-2"><strong class="text-white">Vitrea</strong> <span data-lang-ua="допомагає працювати з реконструкціями, вимірюваннями та детальним аналізом." data-lang-en="helps work with reconstructions, measurements and detailed analysis.">допомагає працювати з реконструкціями, вимірюваннями та детальним аналізом.</span></p>
-                        </div>
-                    </div>
+                    <details class="ct-info-accordion relative z-10">
+                        <summary><span data-lang-ua="Як працює 2D/3D-аналіз" data-lang-en="How 2D/3D analysis works">Як працює 2D/3D-аналіз</span><i class="fa-solid fa-chevron-down accordion-chevron text-cyan-300"></i></summary>
+                        <div class="accordion-body" data-lang-ua="Лікар переглядає пошарові КТ-зображення у 2D, а Vitrea допомагає створювати 3D-реконструкції, виконувати вимірювання та детальніше аналізувати дослідження." data-lang-en="The radiologist reviews layered CT images in 2D, while Vitrea helps create 3D reconstructions, perform measurements and analyze the examination in more detail.">Лікар переглядає пошарові КТ-зображення у 2D, а Vitrea допомагає створювати 3D-реконструкції, виконувати вимірювання та детальніше аналізувати дослідження.</div>
+                    </details>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="desktop-specs hidden md:block py-10 px-4">
-        <div class="max-w-[1320px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
-            <div class="card-ui p-6 rounded-2xl text-center reveal">
-                <div class="text-2xl md:text-3xl font-extrabold text-blue-600 mb-2">Philips</div>
-                <div class="text-xs text-slate-500" data-lang-ua="КТ-система Brilliance" data-lang-en="Brilliance CT system">КТ-система Brilliance</div>
-            </div>
-            <div class="card-ui p-6 rounded-2xl text-center reveal">
-                <div class="text-2xl md:text-3xl font-extrabold text-blue-600 mb-2">16</div>
-                <div class="text-xs text-slate-500" data-lang-ua="зрізів у конфігурації системи" data-lang-en="slices in the system configuration">зрізів у конфігурації системи</div>
-            </div>
-            <div class="card-ui p-6 rounded-2xl text-center reveal">
-                <div class="text-2xl md:text-3xl font-extrabold text-cyan-600 mb-2">Vitrea</div>
-                <div class="text-xs text-slate-500" data-lang-ua="2D/3D-аналіз для лікаря" data-lang-en="2D/3D analysis for the radiologist">2D/3D-аналіз для лікаря</div>
-            </div>
-            <div class="card-ui p-6 rounded-2xl text-center reveal">
-                <div class="text-2xl md:text-3xl font-extrabold text-emerald-600 mb-2">Дніпро</div>
-                <div class="text-xs text-slate-500" data-lang-ua="КТ-кабінет у Кардіоцентрі" data-lang-en="CT room at the Cardio Center">КТ-кабінет у Кардіоцентрі</div>
             </div>
         </div>
     </section>
 
     <section id="process" class="section-deep py-14 md:py-20 px-4">
-        <div class="max-w-[1320px] mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-            <div class="lg:col-span-7 space-y-8">
+        <div class="max-w-[1240px] mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+            <div class="lg:col-span-7 space-y-7">
                 <div class="reveal">
-                    <span class="text-xs font-bold text-blue-600 uppercase tracking-widest" data-lang-ua="Простий процес" data-lang-en="Simple process">Простий процес</span>
-                    <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900 dark:text-white mt-1" data-lang-ua="Як проходить обстеження у нашому центрі" data-lang-en="How examination works in our center">Як проходить обстеження у нашому центрі</h2>
+                    <span class="text-xs font-bold text-blue-500 uppercase tracking-widest" data-lang-ua="3 кроки" data-lang-en="3 steps">3 кроки</span>
+                    <h2 class="text-3xl md:text-5xl font-extrabold text-white mt-2" data-lang-ua="Як проходить обстеження" data-lang-en="How the examination works">Як проходить обстеження</h2>
                 </div>
-
-                <div class="space-y-6">
-                    <div class="flex gap-4 items-start reveal">
-                        <div class="w-10 h-10 rounded-2xl bg-blue-600 text-white font-extrabold flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">1</div>
-                        <div>
-                            <h4 class="font-bold text-base text-slate-900 dark:text-white" data-lang-ua="Швидкий та зручний запис" data-lang-en="Quick & easy booking">Швидкий та зручний запис</h4>
-                            <p class="text-sm text-slate-500 mt-1" data-lang-ua="Зателефонуйте або залиште запит — адміністратор підбере точний час, уточнить вид дослідження та підготовку." data-lang-en="Call us or leave a request — the administrator will select a convenient time and explain preparation.">Зателефонуйте або залиште запит — адміністратор підбере точний час, уточнить вид дослідження та підготовку.</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-4 items-start reveal">
-                        <div class="w-10 h-10 rounded-2xl bg-blue-600 text-white font-extrabold flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">2</div>
-                        <div>
-                            <h4 class="font-bold text-base text-slate-900 dark:text-white" data-lang-ua="Візит до Кардіоцентру" data-lang-en="Visit to the Cardio Center">Візит до Кардіоцентру</h4>
-                            <p class="text-sm text-slate-500 mt-1" data-lang-ua="Вас зустрічають у центрі та проводять до кабінету КТ. За потреби персонал ще раз пояснить перебіг обстеження." data-lang-en="You are welcomed at the center and guided to the CT room. The staff can explain the procedure once again if needed.">Вас зустрічають у центрі та проводять до кабінету КТ. За потреби персонал ще раз пояснить перебіг обстеження.</p>
-                        </div>
-                    </div>
-                    <div class="flex gap-4 items-start reveal">
-                        <div class="w-10 h-10 rounded-2xl bg-blue-600 text-white font-extrabold flex items-center justify-center shrink-0 shadow-md shadow-blue-500/20">3</div>
-                        <div>
-                            <h4 class="font-bold text-base text-slate-900 dark:text-white" data-lang-ua="Сканування та опис результатів" data-lang-en="Scanning and reporting">Сканування та опис результатів</h4>
-                            <p class="text-sm text-slate-500 mt-1" data-lang-ua="Тривалість та підготовка залежать від виду дослідження. Результати аналізуються лікарем-рентгенологом, зокрема з використанням Vitrea." data-lang-en="The duration and preparation depend on the examination type. Results are analyzed by a radiologist, including with Vitrea when needed.">Тривалість та підготовка залежать від виду дослідження. Результати аналізуються лікарем-рентгенологом, зокрема з використанням Vitrea.</p>
-                        </div>
-                    </div>
+                <div class="space-y-5">
+                    <div class="minimal-step reveal"><div class="minimal-step-index">1</div><div><h4 data-lang-ua="Запис" data-lang-en="Booking">Запис</h4><p data-lang-ua="Телефоном або через форму на сайті." data-lang-en="By phone or through the website form.">Телефоном або через форму на сайті.</p></div></div>
+                    <div class="minimal-step reveal"><div class="minimal-step-index">2</div><div><h4 data-lang-ua="КТ-дослідження" data-lang-en="CT examination">КТ-дослідження</h4><p data-lang-ua="Підготовка залежить від виду обстеження." data-lang-en="Preparation depends on the examination type.">Підготовка залежить від виду обстеження.</p></div></div>
+                    <div class="minimal-step reveal"><div class="minimal-step-index">3</div><div><h4 data-lang-ua="Результат" data-lang-en="Result">Результат</h4><p data-lang-ua="Знімки аналізує лікар-рентгенолог." data-lang-en="The images are analyzed by a radiologist.">Знімки аналізує лікар-рентгенолог.</p></div></div>
                 </div>
             </div>
-
             <div class="lg:col-span-5 flex justify-center reveal">
-                <div class="process-video phone-mockup w-full max-w-[300px] sm:max-w-[320px] overflow-hidden relative group video-shell">
-                    <div class="absolute top-0 inset-x-0 bg-gradient-to-b from-slate-950/90 via-slate-950/60 to-transparent p-4 z-10 pointer-events-none">
-                        <span class="font-bold text-xs text-white block" data-lang-ua="Візит пацієнта" data-lang-en="Patient visit">Візит пацієнта</span>
-                        <span class="text-[10px] text-slate-300 block" data-lang-ua="Реальний процес КТ-діагностики" data-lang-en="Real CT process">Реальний процес КТ-діагностики</span>
-                    </div>
-                    <button type="button" onclick="toggleAudio('video1')" class="absolute top-3 right-3 z-20 bg-blue-600 hover:bg-blue-700 text-white px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 border border-blue-400/40">
-                        <i class="fa-solid fa-volume-high text-[10px]"></i><span data-lang-ua="Звук" data-lang-en="Sound">Звук</span>
-                    </button>
-                    <video id="video1" class="w-full h-[560px] object-cover" controls autoplay muted loop playsinline preload="metadata">
-                        <source src="IMG_2868.mp4" type="video/mp4">
-                        <source src="IMG_2868.MP4" type="video/mp4">
-                        <source src="IMG_2868" type="video/mp4">
+                <div class="process-video phone-mockup w-full max-w-[300px] overflow-hidden relative group video-shell">
+                    <div class="absolute top-0 inset-x-0 bg-gradient-to-b from-slate-950/90 via-slate-950/50 to-transparent p-4 z-10 pointer-events-none"><span class="font-bold text-xs text-white block" data-lang-ua="Як проходить КТ" data-lang-en="How CT works">Як проходить КТ</span></div>
+                    <button type="button" onclick="toggleAudio('video1')" class="absolute top-3 right-3 z-20 bg-blue-600 hover:bg-blue-700 text-white px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 border border-blue-400/40"><i class="fa-solid fa-volume-high text-[10px]"></i><span data-lang-ua="Звук" data-lang-en="Sound">Звук</span></button>
+                    <video id="video1" class="w-full h-[520px] object-cover" controls autoplay muted loop playsinline preload="metadata">
+                        <source src="IMG_2869.MP4" type="video/mp4"><source src="IMG_2869.mp4" type="video/mp4">
                     </video>
-                    <div class="video-fallback" id="video1-fallback">
-                        <div>
-                            <div class="text-lg font-bold mb-2">Відео недоступне</div>
-                            <div class="text-sm text-slate-300" data-lang-ua="Перевірте, чи файл IMG_2868.mp4 лежить поруч з index.html у репозиторії GitHub." data-lang-en="Check that IMG_2868.mp4 is placed next to index.html in your GitHub repository.">Перевірте, чи файл IMG_2868.mp4 лежить поруч з index.html у репозиторії GitHub.</div>
-                        </div>
-                    </div>
+                    <div class="video-fallback" id="video1-fallback"><div><div class="text-lg font-bold mb-2">Відео недоступне</div><div class="text-sm text-slate-300">Перевірте файл IMG_2869.MP4.</div></div></div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="vitrea" class="py-10 md:py-14 px-4">
-        <div class="max-w-[1240px] mx-auto grid lg:grid-cols-12 gap-5 md:gap-7 lg:gap-8 items-center">
-            <div class="lg:col-span-7 lg:col-start-6 lg:row-start-1 lg:pl-2 order-1">
-                <div class="reveal">
-                    <span class="text-xs font-bold text-blue-600 uppercase tracking-widest" data-lang-ua="Vitrea" data-lang-en="Vitrea">Vitrea</span>
-                    <h2 class="text-2xl md:text-[2.15rem] md:leading-[1.12] font-extrabold text-slate-900 dark:text-white mt-1 max-w-3xl" data-lang-ua="Розширений аналіз КТ на спеціалізованій робочій станції" data-lang-en="Advanced CT analysis on a specialized workstation">Розширений аналіз КТ на спеціалізованій робочій станції</h2>
-                    <p class="text-slate-600 dark:text-slate-400 text-sm md:text-[15px] leading-relaxed mt-3 max-w-3xl" data-lang-ua="Vitrea — це спеціалізована робоча станція для лікарів-рентгенологів, яка допомагає краще бачити, аналізувати й розуміти результати комп’ютерної томографії. Вона підтримує 2D/3D-реконструкції, вимірювання та детальний перегляд досліджуваної ділянки." data-lang-en="Vitrea is a specialized workstation for radiologists that helps them better visualize, analyze and understand CT results. It supports 2D/3D reconstructions, measurements and detailed review of the examined area.">Vitrea — це спеціалізована робоча станція для лікарів-рентгенологів, яка допомагає краще бачити, аналізувати й розуміти результати комп’ютерної томографії. Вона підтримує 2D/3D-реконструкції, вимірювання та детальний перегляд досліджуваної ділянки.</p>
-                </div>
-            </div>
-
-            <div class="lg:col-span-5 lg:col-start-1 lg:row-start-1 lg:row-span-2 flex justify-center lg:justify-start order-2 reveal">
-                <div class="vitrea-video phone-mockup w-full max-w-[280px] sm:max-w-[300px] overflow-hidden relative group video-shell">
-                    <div class="absolute top-0 inset-x-0 bg-gradient-to-b from-slate-950/90 via-slate-950/60 to-transparent p-4 z-10 pointer-events-none">
-                        <span class="font-bold text-xs text-white block" data-lang-ua="Робота з Vitrea" data-lang-en="Working with Vitrea">Робота з Vitrea</span>
-                        <span class="text-[10px] text-slate-300 block" data-lang-ua="Аналіз лікарем-рентгенологом" data-lang-en="Radiologist analysis">Аналіз лікарем-рентгенологом</span>
-                    </div>
-                    <button type="button" onclick="toggleAudio('video2')" class="absolute top-3 right-3 z-20 bg-blue-600 hover:bg-blue-700 text-white px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 border border-blue-400/40">
-                        <i class="fa-solid fa-volume-high text-[10px]"></i><span data-lang-ua="Звук" data-lang-en="Sound">Звук</span>
-                    </button>
-                    <video id="video2" class="w-full h-[500px] md:h-[510px] object-cover" controls autoplay muted loop playsinline preload="metadata">
-                        <source src="IMG_2869.mp4" type="video/mp4">
-                        <source src="IMG_2869.MP4" type="video/mp4">
-                        <source src="IMG_2869" type="video/mp4">
+    <section id="vitrea" class="py-12 md:py-16 px-4">
+        <div class="max-w-[1180px] mx-auto grid lg:grid-cols-12 gap-7 lg:gap-10 items-center">
+            <div class="lg:col-span-5 flex justify-center lg:justify-start reveal order-2 lg:order-1">
+                <div class="vitrea-video phone-mockup w-full max-w-[290px] overflow-hidden relative group video-shell">
+                    <div class="absolute top-0 inset-x-0 bg-gradient-to-b from-slate-950/90 via-slate-950/50 to-transparent p-4 z-10 pointer-events-none"><span class="font-bold text-xs text-white block" data-lang-ua="КТ у Кардіоцентрі" data-lang-en="CT at the Cardio Center">КТ у Кардіоцентрі</span></div>
+                    <button type="button" onclick="toggleAudio('video2')" class="absolute top-3 right-3 z-20 bg-blue-600 hover:bg-blue-700 text-white px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 border border-blue-400/40"><i class="fa-solid fa-volume-high text-[10px]"></i><span data-lang-ua="Звук" data-lang-en="Sound">Звук</span></button>
+                    <video id="video2" class="w-full h-[500px] object-cover" controls autoplay muted loop playsinline preload="metadata">
+                        <source src="IMG_2868.MP4" type="video/mp4"><source src="IMG_2868.mp4" type="video/mp4">
                     </video>
-                    <div class="video-fallback" id="video2-fallback">
-                        <div>
-                            <div class="text-lg font-bold mb-2">Відео недоступне</div>
-                            <div class="text-sm text-slate-300" data-lang-ua="Перевірте, чи файл IMG_2869.mp4 лежить поруч з index.html у репозиторії GitHub." data-lang-en="Check that IMG_2869.mp4 is placed next to index.html in your GitHub repository.">Перевірте, чи файл IMG_2869.mp4 лежить поруч з index.html у репозиторії GitHub.</div>
-                        </div>
-                    </div>
+                    <div class="video-fallback" id="video2-fallback"><div><div class="text-lg font-bold mb-2">Відео недоступне</div><div class="text-sm text-slate-300">Перевірте файл IMG_2868.MP4.</div></div></div>
                 </div>
             </div>
-
-            <div class="lg:col-span-7 lg:col-start-6 lg:row-start-2 lg:pl-2 order-3">
-                <div class="grid grid-cols-2 gap-2 md:gap-3">
-                    <div class="vitrea-feature card-ui p-3.5 md:p-4 rounded-2xl reveal">
-                        <i class="fa-solid fa-cube text-blue-600 text-lg md:text-xl mb-2"></i>
-                        <h4 class="font-bold text-[13px] md:text-sm text-slate-900 dark:text-white mb-1.5" data-lang-ua="3D-реконструкції" data-lang-en="3D reconstructions">3D-реконструкції</h4>
-                        <p class="text-[12px] md:text-sm leading-relaxed text-slate-500" data-lang-ua="Допомагають лікарю переглядати анатомічні структури з різних ракурсів та краще орієнтуватися у даних КТ." data-lang-en="They help the doctor review anatomical structures from different angles and better navigate the CT data.">Допомагають лікарю переглядати анатомічні структури з різних ракурсів та краще орієнтуватися у даних КТ.</p>
-                    </div>
-                    <div class="vitrea-feature card-ui p-3.5 md:p-4 rounded-2xl reveal">
-                        <i class="fa-solid fa-ruler-combined text-blue-600 text-lg md:text-xl mb-2"></i>
-                        <h4 class="font-bold text-[13px] md:text-sm text-slate-900 dark:text-white mb-1.5" data-lang-ua="Вимірювання та аналіз" data-lang-en="Measurement and analysis">Вимірювання та аналіз</h4>
-                        <p class="text-[12px] md:text-sm leading-relaxed text-slate-500" data-lang-ua="Інструменти Vitrea допомагають виконувати вимірювання та детальніше аналізувати результати дослідження." data-lang-en="Vitrea tools help perform measurements and analyze the examination results in more detail.">Інструменти Vitrea допомагають виконувати вимірювання та детальніше аналізувати результати дослідження.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="stats-section py-20 px-4 text-white">
-        <div class="max-w-[1320px] mx-auto">
-            <div class="max-w-3xl mx-auto text-center reveal">
-                <span class="text-sm font-bold uppercase tracking-[0.28em] text-blue-200" data-lang-ua="Чому обирають нас" data-lang-en="Why choose us">Чому обирають нас</span>
-                <h2 class="text-3xl md:text-5xl font-extrabold mt-4" data-lang-ua="Досвід мережі, якій довіряють" data-lang-en="A network experience people trust">Досвід мережі, якій довіряють</h2>
-                <p class="text-blue-50/90 mt-5 text-base leading-relaxed" data-lang-ua="Досвід усієї мережі «Євро Сервіс Україна» — це роки роботи, команда лікарів-рентгенологів та велика кількість виконаних описів досліджень." data-lang-en="The Euro Service Ukraine network brings together years of experience, a team of radiologists and a large number of completed diagnostic reports.">Досвід усієї мережі «Євро Сервіс Україна» — це роки роботи, команда лікарів-рентгенологів та велика кількість виконаних описів досліджень.</p>
-            </div>
-
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 mt-12">
-                <div class="stats-card rounded-3xl p-6 text-center reveal">
-                    <div class="stat-number text-4xl md:text-6xl font-extrabold" data-count="4">0</div>
-                    <div class="text-sm uppercase tracking-[0.2em] text-blue-100 mt-3" data-lang-ua="центри" data-lang-en="centers">центри</div>
-                </div>
-                <div class="stats-card rounded-3xl p-6 text-center reveal">
-                    <div class="stat-number text-4xl md:text-6xl font-extrabold" data-count="12">0</div>
-                    <div class="text-sm uppercase tracking-[0.2em] text-blue-100 mt-3" data-lang-ua="років досвіду" data-lang-en="years of experience">років досвіду</div>
-                </div>
-                <div class="stats-card rounded-3xl p-6 text-center reveal">
-                    <div class="stat-number text-4xl md:text-6xl font-extrabold" data-count="6">0</div>
-                    <div class="text-sm uppercase tracking-[0.2em] text-blue-100 mt-3" data-lang-ua="описуючих лікарів" data-lang-en="reporting doctors">описуючих лікарів</div>
-                </div>
-                <div class="stats-card rounded-3xl p-6 text-center reveal">
-                    <div class="stat-number stat-number-wide font-extrabold" data-count="200555">0</div>
-                    <div class="text-sm uppercase tracking-[0.2em] text-blue-100 mt-3" data-lang-ua="точних описів" data-lang-en="accurate reports">точних описів</div>
+            <div class="lg:col-span-7 order-1 lg:order-2 reveal">
+                <span class="text-xs font-extrabold text-blue-600 uppercase tracking-[0.18em]" data-lang-ua="Технології" data-lang-en="Technology">Технології</span>
+                <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white mt-2" data-lang-ua="Philips Brilliance 64 + Vitrea" data-lang-en="Philips Brilliance 64 + Vitrea">Philips Brilliance 64 + Vitrea</h2>
+                <p class="text-slate-500 text-sm md:text-base mt-4 max-w-2xl" data-lang-ua="КТ-зображення, 2D/3D-реконструкції та інструменти для аналізу — в одному робочому процесі." data-lang-en="CT images, 2D/3D reconstructions and analysis tools in one workflow.">КТ-зображення, 2D/3D-реконструкції та інструменти для аналізу — в одному робочому процесі.</p>
+                <div class="grid sm:grid-cols-2 gap-3 mt-7">
+                    <div class="minimal-feature-card"><i class="fa-solid fa-cube text-blue-600 text-xl"></i><h3 class="font-extrabold text-sm text-slate-900 dark:text-white mt-4" data-lang-ua="3D-реконструкції" data-lang-en="3D reconstructions">3D-реконструкції</h3><p class="text-xs text-slate-500 mt-2" data-lang-ua="Об’ємне представлення КТ-даних." data-lang-en="Volumetric representation of CT data.">Об’ємне представлення КТ-даних.</p></div>
+                    <div class="minimal-feature-card"><i class="fa-solid fa-ruler-combined text-blue-600 text-xl"></i><h3 class="font-extrabold text-sm text-slate-900 dark:text-white mt-4" data-lang-ua="Вимірювання" data-lang-en="Measurements">Вимірювання</h3><p class="text-xs text-slate-500 mt-2" data-lang-ua="Інструменти для детального аналізу." data-lang-en="Tools for detailed analysis.">Інструменти для детального аналізу.</p></div>
                 </div>
             </div>
         </div>
@@ -1172,30 +1192,6 @@
                 </div>
             </div>
 
-            <div class="contrast-cta rounded-[2rem] p-6 md:p-8 mt-2 reveal">
-                <div class="grid lg:grid-cols-[1fr_auto] gap-7 lg:items-center">
-                    <div class="flex items-start gap-4 md:gap-5">
-                        <div class="contrast-cta-icon"><i class="fa-solid fa-droplet text-xl"></i></div>
-                        <div>
-                            <span class="text-[10px] md:text-[11px] font-extrabold uppercase tracking-[0.2em] text-cyan-300" data-lang-ua="Контрастне дослідження" data-lang-en="Contrast examination">Контрастне дослідження</span>
-                            <h3 class="text-2xl md:text-3xl font-extrabold text-white mt-1" data-lang-ua="Потрібне КТ з контрастом?" data-lang-en="Need a contrast-enhanced CT?">Потрібне КТ з контрастом?</h3>
-                            <p class="text-slate-300 mt-2 max-w-3xl text-sm md:text-base leading-relaxed" data-lang-ua="Перед записом уточніть підготовку та чи потрібен аналіз на креатинін саме для вашого дослідження. Точні рекомендації надає реєстратор." data-lang-en="Before booking, clarify the preparation and whether a creatinine test is needed for your specific examination. The reception team provides the exact recommendations.">Перед записом уточніть підготовку та чи потрібен аналіз на креатинін саме для вашого дослідження. Точні рекомендації надає реєстратор.</p>
-                            <div class="flex flex-wrap gap-2 mt-4">
-                                <span class="contrast-cta-pill"><i class="fa-solid fa-sliders text-cyan-300"></i><span data-lang-ua="Підготовка індивідуальна" data-lang-en="Preparation is individual">Підготовка індивідуальна</span></span>
-                                <span class="contrast-cta-pill"><i class="fa-solid fa-vial text-blue-300"></i><span data-lang-ua="Може знадобитися креатинін" data-lang-en="Creatinine may be required">Може знадобитися креатинін</span></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="lg:text-right">
-                        <button type="button" onclick="togglePreparationPanel(true)" class="contrast-cta-button w-full lg:w-auto">
-                            <span data-lang-ua="Уточнити підготовку" data-lang-en="Check preparation">Уточнити підготовку</span>
-                            <i class="fa-solid fa-arrow-right text-xs"></i>
-                        </button>
-                        <div class="contrast-cta-meta mt-2" data-lang-ua="Коротка пам’ятка відкриється поверх сторінки" data-lang-en="A short preparation guide will open on this page">Коротка пам’ятка відкриється поверх сторінки</div>
-                    </div>
-                </div>
-            </div>
-
             <div class="flex flex-wrap gap-4 reveal">
                 <a href="https://www.esu-center.com.ua/price/" target="_blank" rel="noopener" class="px-6 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm transition flex items-center gap-2">
                     <span data-lang-ua="Повний актуальний прайс" data-lang-en="Full current price list">Повний актуальний прайс</span>
@@ -1205,82 +1201,31 @@
         </div>
     </section>
 
-    <section id="preparation" class="py-16 px-4">
-        <div class="max-w-[1320px] mx-auto space-y-8">
-            <div class="text-center max-w-3xl mx-auto reveal">
+    <section id="preparation" class="py-14 px-4">
+        <div class="max-w-[1180px] mx-auto">
+            <div class="text-center max-w-2xl mx-auto reveal">
                 <span class="text-xs font-bold text-blue-600 uppercase tracking-widest" data-lang-ua="Підготовка" data-lang-en="Preparation">Підготовка</span>
-                <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900 dark:text-white mt-1" data-lang-ua="Що варто знати перед КТ" data-lang-en="What to know before CT">Що варто знати перед КТ</h2>
-                <p class="text-slate-500 text-sm md:text-base mt-4" data-lang-ua="Підготовка залежить від виду КТ та потреби у контрастуванні. Перед візитом реєстратор уточнить деталі саме для вашого дослідження." data-lang-en="Preparation depends on the type of CT examination and whether contrast is required. The reception team will clarify the details for your specific visit.">Підготовка залежить від виду КТ та потреби у контрастуванні. Перед візитом реєстратор уточнить деталі саме для вашого дослідження.</p>
+                <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mt-2" data-lang-ua="Перед КТ" data-lang-en="Before CT">Перед КТ</h2>
             </div>
-
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="card-ui rounded-3xl p-6 reveal">
-                    <div class="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-circle-info"></i></div>
-                    <h3 class="font-extrabold text-lg text-slate-900 dark:text-white mb-2" data-lang-ua="КТ без контрасту" data-lang-en="CT without contrast">КТ без контрасту</h3>
-                    <p class="text-slate-500 text-sm" data-lang-ua="У більшості випадків спеціальна підготовка не потрібна. Візьміть документи, попередні висновки та направлення, якщо воно є." data-lang-en="In most cases, no special preparation is needed. Bring your documents, previous reports and referral, if any.">У більшості випадків спеціальна підготовка не потрібна. Візьміть документи, попередні висновки та направлення, якщо воно є.</p>
-                </div>
-                <div class="card-ui rounded-3xl p-6 reveal">
-                    <div class="w-12 h-12 rounded-2xl bg-cyan-50 text-cyan-600 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-vial"></i></div>
-                    <h3 class="font-extrabold text-lg text-slate-900 dark:text-white mb-2" data-lang-ua="КТ з контрастом" data-lang-en="CT with contrast">КТ з контрастом</h3>
-                    <p class="text-slate-500 text-sm" data-lang-ua="Може знадобитися аналіз крові на креатинін та додаткові рекомендації щодо харчування перед обстеженням. Точну підготовку уточнює адміністратор." data-lang-en="A blood creatinine test and extra dietary recommendations may be needed before the examination. The administrator will clarify the exact preparation.">Може знадобитися аналіз крові на креатинін та додаткові рекомендації щодо харчування перед обстеженням. Точну підготовку уточнює адміністратор.</p>
-                </div>
-                <div class="card-ui rounded-3xl p-6 reveal">
-                    <div class="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl mb-4"><i class="fa-solid fa-phone-volume"></i></div>
-                    <h3 class="font-extrabold text-lg text-slate-900 dark:text-white mb-2" data-lang-ua="Уточнення перед записом" data-lang-en="Clarification before booking">Уточнення перед записом</h3>
-                    <p class="text-slate-500 text-sm" data-lang-ua="Якщо ви не впевнені, який саме вид КТ потрібен, зателефонуйте за номером 0 800 33 03 64 — вам підкажуть, куди звернутися і як підготуватися." data-lang-en="If you are not sure which CT examination is needed, call 0 800 33 03 64 — the staff will guide you and explain how to prepare.">Якщо ви не впевнені, який саме вид КТ потрібен, зателефонуйте за номером 0 800 33 03 64 — вам підкажуть, куди звернутися і як підготуватися.</p>
-                </div>
+            <div class="grid md:grid-cols-3 gap-4 mt-8">
+                <div class="prep-compact card-ui reveal"><div class="prep-icon bg-blue-50 text-blue-600"><i class="fa-solid fa-circle-info"></i></div><h3 data-lang-ua="Без контрасту" data-lang-en="Without contrast">Без контрасту</h3><p data-lang-ua="Зазвичай спеціальна підготовка не потрібна." data-lang-en="Special preparation is usually not required.">Зазвичай спеціальна підготовка не потрібна.</p></div>
+                <div class="prep-compact card-ui reveal"><div class="prep-icon bg-cyan-50 text-cyan-600"><i class="fa-solid fa-vial"></i></div><h3 data-lang-ua="З контрастом" data-lang-en="With contrast">З контрастом</h3><p data-lang-ua="Може знадобитися аналіз на креатинін. Деталі уточнить реєстратор." data-lang-en="A creatinine test may be needed. The reception team will clarify details.">Може знадобитися аналіз на креатинін. Деталі уточнить реєстратор.</p></div>
+                <div class="prep-compact card-ui reveal"><div class="prep-icon bg-emerald-50 text-emerald-600"><i class="fa-solid fa-phone-volume"></i></div><h3 data-lang-ua="Є питання?" data-lang-en="Questions?">Є питання?</h3><p data-lang-ua="Зателефонуйте 0 800 33 03 64 — підкажемо, як підготуватися." data-lang-en="Call 0 800 33 03 64 and we will explain how to prepare.">Зателефонуйте 0 800 33 03 64 — підкажемо, як підготуватися.</p></div>
             </div>
         </div>
     </section>
 
-        <section id="doctors" class="py-20 px-4 bg-gradient-to-b from-slate-100/65 to-blue-50/55 dark:from-slate-900/45 dark:to-slate-950/20 border-y border-slate-200/60 dark:border-slate-800">
-        <div class="max-w-[1320px] mx-auto space-y-10">
-            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-5 reveal">
-                <div class="max-w-3xl">
-                    <span class="text-xs font-bold text-blue-600 uppercase tracking-widest" data-lang-ua="Фахівці мережі" data-lang-en="Network specialists">Фахівці мережі</span>
-                    <h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white mt-2" data-lang-ua="Лікарі-рентгенологи «Євро Сервіс Україна»" data-lang-en="Radiologists of Euro Service Ukraine">Лікарі-рентгенологи «Євро Сервіс Україна»</h2>
-                    <p class="text-slate-500 text-sm md:text-base mt-4" data-lang-ua="Фахівці мережі працюють з КТ-дослідженнями та описом результатів. Склад лікарів для конкретного відділення або дослідження уточнює реєстратура." data-lang-en="Network specialists work with CT examinations and diagnostic reporting. The reception team can confirm which doctors are assigned to a specific location or examination.">Фахівці мережі працюють з КТ-дослідженнями та описом результатів. Склад лікарів для конкретного відділення або дослідження уточнює реєстратура.</p>
-                </div>
-                <div class="flex items-center gap-3">
-                    <a href="https://www.facebook.com/euroserviseukraine" target="_blank" rel="noopener" class="social-pill" aria-label="Facebook"><i class="fa-brands fa-facebook-f text-lg"></i></a>
-                    <a href="https://www.instagram.com/euro_service_ukraine/" target="_blank" rel="noopener" class="social-pill" aria-label="Instagram"><i class="fa-brands fa-instagram text-lg"></i></a>
-                    <a href="https://www.esu-center.com.ua/team/" target="_blank" rel="noopener" class="px-4 py-3 rounded-2xl bg-slate-900 text-white font-bold text-xs hover:bg-blue-600 transition"><span data-lang-ua="Усі лікарі" data-lang-en="All doctors">Усі лікарі</span> <i class="fa-solid fa-arrow-up-right-from-square ml-1"></i></a>
-                </div>
+    <section id="doctors" class="py-14 md:py-16 px-4 bg-slate-100/55 dark:bg-slate-900/35 border-y border-slate-200/60 dark:border-slate-800">
+        <div class="max-w-[1180px] mx-auto">
+            <div class="flex items-end justify-between gap-4 reveal">
+                <div><span class="text-xs font-bold text-blue-600 uppercase tracking-widest" data-lang-ua="Фахівці" data-lang-en="Specialists">Фахівці</span><h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mt-2" data-lang-ua="Наша команда" data-lang-en="Our team">Наша команда</h2></div>
+                <div class="flex items-center gap-2"><a href="https://www.facebook.com/euroserviseukraine" target="_blank" rel="noopener" class="social-pill" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a><a href="https://www.instagram.com/euro_service_ukraine/" target="_blank" rel="noopener" class="social-pill" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a></div>
             </div>
-
-            <div class="grid sm:grid-cols-2 xl:grid-cols-4 gap-6">
-                <article class="doctor-card card-ui rounded-[1.8rem] p-4 reveal">
-                    <div class="doctor-photo-wrap"><div class="doctor-initials">ТА</div><img loading="lazy" src="https://www.esu-center.com.ua/wp-content/uploads/2019/12/2.jpg" alt="Топорков Анатолій" onerror="this.style.display='none'"></div>
-                    <div class="p-2 pt-5">
-                        <h3 class="font-extrabold text-xl text-slate-900 dark:text-white">Топорков Анатолій</h3>
-                        <p class="text-blue-600 text-sm font-bold mt-1" data-lang-ua="Лікар-рентгенолог · вища категорія" data-lang-en="Radiologist · highest category">Лікар-рентгенолог · вища категорія</p>
-                        <div class="mt-4 flex items-center gap-2 text-sm text-slate-500"><i class="fa-regular fa-clock text-blue-600"></i><span data-lang-ua="32 роки досвіду" data-lang-en="32 years of experience">32 роки досвіду</span></div>
-                    </div>
-                </article>
-                <article class="doctor-card card-ui rounded-[1.8rem] p-4 reveal">
-                    <div class="doctor-photo-wrap"><div class="doctor-initials">ТІ</div><img loading="lazy" src="https://www.esu-center.com.ua/wp-content/uploads/2019/12/3.jpg" alt="Теличко Ірина" onerror="this.style.display='none'"></div>
-                    <div class="p-2 pt-5">
-                        <h3 class="font-extrabold text-xl text-slate-900 dark:text-white">Теличко Ірина</h3>
-                        <p class="text-blue-600 text-sm font-bold mt-1" data-lang-ua="Лікар-рентгенолог · перша категорія" data-lang-en="Radiologist · first category">Лікар-рентгенолог · перша категорія</p>
-                        <div class="mt-4 flex items-center gap-2 text-sm text-slate-500"><i class="fa-regular fa-clock text-blue-600"></i><span data-lang-ua="10 років досвіду" data-lang-en="10 years of experience">10 років досвіду</span></div>
-                    </div>
-                </article>
-                <article class="doctor-card card-ui rounded-[1.8rem] p-4 reveal">
-                    <div class="doctor-photo-wrap"><div class="doctor-initials">ВТ</div><img loading="lazy" src="https://www.esu-center.com.ua/wp-content/uploads/2019/12/IMG_2145-e1531905118978.jpg" alt="Валенко Тетяна" onerror="this.style.display='none'"></div>
-                    <div class="p-2 pt-5">
-                        <h3 class="font-extrabold text-xl text-slate-900 dark:text-white">Валенко Тетяна</h3>
-                        <p class="text-blue-600 text-sm font-bold mt-1" data-lang-ua="Лікар-рентгенолог · перша категорія" data-lang-en="Radiologist · first category">Лікар-рентгенолог · перша категорія</p>
-                        <div class="mt-4 flex items-center gap-2 text-sm text-slate-500"><i class="fa-regular fa-clock text-blue-600"></i><span data-lang-ua="13 років досвіду" data-lang-en="13 years of experience">13 років досвіду</span></div>
-                    </div>
-                </article>
-                <article class="doctor-card card-ui rounded-[1.8rem] p-4 reveal">
-                    <div class="doctor-photo-wrap"><div class="doctor-initials">АО</div><img loading="lazy" src="https://www.esu-center.com.ua/wp-content/uploads/2020/02/skvirskaya.jpg" alt="Абрамова Олена" onerror="this.style.display='none'"></div>
-                    <div class="p-2 pt-5">
-                        <h3 class="font-extrabold text-xl text-slate-900 dark:text-white">Абрамова Олена</h3>
-                        <p class="text-blue-600 text-sm font-bold mt-1" data-lang-ua="Лікар-рентгенолог · друга категорія" data-lang-en="Radiologist · second category">Лікар-рентгенолог · друга категорія</p>
-                        <div class="mt-4 flex items-center gap-2 text-sm text-slate-500"><i class="fa-regular fa-clock text-blue-600"></i><span data-lang-ua="19 років досвіду" data-lang-en="19 years of experience">19 років досвіду</span></div>
-                    </div>
-                </article>
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-8">
+                <article class="doctor-minimal reveal"><div class="doctor-photo-wrap"><div class="doctor-initials">ТА</div><img loading="lazy" src="https://www.esu-center.com.ua/wp-content/uploads/2019/12/2.jpg" alt="Топорков Анатолій" onerror="this.style.display='none'"></div><div class="doctor-copy"><h3>Топорков Анатолій</h3><div class="role" data-lang-ua="Лікар-рентгенолог" data-lang-en="Radiologist">Лікар-рентгенолог</div><div class="experience" data-lang-ua="32 роки досвіду" data-lang-en="32 years of experience">32 роки досвіду</div></div></article>
+                <article class="doctor-minimal reveal"><div class="doctor-photo-wrap"><div class="doctor-initials">ТІ</div><img loading="lazy" src="https://www.esu-center.com.ua/wp-content/uploads/2019/12/3.jpg" alt="Теличко Ірина" onerror="this.style.display='none'"></div><div class="doctor-copy"><h3>Теличко Ірина</h3><div class="role" data-lang-ua="Лікар-рентгенолог" data-lang-en="Radiologist">Лікар-рентгенолог</div><div class="experience" data-lang-ua="10 років досвіду" data-lang-en="10 years of experience">10 років досвіду</div></div></article>
+                <article class="doctor-minimal reveal"><div class="doctor-photo-wrap"><div class="doctor-initials">ВТ</div><img loading="lazy" src="https://www.esu-center.com.ua/wp-content/uploads/2019/12/IMG_2145-e1531905118978.jpg" alt="Валенко Тетяна" onerror="this.style.display='none'"></div><div class="doctor-copy"><h3>Валенко Тетяна</h3><div class="role" data-lang-ua="Лікар-рентгенолог" data-lang-en="Radiologist">Лікар-рентгенолог</div><div class="experience" data-lang-ua="13 років досвіду" data-lang-en="13 years of experience">13 років досвіду</div></div></article>
+                <article class="doctor-minimal reveal"><div class="doctor-photo-wrap"><div class="doctor-initials">АО</div><img loading="lazy" src="https://www.esu-center.com.ua/wp-content/uploads/2020/02/skvirskaya.jpg" alt="Абрамова Олена" onerror="this.style.display='none'"></div><div class="doctor-copy"><h3>Абрамова Олена</h3><div class="role" data-lang-ua="Лікар-рентгенолог" data-lang-en="Radiologist">Лікар-рентгенолог</div><div class="experience" data-lang-ua="19 років досвіду" data-lang-en="19 years of experience">19 років досвіду</div></div></article>
             </div>
         </div>
     </section>
@@ -1320,104 +1265,34 @@
         </div>
     </section>
 
-    <section id="booking" class="py-20 md:py-24 px-4 bg-gradient-to-br from-blue-50/90 via-slate-50 to-cyan-50/60 dark:from-slate-950 dark:via-slate-900 dark:to-blue-950/30 border-t border-slate-200/60 dark:border-slate-800">
-        <div class="max-w-[1320px] mx-auto grid xl:grid-cols-12 gap-8 items-start">
-            <div class="xl:col-span-5 space-y-8 reveal">
-                <div>
-                    <span class="text-xs font-bold text-blue-600 uppercase tracking-widest" data-lang-ua="Ми поруч" data-lang-en="We are nearby">Ми поруч</span>
-                    <h2 class="text-3xl md:text-5xl font-extrabold leading-tight text-slate-900 dark:text-white mt-4" data-lang-ua="Ваш наступний крок — просто зв’язатися." data-lang-en="Your next step is simply to contact us.">Ваш наступний крок — просто зв’язатися.</h2>
-                    <p class="text-slate-500 text-base leading-relaxed mt-6 max-w-xl" data-lang-ua="Зателефонуйте або підготуйте запит на запис. Адміністратор допоможе узгодити дослідження, час візиту та підготовку." data-lang-en="Call us or prepare a booking request. The administrator will help coordinate the examination, visit time and preparation.">Зателефонуйте або підготуйте запит на запис. Адміністратор допоможе узгодити дослідження, час візиту та підготовку.</p>
-                </div>
-
-                <div class="space-y-8">
-                    <div class="contact-item">
-                        <div class="contact-icon"><i class="fa-solid fa-location-dot"></i></div>
-                        <div class="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 mb-2" data-lang-ua="Адреса відділення" data-lang-en="Branch address">Адреса відділення</div>
-                        <div class="text-2xl font-bold text-slate-900 dark:text-white leading-tight">м. Дніпро, вул. Князя Володимира Великого, 28</div>
-                        <div class="text-slate-500 mt-1" data-lang-ua="Комп’ютерна томографія у Кардіоцентрі" data-lang-en="Computed tomography at the Cardio Center">Комп’ютерна томографія у Кардіоцентрі</div>
-                        <a href="https://maps.google.com/?q=м.+Дніпро,+вул.+Князя+Володимира+Великого,+28" target="_blank" rel="noopener" class="inline-flex items-center gap-2 text-blue-600 font-semibold mt-3 hover:gap-3 transition">
-                            <span data-lang-ua="Відкрити на мапі" data-lang-en="Open on map">Відкрити на мапі</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                        </a>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-icon"><i class="fa-regular fa-clock"></i></div>
-                        <div class="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 mb-2" data-lang-ua="Графік роботи" data-lang-en="Working hours">Графік роботи</div>
-                        <div class="text-2xl font-bold text-slate-900 dark:text-white leading-tight" data-lang-ua="Понеділок–п’ятниця · 08:00–17:00" data-lang-en="Monday–Friday · 08:00–17:00">Понеділок–п’ятниця · 08:00–17:00</div>
-                        <div class="text-slate-500 mt-1" data-lang-ua="Субота та неділя — вихідні" data-lang-en="Saturday and Sunday — closed">Субота та неділя — вихідні</div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-icon"><i class="fa-solid fa-phone"></i></div>
-                        <div class="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 mb-2" data-lang-ua="Реєстратура мережі" data-lang-en="Network reception">Реєстратура мережі</div>
-                        <a href="tel:0800330364" class="block text-4xl font-extrabold text-slate-900 dark:text-white leading-none hover:text-blue-600 transition">0 800 33 03 64</a>
-                        <div class="flex flex-wrap gap-x-6 gap-y-1 text-slate-500 mt-3 text-sm">
-                            <a href="tel:+380985446252" class="hover:text-blue-600 transition">+380 98 544 62 52</a>
-                            <a href="tel:+380993491115" class="hover:text-blue-600 transition">+380 99 349 11 15</a>
-                        </div>
-                    </div>
-
-                    <div class="contact-item">
-                        <div class="contact-icon"><i class="fa-regular fa-envelope"></i></div>
-                        <div class="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 mb-2" data-lang-ua="Електронна пошта" data-lang-en="Email">Електронна пошта</div>
-                        <a href="mailto:esucenter.dp@gmail.com" class="text-2xl font-bold text-slate-900 dark:text-white hover:text-blue-600 transition">esucenter.dp@gmail.com</a>
-                    </div>
-
-                    <div class="pl-[56px]">
-                        <div class="text-xs font-bold uppercase tracking-[0.2em] text-slate-500 mb-4" data-lang-ua="Ми у соцмережах" data-lang-en="We are on social media">Ми у соцмережах</div>
-                        <div class="flex items-center gap-3">
-                            <a href="https://www.facebook.com/euroserviseukraine" target="_blank" rel="noopener" class="social-pill" aria-label="Facebook"><i class="fa-brands fa-facebook-f text-lg"></i></a>
-                            <a href="https://www.instagram.com/euro_service_ukraine/" target="_blank" rel="noopener" class="social-pill" aria-label="Instagram"><i class="fa-brands fa-instagram text-lg"></i></a>
-                        </div>
+    <section id="booking" class="py-16 md:py-20 px-4 bg-gradient-to-br from-blue-50/90 via-slate-50 to-cyan-50/60 dark:from-slate-950 dark:via-slate-900 dark:to-blue-950/30 border-t border-slate-200/60 dark:border-slate-800">
+        <div class="max-w-[1180px] mx-auto">
+            <div class="booking-heading text-center reveal"><span class="text-xs font-bold text-blue-600 uppercase tracking-widest" data-lang-ua="Запис" data-lang-en="Booking">Запис</span><h2 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white mt-2" data-lang-ua="Записуйтеся прямо зараз!" data-lang-en="Book your visit now!">Записуйтеся прямо зараз!</h2></div>
+            <div class="grid xl:grid-cols-12 gap-8 items-start">
+                <div class="xl:col-span-7 xl:order-2 order-1 reveal">
+                    <div class="booking-form-card card-ui rounded-[2rem] p-6 md:p-8 shadow-[0_24px_60px_-30px_rgba(15,23,42,.28)]">
+                        <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white mb-2" data-lang-ua="Домовимося про ваш візит" data-lang-en="Let’s plan your visit">Домовимося про ваш візит</h3>
+                        <p class="text-slate-500 text-sm mb-7" data-lang-ua="Залиште ім’я, номер телефону та оберіть дослідження." data-lang-en="Leave your name, phone number and choose an examination.">Залиште ім’я, номер телефону та оберіть дослідження.</p>
+                        <form onsubmit="handleFormSubmit(event)" class="space-y-5" id="bookingForm">
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div><label class="text-sm font-bold text-slate-900 dark:text-white block mb-2" data-lang-ua="Ім’я" data-lang-en="Name">Ім’я</label><input id="patientName" type="text" required minlength="2" maxlength="50" autocomplete="name" placeholder="Ваше ім’я" class="w-full min-h-[50px] bg-slate-50/90 dark:bg-slate-800 border border-slate-300/70 dark:border-slate-700 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:border-blue-600 transition"></div>
+                                <div><label class="text-sm font-bold text-slate-900 dark:text-white block mb-2" data-lang-ua="Номер телефону" data-lang-en="Phone number">Номер телефону</label><input id="patientPhone" type="tel" required inputmode="tel" autocomplete="tel" maxlength="17" placeholder="+380 67 123 45 67" class="w-full min-h-[50px] bg-slate-50/90 dark:bg-slate-800 border border-slate-300/70 dark:border-slate-700 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:border-blue-600 transition"><div id="phoneError" class="phone-error" data-lang-ua="Введіть коректний український мобільний номер." data-lang-en="Enter a valid Ukrainian mobile number.">Введіть коректний український мобільний номер.</div></div>
+                            </div>
+                            <div><label class="text-sm font-bold text-slate-900 dark:text-white block mb-2" data-lang-ua="Дослідження" data-lang-en="Examination">Дослідження</label><select id="serviceSelect" required class="w-full min-h-[50px] bg-slate-50/90 dark:bg-slate-800 border border-slate-300/70 dark:border-slate-700 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:border-blue-600 transition"><option value="Потрібна допомога з вибором" data-lang-ua="Потрібна допомога з вибором" data-lang-en="I need help choosing">Потрібна допомога з вибором</option><option value="КТ головного мозку" data-lang-ua="КТ головного мозку" data-lang-en="Brain CT">КТ головного мозку</option><option value="КТ органів грудної клітки" data-lang-ua="КТ органів грудної клітки" data-lang-en="Chest CT">КТ органів грудної клітки</option><option value="КТ з контрастним посиленням" data-lang-ua="КТ з контрастним посиленням" data-lang-en="Contrast-enhanced CT">КТ з контрастним посиленням</option><option value="Інше КТ-дослідження" data-lang-ua="Інше КТ-дослідження" data-lang-en="Other CT examination">Інше КТ-дослідження</option></select></div>
+                            <button type="submit" class="w-full py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-base transition shadow-lg shadow-blue-600/20 flex items-center justify-center gap-3"><span data-lang-ua="Записатися" data-lang-en="Book">Записатися</span><i class="fa-solid fa-arrow-up-right-from-square text-sm"></i></button>
+                            <div class="flex gap-2 text-xs text-slate-500 leading-relaxed"><i class="fa-solid fa-lock mt-0.5"></i><p data-lang-ua="Поки що форма відкриває готовий лист до реєстратури. Автоматичну відправку підключимо окремо." data-lang-en="For now, the form opens a prepared email to reception. Automatic submission can be connected separately.">Поки що форма відкриває готовий лист до реєстратури. Автоматичну відправку підключимо окремо.</p></div>
+                        </form>
                     </div>
                 </div>
-            </div>
-
-            <div class="xl:col-span-7 reveal">
-                <div class="card-ui rounded-[2rem] p-6 md:p-8 lg:p-10 shadow-[0_24px_60px_-30px_rgba(15,23,42,.28)]">
-                    <h3 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white mb-2" data-lang-ua="Домовимося про ваш візит" data-lang-en="Let’s plan your visit">Домовимося про ваш візит</h3>
-                    <p class="text-slate-500 text-sm md:text-base mb-8 max-w-2xl" data-lang-ua="Заповніть форму, щоб підготувати лист у реєстратуру. Ви зможете перевірити його та відправити зі своєї пошти." data-lang-en="Fill in the form to prepare a message for the reception team. You will be able to review and send it from your own email.">Заповніть форму, щоб підготувати лист у реєстратуру. Ви зможете перевірити його та відправити зі своєї пошти.</p>
-
-                    <form onsubmit="handleFormSubmit(event)" class="space-y-6" id="bookingForm">
-                        <div class="grid md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="text-sm font-bold text-slate-900 dark:text-white block mb-2" data-lang-ua="Ваше ім’я" data-lang-en="Your name">Ваше ім’я</label>
-                                <input id="patientName" type="text" required placeholder="Як до вас звертатися?" class="w-full min-h-[50px] bg-slate-50/90 dark:bg-slate-800 border border-slate-300/70 dark:border-slate-700 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:border-blue-600 transition">
-                            </div>
-                            <div>
-                                <label class="text-sm font-bold text-slate-900 dark:text-white block mb-2" data-lang-ua="Номер телефону" data-lang-en="Phone number">Номер телефону</label>
-                                <input id="patientPhone" type="tel" required placeholder="+380 __ ___ __ __" class="w-full min-h-[50px] bg-slate-50/90 dark:bg-slate-800 border border-slate-300/70 dark:border-slate-700 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:border-blue-600 transition">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="text-sm font-bold text-slate-900 dark:text-white block mb-2" data-lang-ua="Дослідження" data-lang-en="Examination">Дослідження</label>
-                            <select id="serviceSelect" required class="w-full min-h-[50px] bg-slate-50/90 dark:bg-slate-800 border border-slate-300/70 dark:border-slate-700 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:border-blue-600 transition">
-                                <option value="Потрібна допомога з вибором" data-lang-ua="Потрібна допомога з вибором" data-lang-en="I need help choosing">Потрібна допомога з вибором</option>
-                                <option value="КТ головного мозку" data-lang-ua="КТ головного мозку" data-lang-en="Brain CT">КТ головного мозку</option>
-                                <option value="КТ органів грудної клітки" data-lang-ua="КТ органів грудної клітки" data-lang-en="Chest CT">КТ органів грудної клітки</option>
-                                <option value="КТ з контрастним посиленням" data-lang-ua="КТ з контрастним посиленням" data-lang-en="Contrast-enhanced CT">КТ з контрастним посиленням</option>
-                                <option value="Інше КТ-дослідження" data-lang-ua="Інше КТ-дослідження" data-lang-en="Other CT examination">Інше КТ-дослідження</option>
-                            </select>
-                        </div>
-
-                        <div>
-                            <label class="text-sm font-bold text-slate-900 dark:text-white block mb-2"><span data-lang-ua="Ваше побажання" data-lang-en="Your note">Ваше побажання</span><span class="text-slate-400 font-medium" data-lang-ua=" · необов’язково" data-lang-en=" · optional"> · необов’язково</span></label>
-                            <textarea id="patientNote" rows="4" placeholder="Наприклад, коли вам зручно зателефонувати" class="w-full bg-slate-50/90 dark:bg-slate-800 border border-slate-300/70 dark:border-slate-700 rounded-2xl px-4 py-3.5 text-sm focus:outline-none focus:border-blue-600 transition resize-none"></textarea>
-                            <p class="text-xs text-slate-400 mt-3" data-lang-ua="Не додавайте діагнози, результати обстежень або інші медичні дані." data-lang-en="Do not add diagnoses, examination results or other medical data.">Не додавайте діагнози, результати обстежень або інші медичні дані.</p>
-                        </div>
-
-                        <button type="submit" class="w-full py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-base transition shadow-lg shadow-blue-600/20 flex items-center justify-center gap-3">
-                            <span data-lang-ua="Підготувати запит на запис" data-lang-en="Prepare booking request">Підготувати запит на запис</span>
-                            <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
-                        </button>
-
-                        <div class="flex gap-2 text-xs text-slate-500 leading-relaxed">
-                            <i class="fa-solid fa-lock mt-0.5"></i>
-                            <p data-lang-ua="Дані не надсилаються автоматично. Після натискання кнопки відкриється ваш поштовий клієнт із готовим листом до реєстратури." data-lang-en="Data is not sent automatically. After clicking the button, your email client will open with a prepared message to the reception desk.">Дані не надсилаються автоматично. Після натискання кнопки відкриється ваш поштовий клієнт із готовим листом до реєстратури.</p>
-                        </div>
-                    </form>
+                <div class="xl:col-span-5 xl:order-1 order-2 reveal">
+                    <div><span class="text-xs font-bold text-blue-600 uppercase tracking-widest" data-lang-ua="Ми поруч" data-lang-en="We are nearby">Ми поруч</span><h3 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white mt-2" data-lang-ua="Контакти Кардіоцентру" data-lang-en="Cardio Center contacts">Контакти Кардіоцентру</h3></div>
+                    <div class="contact-compact-grid mt-6">
+                        <div class="contact-compact"><div class="text-blue-600 mb-3"><i class="fa-solid fa-location-dot"></i></div><div class="font-extrabold text-sm text-slate-900 dark:text-white" data-lang-ua="Адреса" data-lang-en="Address">Адреса</div><div class="text-xs text-slate-500 mt-2">м. Дніпро, вул. Князя Володимира Великого, 28</div></div>
+                        <div class="contact-compact"><div class="text-blue-600 mb-3"><i class="fa-regular fa-clock"></i></div><div class="font-extrabold text-sm text-slate-900 dark:text-white" data-lang-ua="Графік" data-lang-en="Hours">Графік</div><div class="text-xs text-slate-500 mt-2" data-lang-ua="Пн–Пт · 08:00–17:00" data-lang-en="Mon–Fri · 08:00–17:00">Пн–Пт · 08:00–17:00</div></div>
+                        <div class="contact-compact"><div class="text-blue-600 mb-3"><i class="fa-solid fa-phone"></i></div><div class="font-extrabold text-sm text-slate-900 dark:text-white" data-lang-ua="Реєстратура" data-lang-en="Reception">Реєстратура</div><a href="tel:0800330364" class="text-lg font-extrabold text-slate-900 dark:text-white mt-2 block">0 800 33 03 64</a></div>
+                        <div class="contact-compact"><div class="text-blue-600 mb-3"><i class="fa-regular fa-envelope"></i></div><div class="font-extrabold text-sm text-slate-900 dark:text-white">Email</div><a href="mailto:esucenter.dp@gmail.com" class="text-xs text-slate-500 mt-2 block break-all">esucenter.dp@gmail.com</a></div>
+                    </div>
+                    <div class="flex items-center gap-3 mt-5"><a href="https://www.facebook.com/euroserviseukraine" target="_blank" rel="noopener" class="social-pill" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a><a href="https://www.instagram.com/euro_service_ukraine/" target="_blank" rel="noopener" class="social-pill" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a><a href="https://maps.google.com/?q=м.+Дніпро,+вул.+Князя+Володимира+Великого,+28" target="_blank" rel="noopener" class="px-4 py-3 rounded-2xl bg-slate-900 text-white text-xs font-bold" data-lang-ua="Відкрити мапу" data-lang-en="Open map">Відкрити мапу</a></div>
                 </div>
             </div>
         </div>
@@ -1467,36 +1342,6 @@
         </div>
     </footer>
 
-    <div id="prepModal" class="prep-modal" role="dialog" aria-modal="true" aria-labelledby="prepModalTitle" onclick="if(event.target===this) togglePreparationPanel(false)">
-        <div class="prep-modal-card rounded-[2rem] p-6 md:p-8 relative">
-            <button type="button" onclick="togglePreparationPanel(false)" class="absolute top-5 right-5 w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:text-blue-600 transition" aria-label="Закрити"><i class="fa-solid fa-xmark"></i></button>
-            <span class="text-xs font-extrabold uppercase tracking-[0.2em] text-blue-600" data-lang-ua="Підготовка до КТ" data-lang-en="CT preparation">Підготовка до КТ</span>
-            <h3 id="prepModalTitle" class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white mt-2 pr-12" data-lang-ua="Що уточнити перед обстеженням" data-lang-en="What to clarify before the examination">Що уточнити перед обстеженням</h3>
-            <p class="text-slate-500 mt-3" data-lang-ua="Підготовка залежить від зони дослідження та від того, чи потрібне контрастування. Нижче — короткий орієнтир; точні інструкції дає реєстратор." data-lang-en="Preparation depends on the examination area and whether contrast is needed. The points below are a short guide; the reception team provides the exact instructions.">Підготовка залежить від зони дослідження та від того, чи потрібне контрастування. Нижче — короткий орієнтир; точні інструкції дає реєстратор.</p>
-            <div class="grid md:grid-cols-3 gap-4 mt-6">
-                <div class="rounded-2xl bg-blue-50 dark:bg-blue-950/25 border border-blue-100 dark:border-blue-900/40 p-5">
-                    <i class="fa-solid fa-file-medical text-blue-600 text-xl"></i>
-                    <div class="font-bold text-slate-900 dark:text-white mt-3" data-lang-ua="Візьміть попередні дані" data-lang-en="Bring previous records">Візьміть попередні дані</div>
-                    <p class="text-sm text-slate-500 mt-2" data-lang-ua="Направлення та попередні висновки, якщо вони є." data-lang-en="Referral and previous reports, if available.">Направлення та попередні висновки, якщо вони є.</p>
-                </div>
-                <div class="rounded-2xl bg-cyan-50 dark:bg-cyan-950/20 border border-cyan-100 dark:border-cyan-900/30 p-5">
-                    <i class="fa-solid fa-droplet text-cyan-600 text-xl"></i>
-                    <div class="font-bold text-slate-900 dark:text-white mt-3" data-lang-ua="Якщо потрібен контраст" data-lang-en="If contrast is needed">Якщо потрібен контраст</div>
-                    <p class="text-sm text-slate-500 mt-2" data-lang-ua="Реєстратор уточнить, чи потрібні аналізи та додаткова підготовка." data-lang-en="The reception team will confirm whether tests or additional preparation are needed.">Реєстратор уточнить, чи потрібні аналізи та додаткова підготовка.</p>
-                </div>
-                <div class="rounded-2xl bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-100 dark:border-emerald-900/30 p-5">
-                    <i class="fa-solid fa-phone-volume text-emerald-600 text-xl"></i>
-                    <div class="font-bold text-slate-900 dark:text-white mt-3" data-lang-ua="Не впевнені — зателефонуйте" data-lang-en="Unsure? Call us">Не впевнені — зателефонуйте</div>
-                    <p class="text-sm text-slate-500 mt-2">0 800 33 03 64</p>
-                </div>
-            </div>
-            <div class="flex flex-col sm:flex-row gap-3 mt-7">
-                <a href="tel:0800330364" class="flex-1 py-3.5 rounded-2xl bg-blue-600 text-white font-bold text-sm text-center hover:bg-blue-700 transition"><i class="fa-solid fa-phone mr-2"></i><span data-lang-ua="Зателефонувати" data-lang-en="Call">Зателефонувати</span></a>
-                <a href="#booking" onclick="togglePreparationPanel(false)" class="flex-1 py-3.5 rounded-2xl bg-slate-900 dark:bg-slate-700 text-white font-bold text-sm text-center hover:bg-slate-800 transition"><span data-lang-ua="Перейти до запису" data-lang-en="Go to booking">Перейти до запису</span><i class="fa-solid fa-arrow-right ml-2"></i></a>
-            </div>
-        </div>
-    </div>
-
     <div class="mobile-action-bar fixed md:hidden bottom-0 inset-x-0 z-[60] bg-white/95 dark:bg-slate-950/95 backdrop-blur border-t border-slate-200 dark:border-slate-800 px-3 pt-2">
         <div class="grid grid-cols-2 gap-2 max-w-lg mx-auto">
             <a href="tel:0800330364" class="h-11 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-800 dark:text-white font-bold text-sm flex items-center justify-center gap-2"><i class="fa-solid fa-phone text-emerald-500"></i><span data-lang-ua="Подзвонити" data-lang-en="Call">Подзвонити</span></a>
@@ -1507,16 +1352,41 @@
     <script>
         let currentLang = 'ua';
 
-        function togglePreparationPanel(show) {
-            const modal = document.getElementById('prepModal');
-            if (!modal) return;
-            modal.classList.toggle('open', Boolean(show));
-            document.body.style.overflow = show ? 'hidden' : '';
+
+
+        function setCTView(mode) {
+            const stage = document.getElementById('ctModelStage');
+            if (!stage) return;
+            const normalized = mode === '2d' ? '2d' : '3d';
+            stage.dataset.mode = normalized;
+            document.getElementById('ctMode2D')?.classList.toggle('active', normalized === '2d');
+            document.getElementById('ctMode3D')?.classList.toggle('active', normalized === '3d');
         }
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') togglePreparationPanel(false);
-        });
+        const uaMobilePrefixes = new Set(['39','50','63','66','67','68','73','75','77','89','91','92','93','94','95','96','97','98','99']);
+        function normalizeUAPhoneDigits(value) {
+            let digits = String(value || '').replace(/\D/g, '');
+            if (digits.startsWith('380')) digits = digits.slice(3);
+            else if (digits.startsWith('0')) digits = digits.slice(1);
+            if (digits.length > 9) digits = digits.slice(-9);
+            return digits.slice(0, 9);
+        }
+        function formatUAPhone(value) {
+            const d = normalizeUAPhoneDigits(value);
+            let out = '+380';
+            if (d.length) out += ' ' + d.slice(0,2);
+            if (d.length > 2) out += ' ' + d.slice(2,5);
+            if (d.length > 5) out += ' ' + d.slice(5,7);
+            if (d.length > 7) out += ' ' + d.slice(7,9);
+            return out;
+        }
+        function isValidUAPhone(value) {
+            const d = normalizeUAPhoneDigits(value);
+            if (d.length !== 9 || !uaMobilePrefixes.has(d.slice(0,2))) return false;
+            if (/^(\d)\1{8}$/.test(d)) return false;
+            if (['123456789','987654321','012345678'].includes(d)) return false;
+            return true;
+        }
 
         function toggleAudio(videoId) {
             const video = document.getElementById(videoId);
@@ -1549,6 +1419,7 @@
         function toggleLanguage() {
             currentLang = currentLang === 'ua' ? 'en' : 'ua';
             document.getElementById('lang-btn').innerText = currentLang.toUpperCase();
+            document.documentElement.lang = currentLang === 'en' ? 'en' : 'uk';
 
             document.querySelectorAll('[data-lang-ua]').forEach(el => {
                 const text = currentLang === 'en' ? el.getAttribute('data-lang-en') : el.getAttribute('data-lang-ua');
@@ -1566,9 +1437,19 @@
         function handleFormSubmit(e) {
             e.preventDefault();
             const name = document.getElementById('patientName').value.trim();
-            const phone = document.getElementById('patientPhone').value.trim();
+            const phoneInput = document.getElementById('patientPhone');
+            const phone = phoneInput.value.trim();
             const service = document.getElementById('serviceSelect').value.trim();
-            const note = document.getElementById('patientNote').value.trim();
+            const phoneError = document.getElementById('phoneError');
+
+            if (!isValidUAPhone(phone)) {
+                phoneInput.setCustomValidity(currentLang === 'en' ? 'Enter a valid Ukrainian mobile number.' : 'Введіть коректний український мобільний номер.');
+                phoneError?.classList.add('show');
+                phoneInput.reportValidity();
+                return;
+            }
+            phoneInput.setCustomValidity('');
+            phoneError?.classList.remove('show');
 
             const subject = encodeURIComponent('Запит на запис КТ — сайт Кардіоцентру');
             const body = encodeURIComponent(
@@ -1583,8 +1464,6 @@
                 `Телефон: ${phone}
 ` +
                 `Дослідження: ${service}
-` +
-                `Побажання: ${note || '-'}
 
 ` +
                 `Надіслано з окремого сайту КТ-кабінету у Кардіоцентрі.`
@@ -1689,7 +1568,7 @@
             });
 
             // Легка анімація цифр у блоці статистики — запускається один раз при появі секції.
-            const statsSection = document.querySelector('.stats-section');
+            const statsSection = document.querySelector('.hero-network-stats');
             const statNumbers = Array.from(document.querySelectorAll('[data-count]'));
             const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
             const formatStat = (value) => Math.round(value).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
@@ -1746,6 +1625,16 @@
             setupVideoFallback('video1');
             setupVideoFallback('video2');
             setupMobileNavBehavior();
+            setCTView('3d');
+            const phoneInput = document.getElementById('patientPhone');
+            if (phoneInput) {
+                phoneInput.addEventListener('focus', () => { if (!phoneInput.value) phoneInput.value = '+380 '; });
+                phoneInput.addEventListener('input', () => {
+                    phoneInput.value = formatUAPhone(phoneInput.value);
+                    phoneInput.setCustomValidity('');
+                    document.getElementById('phoneError')?.classList.remove('show');
+                });
+            }
         });
 
         window.addEventListener('DOMContentLoaded', () => {
