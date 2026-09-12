@@ -573,12 +573,138 @@
         @media (max-width: 767px) {
             .stats-section { background-attachment: scroll; }
         }
+
+        /* --- Mobile polish: compact navigation, less vertical drag, cleaner CT/Vitrea flow --- */
+        .mobile-collapsible-nav {
+            transition: transform .28s ease, background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
+            will-change: transform;
+        }
+
+        @media (max-width: 767px) {
+            body { padding-bottom: 62px; }
+            section { scroll-margin-top: 74px; }
+
+            .top-info-bar {
+                padding: 6px 12px !important;
+                font-size: 11px !important;
+                line-height: 1.35;
+            }
+            .top-info-bar > div { gap: 4px !important; }
+            .top-info-bar .gap-6 { gap: 6px !important; }
+            .top-info-bar .gap-4 { gap: 8px !important; }
+
+            #siteNav > div {
+                padding-top: 9px !important;
+                padding-bottom: 9px !important;
+                padding-left: 14px !important;
+                padding-right: 14px !important;
+                gap: 8px !important;
+            }
+            #siteNav.nav-hidden-mobile { transform: translateY(-112%); }
+            #siteNav.nav-shadow-mobile { box-shadow: 0 12px 30px -22px rgba(15,23,42,.42); }
+            .nav-brand-icon { width: 36px !important; height: 36px !important; border-radius: 11px !important; font-size: 17px !important; }
+            .nav-brand-title { font-size: 15px !important; line-height: 1.05 !important; white-space: nowrap; }
+            .nav-brand-subtitle { font-size: 8px !important; letter-spacing: .08em !important; }
+            #siteNav button { transform: scale(.94); }
+
+            #about { padding-top: 34px !important; padding-bottom: 42px !important; }
+            #about h1 { font-size: clamp(2.35rem, 10.8vw, 3.05rem) !important; line-height: 1.02 !important; }
+            #about .hero-facts .card-ui {
+                padding: 14px !important;
+                min-height: 108px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
+            #about .hero-facts .text-2xl { font-size: 1.55rem !important; }
+            #about .hero-facts .text-xs { font-size: 11px !important; line-height: 1.45; }
+            #about .flex.flex-wrap.gap-4.pt-4 { gap: 10px !important; padding-top: 6px !important; }
+            #about .flex.flex-wrap.gap-4.pt-4 > a {
+                width: 100%;
+                justify-content: center;
+                padding: 13px 16px !important;
+                border-radius: 16px !important;
+            }
+
+            .hero-visual-card {
+                padding: 16px !important;
+                border-radius: 24px !important;
+                gap: 12px !important;
+            }
+            .hero-visual-card h3 { font-size: 1.42rem !important; line-height: 1.13 !important; }
+            .hero-visual-card > .flex.items-start { gap: 9px !important; }
+            .hero-model-shell { height: 360px !important; border-radius: 22px !important; }
+            .hero-model-shell > .absolute.top-4.right-4 { display: none !important; }
+            .hero-model-shell > .absolute.top-4.left-4 { top: 10px !important; left: 10px !important; }
+            .hero-model-shell > .absolute.top-4.left-4 span { font-size: 9px !important; padding: 6px 9px !important; }
+            .ct-process-step { padding: 9px 5px; font-size: 9px; line-height: 1.25; }
+            .hero-analysis-grid .scan-data-pill { padding: 12px !important; }
+            .hero-analysis-grid .scan-data-pill .text-xs { font-size: 10px !important; line-height: 1.2; }
+            .hero-analysis-grid .scan-data-pill p { font-size: 11px !important; line-height: 1.42; margin-top: 6px !important; }
+
+            #process { padding-top: 54px !important; padding-bottom: 58px !important; }
+            #process .space-y-8 { gap: 22px !important; }
+            #process .space-y-6 { gap: 18px !important; }
+            #process .process-video { margin-top: 2px; }
+            #process .process-video video { height: 500px !important; }
+
+            #vitrea { padding-top: 42px !important; padding-bottom: 46px !important; }
+            #vitrea h2 { font-size: 2rem !important; line-height: 1.08 !important; }
+            #vitrea .vitrea-video { margin-top: 2px; }
+            #vitrea .vitrea-video video { height: 470px !important; }
+            #vitrea .vitrea-feature { min-height: 170px; }
+
+            .stats-section { padding-top: 58px !important; padding-bottom: 58px !important; }
+            .stats-section h2 { font-size: 2.1rem !important; line-height: 1.08 !important; }
+            .stats-section .mt-12 { margin-top: 30px !important; }
+            .stats-section .gap-5 { gap: 12px !important; }
+            .stats-card { min-height: 130px; padding: 18px 12px !important; }
+            .stats-card .text-sm { font-size: 11px !important; line-height: 1.45; letter-spacing: .16em !important; }
+            .stat-number-wide { font-size: clamp(2.15rem, 9vw, 3rem) !important; }
+
+            #services { padding-top: 48px !important; padding-bottom: 50px !important; }
+            #services > div { gap: 22px !important; }
+            #services .space-y-8 { gap: 22px !important; }
+            #servicesGrid { gap: 16px !important; }
+            .service-item { padding: 18px !important; border-radius: 24px !important; }
+            .service-item h3 { font-size: 1.08rem !important; }
+            .service-item p { font-size: 13px !important; line-height: 1.5; }
+            .service-item .bg-slate-50 { padding: 12px !important; margin-bottom: 12px !important; }
+            .service-item .border-t { padding-top: 12px !important; }
+            .service-item .text-xl { font-size: 1.45rem !important; }
+            .service-item a[href="#booking"] { padding: 10px 16px !important; }
+
+            .contrast-cta { border-radius: 24px !important; }
+            .contrast-cta .contrast-cta-button { width: 100%; justify-content: center; }
+
+            .mobile-action-bar {
+                padding-top: 6px !important;
+                padding-left: 10px !important;
+                padding-right: 10px !important;
+                padding-bottom: max(7px, env(safe-area-inset-bottom)) !important;
+                box-shadow: 0 -12px 28px -22px rgba(15,23,42,.45);
+            }
+            .mobile-action-bar > div { gap: 8px !important; }
+            .mobile-action-bar a { height: 40px !important; border-radius: 14px !important; font-size: 13px !important; }
+
+            footer { padding-bottom: 14px; }
+        }
+
+        @media (max-width: 380px) {
+            .nav-brand-title { font-size: 14px !important; }
+            .nav-brand-subtitle { font-size: 7.5px !important; }
+            #siteNav .flex.items-center.gap-3 { gap: 7px !important; }
+            #siteNav button { transform: scale(.9); }
+            .hero-model-shell { height: 340px !important; }
+            #vitrea h2 { font-size: 1.8rem !important; }
+            .hero-analysis-grid .scan-data-pill p { font-size: 10.5px !important; }
+        }
     </style>
 </head>
 <body class="min-h-screen selection:bg-blue-500 selection:text-white relative">
     <div class="site-grid"></div>
 
-    <div class="bg-slate-900 text-slate-300 text-xs py-2 px-4 relative z-10">
+    <div class="top-info-bar bg-slate-900 text-slate-300 text-xs py-2 px-4 relative z-10">
         <div class="max-w-[1320px] mx-auto flex flex-wrap justify-between items-center gap-2">
             <div class="flex items-center gap-6 flex-wrap">
                 <span><i class="fa-solid fa-location-dot text-blue-500 mr-1.5"></i><span data-lang-ua="м. Дніпро, вул. Князя Володимира Великого, 28 (Кардіоцентр)" data-lang-en="Dnipro, Kniaz Volodymyr Velyky St., 28 (Cardio Center)">м. Дніпро, вул. Князя Володимира Великого, 28 (Кардіоцентр)</span></span>
@@ -591,13 +717,13 @@
         </div>
     </div>
 
-    <nav class="sticky top-0 z-50 nav-glass transition-colors">
+    <nav id="siteNav" class="sticky top-0 z-50 nav-glass transition-colors mobile-collapsible-nav">
         <div class="max-w-[1320px] mx-auto px-4 py-3.5 flex items-center justify-between gap-4">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-extrabold text-xl shadow-md shadow-blue-500/20">ЄС</div>
+                <div class="nav-brand-icon w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center text-white font-extrabold text-xl shadow-md shadow-blue-500/20">ЄС</div>
                 <div>
-                    <span class="font-extrabold text-lg tracking-tight block leading-none">Євро Сервіс Україна</span>
-                    <span class="text-[10px] text-blue-600 font-bold uppercase tracking-wider" data-lang-ua="КТ • Кардіоцентр, Дніпро" data-lang-en="CT • Cardio Center, Dnipro">КТ • Кардіоцентр, Дніпро</span>
+                    <span class="nav-brand-title font-extrabold text-lg tracking-tight block leading-none">Євро Сервіс Україна</span>
+                    <span class="nav-brand-subtitle text-[10px] text-blue-600 font-bold uppercase tracking-wider" data-lang-ua="КТ • Кардіоцентр, Дніпро" data-lang-en="CT • Cardio Center, Dnipro">КТ • Кардіоцентр, Дніпро</span>
                 </div>
             </div>
 
@@ -620,8 +746,8 @@
         </div>
     </nav>
 
-    <section id="about" class="py-12 md:py-20 px-4">
-        <div class="max-w-[1320px] mx-auto grid lg:grid-cols-12 gap-12 items-center">
+    <section id="about" class="py-10 md:py-20 px-4">
+        <div class="max-w-[1320px] mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div class="lg:col-span-7 space-y-6">
                 <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-600 dark:bg-blue-900/30 dark:border-blue-800 dark:text-blue-300 text-xs font-semibold soft-panel reveal">
                     <span class="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
@@ -636,7 +762,7 @@
                     <p class="text-slate-600 dark:text-slate-400 text-base md:text-lg leading-relaxed max-w-2xl mt-4" data-lang-ua="Комп’ютерна томографія у Кардіоцентрі Дніпра на Philips Brilliance 64 у 16-зрізовій конфігурації. Для поглибленого аналізу КТ-даних лікарі використовують спеціалізовану робочу станцію Vitrea." data-lang-en="Computed tomography at the Dnipro Cardio Center on Philips Brilliance 64 in a 16-slice configuration. Radiologists use the specialized Vitrea workstation for advanced CT data analysis.">Комп’ютерна томографія у Кардіоцентрі Дніпра на Philips Brilliance 64 у 16-зрізовій конфігурації. Для поглибленого аналізу КТ-даних лікарі використовують спеціалізовану робочу станцію Vitrea.</p>
                 </div>
 
-                <div class="grid sm:grid-cols-3 gap-4 pt-2">
+                <div class="hero-facts grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4 pt-2">
                     <div class="card-ui p-4 rounded-2xl reveal">
                         <div class="text-2xl font-extrabold text-blue-600">16 <span class="text-sm font-normal text-slate-500" data-lang-ua="зрізів" data-lang-en="slices">зрізів</span></div>
                         <div class="text-xs text-slate-500 mt-2" data-lang-ua="Конфігурація КТ-системи" data-lang-en="CT system configuration">Конфігурація КТ-системи</div>
@@ -648,6 +774,10 @@
                     <div class="card-ui p-4 rounded-2xl reveal">
                         <div class="text-2xl font-extrabold text-emerald-600" data-lang-ua="Кардіоцентр" data-lang-en="Cardio Center">Кардіоцентр</div>
                         <div class="text-xs text-slate-500 mt-2" data-lang-ua="вул. Князя Володимира Великого, 28" data-lang-en="28 Kniaz Volodymyr Velyky St.">вул. Князя Володимира Великого, 28</div>
+                    </div>
+                    <div class="card-ui p-4 rounded-2xl reveal sm:hidden">
+                        <div class="text-2xl font-extrabold text-blue-600">Philips</div>
+                        <div class="text-xs text-slate-500 mt-2" data-lang-ua="КТ-система Brilliance" data-lang-en="Brilliance CT system">КТ-система Brilliance</div>
                     </div>
                 </div>
 
@@ -703,7 +833,7 @@
                         <div class="ct-process-step"><b>03</b><span data-lang-ua="3D-реконструкція" data-lang-en="3D reconstruction">3D-реконструкція</span></div>
                     </div>
 
-                    <div class="grid sm:grid-cols-2 gap-3 relative z-10">
+                    <div class="hero-analysis-grid grid grid-cols-2 gap-2 md:gap-3 relative z-10">
                         <div class="scan-data-pill rounded-2xl p-4">
                             <div class="flex items-center gap-2 text-cyan-300 text-xs font-bold uppercase tracking-wider"><i class="fa-solid fa-layer-group"></i><span data-lang-ua="2D-перегляд" data-lang-en="2D review">2D-перегляд</span></div>
                             <p class="text-sm text-slate-300 mt-2" data-lang-ua="Лікар переглядає пошарові КТ-зображення у різних площинах." data-lang-en="The radiologist reviews layered CT images in different planes.">Лікар переглядає пошарові КТ-зображення у різних площинах.</p>
@@ -718,7 +848,7 @@
         </div>
     </section>
 
-    <section class="py-10 px-4">
+    <section class="desktop-specs hidden md:block py-10 px-4">
         <div class="max-w-[1320px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
             <div class="card-ui p-6 rounded-2xl text-center reveal">
                 <div class="text-2xl md:text-3xl font-extrabold text-blue-600 mb-2">Philips</div>
@@ -739,8 +869,8 @@
         </div>
     </section>
 
-    <section id="process" class="section-deep py-20 px-4">
-        <div class="max-w-[1320px] mx-auto grid lg:grid-cols-12 gap-12 items-center">
+    <section id="process" class="section-deep py-14 md:py-20 px-4">
+        <div class="max-w-[1320px] mx-auto grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             <div class="lg:col-span-7 space-y-8">
                 <div class="reveal">
                     <span class="text-xs font-bold text-blue-600 uppercase tracking-widest" data-lang-ua="Простий процес" data-lang-en="Simple process">Простий процес</span>
@@ -773,7 +903,7 @@
             </div>
 
             <div class="lg:col-span-5 flex justify-center reveal">
-                <div class="phone-mockup w-full max-w-[320px] overflow-hidden relative group video-shell">
+                <div class="process-video phone-mockup w-full max-w-[300px] sm:max-w-[320px] overflow-hidden relative group video-shell">
                     <div class="absolute top-0 inset-x-0 bg-gradient-to-b from-slate-950/90 via-slate-950/60 to-transparent p-4 z-10 pointer-events-none">
                         <span class="font-bold text-xs text-white block" data-lang-ua="Візит пацієнта" data-lang-en="Patient visit">Візит пацієнта</span>
                         <span class="text-[10px] text-slate-300 block" data-lang-ua="Реальний процес КТ-діагностики" data-lang-en="Real CT process">Реальний процес КТ-діагностики</span>
@@ -797,10 +927,18 @@
         </div>
     </section>
 
-    <section id="vitrea" class="py-12 md:py-14 px-4">
-        <div class="max-w-[1240px] mx-auto grid lg:grid-cols-12 gap-7 lg:gap-8 items-center">
-            <div class="lg:col-span-5 flex justify-center lg:justify-start order-2 lg:order-1 reveal">
-                <div class="phone-mockup w-full max-w-[300px] overflow-hidden relative group video-shell">
+    <section id="vitrea" class="py-10 md:py-14 px-4">
+        <div class="max-w-[1240px] mx-auto grid lg:grid-cols-12 gap-5 md:gap-7 lg:gap-8 items-center">
+            <div class="lg:col-span-7 lg:col-start-6 lg:row-start-1 lg:pl-2 order-1">
+                <div class="reveal">
+                    <span class="text-xs font-bold text-blue-600 uppercase tracking-widest" data-lang-ua="Vitrea" data-lang-en="Vitrea">Vitrea</span>
+                    <h2 class="text-2xl md:text-[2.15rem] md:leading-[1.12] font-extrabold text-slate-900 dark:text-white mt-1 max-w-3xl" data-lang-ua="Розширений аналіз КТ на спеціалізованій робочій станції" data-lang-en="Advanced CT analysis on a specialized workstation">Розширений аналіз КТ на спеціалізованій робочій станції</h2>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm md:text-[15px] leading-relaxed mt-3 max-w-3xl" data-lang-ua="Vitrea — це спеціалізована робоча станція для лікарів-рентгенологів, яка допомагає краще бачити, аналізувати й розуміти результати комп’ютерної томографії. Вона підтримує 2D/3D-реконструкції, вимірювання та детальний перегляд досліджуваної ділянки." data-lang-en="Vitrea is a specialized workstation for radiologists that helps them better visualize, analyze and understand CT results. It supports 2D/3D reconstructions, measurements and detailed review of the examined area.">Vitrea — це спеціалізована робоча станція для лікарів-рентгенологів, яка допомагає краще бачити, аналізувати й розуміти результати комп’ютерної томографії. Вона підтримує 2D/3D-реконструкції, вимірювання та детальний перегляд досліджуваної ділянки.</p>
+                </div>
+            </div>
+
+            <div class="lg:col-span-5 lg:col-start-1 lg:row-start-1 lg:row-span-2 flex justify-center lg:justify-start order-2 reveal">
+                <div class="vitrea-video phone-mockup w-full max-w-[280px] sm:max-w-[300px] overflow-hidden relative group video-shell">
                     <div class="absolute top-0 inset-x-0 bg-gradient-to-b from-slate-950/90 via-slate-950/60 to-transparent p-4 z-10 pointer-events-none">
                         <span class="font-bold text-xs text-white block" data-lang-ua="Робота з Vitrea" data-lang-en="Working with Vitrea">Робота з Vitrea</span>
                         <span class="text-[10px] text-slate-300 block" data-lang-ua="Аналіз лікарем-рентгенологом" data-lang-en="Radiologist analysis">Аналіз лікарем-рентгенологом</span>
@@ -808,7 +946,7 @@
                     <button type="button" onclick="toggleAudio('video2')" class="absolute top-3 right-3 z-20 bg-blue-600 hover:bg-blue-700 text-white px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 border border-blue-400/40">
                         <i class="fa-solid fa-volume-high text-[10px]"></i><span data-lang-ua="Звук" data-lang-en="Sound">Звук</span>
                     </button>
-                    <video id="video2" class="w-full h-[510px] object-cover" controls autoplay muted loop playsinline preload="metadata">
+                    <video id="video2" class="w-full h-[500px] md:h-[510px] object-cover" controls autoplay muted loop playsinline preload="metadata">
                         <source src="IMG_2869.mp4" type="video/mp4">
                         <source src="IMG_2869.MP4" type="video/mp4">
                         <source src="IMG_2869" type="video/mp4">
@@ -822,23 +960,17 @@
                 </div>
             </div>
 
-            <div class="lg:col-span-7 space-y-4 order-1 lg:order-2 lg:pl-2">
-                <div class="reveal">
-                    <span class="text-xs font-bold text-blue-600 uppercase tracking-widest" data-lang-ua="Vitrea" data-lang-en="Vitrea">Vitrea</span>
-                    <h2 class="text-2xl md:text-[2.15rem] md:leading-[1.12] font-extrabold text-slate-900 dark:text-white mt-1 max-w-3xl" data-lang-ua="Розширений аналіз КТ на спеціалізованій робочій станції" data-lang-en="Advanced CT analysis on a specialized workstation">Розширений аналіз КТ на спеціалізованій робочій станції</h2>
-                    <p class="text-slate-600 dark:text-slate-400 text-sm md:text-[15px] leading-relaxed mt-3 max-w-3xl" data-lang-ua="Vitrea — це спеціалізована робоча станція для лікарів-рентгенологів, яка допомагає краще бачити, аналізувати й розуміти результати комп’ютерної томографії. Вона підтримує 2D/3D-реконструкції, вимірювання та детальний перегляд досліджуваної ділянки." data-lang-en="Vitrea is a specialized workstation for radiologists that helps them better visualize, analyze and understand CT results. It supports 2D/3D reconstructions, measurements and detailed review of the examined area.">Vitrea — це спеціалізована робоча станція для лікарів-рентгенологів, яка допомагає краще бачити, аналізувати й розуміти результати комп’ютерної томографії. Вона підтримує 2D/3D-реконструкції, вимірювання та детальний перегляд досліджуваної ділянки.</p>
-                </div>
-
-                <div class="grid sm:grid-cols-2 gap-3 pt-1">
-                    <div class="card-ui p-4 rounded-2xl reveal">
-                        <i class="fa-solid fa-cube text-blue-600 text-xl mb-2"></i>
-                        <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-2" data-lang-ua="3D-реконструкції" data-lang-en="3D reconstructions">3D-реконструкції</h4>
-                        <p class="text-sm text-slate-500" data-lang-ua="Допомагають лікарю переглядати анатомічні структури з різних ракурсів та краще орієнтуватися у даних КТ." data-lang-en="They help the doctor review anatomical structures from different angles and better navigate the CT data.">Допомагають лікарю переглядати анатомічні структури з різних ракурсів та краще орієнтуватися у даних КТ.</p>
+            <div class="lg:col-span-7 lg:col-start-6 lg:row-start-2 lg:pl-2 order-3">
+                <div class="grid grid-cols-2 gap-2 md:gap-3">
+                    <div class="vitrea-feature card-ui p-3.5 md:p-4 rounded-2xl reveal">
+                        <i class="fa-solid fa-cube text-blue-600 text-lg md:text-xl mb-2"></i>
+                        <h4 class="font-bold text-[13px] md:text-sm text-slate-900 dark:text-white mb-1.5" data-lang-ua="3D-реконструкції" data-lang-en="3D reconstructions">3D-реконструкції</h4>
+                        <p class="text-[12px] md:text-sm leading-relaxed text-slate-500" data-lang-ua="Допомагають лікарю переглядати анатомічні структури з різних ракурсів та краще орієнтуватися у даних КТ." data-lang-en="They help the doctor review anatomical structures from different angles and better navigate the CT data.">Допомагають лікарю переглядати анатомічні структури з різних ракурсів та краще орієнтуватися у даних КТ.</p>
                     </div>
-                    <div class="card-ui p-4 rounded-2xl reveal">
-                        <i class="fa-solid fa-ruler-combined text-blue-600 text-xl mb-2"></i>
-                        <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-2" data-lang-ua="Вимірювання та аналіз" data-lang-en="Measurement and analysis">Вимірювання та аналіз</h4>
-                        <p class="text-sm text-slate-500" data-lang-ua="Інструменти Vitrea допомагають виконувати вимірювання та детальніше аналізувати результати дослідження." data-lang-en="Vitrea tools help perform measurements and analyze the examination results in more detail.">Інструменти Vitrea допомагають виконувати вимірювання та детальніше аналізувати результати дослідження.</p>
+                    <div class="vitrea-feature card-ui p-3.5 md:p-4 rounded-2xl reveal">
+                        <i class="fa-solid fa-ruler-combined text-blue-600 text-lg md:text-xl mb-2"></i>
+                        <h4 class="font-bold text-[13px] md:text-sm text-slate-900 dark:text-white mb-1.5" data-lang-ua="Вимірювання та аналіз" data-lang-en="Measurement and analysis">Вимірювання та аналіз</h4>
+                        <p class="text-[12px] md:text-sm leading-relaxed text-slate-500" data-lang-ua="Інструменти Vitrea допомагають виконувати вимірювання та детальніше аналізувати результати дослідження." data-lang-en="Vitrea tools help perform measurements and analyze the examination results in more detail.">Інструменти Vitrea допомагають виконувати вимірювання та детальніше аналізувати результати дослідження.</p>
                     </div>
                 </div>
             </div>
@@ -1370,6 +1502,47 @@
             window.location.href = `mailto:esucenter.dp@gmail.com?subject=${subject}&body=${body}`;
         }
 
+
+        function setupMobileNavBehavior() {
+            const nav = document.getElementById('siteNav');
+            if (!nav) return;
+
+            let lastY = Math.max(window.scrollY || 0, 0);
+            let ticking = false;
+
+            const updateNav = () => {
+                const y = Math.max(window.scrollY || 0, 0);
+                const delta = y - lastY;
+                const mobile = window.matchMedia('(max-width: 767px)').matches;
+
+                nav.classList.toggle('nav-shadow-mobile', mobile && y > 20);
+
+                if (!mobile || y < 110) {
+                    nav.classList.remove('nav-hidden-mobile');
+                } else if (delta > 7) {
+                    nav.classList.add('nav-hidden-mobile');
+                } else if (delta < -5) {
+                    nav.classList.remove('nav-hidden-mobile');
+                }
+
+                lastY = y;
+                ticking = false;
+            };
+
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(updateNav);
+                    ticking = true;
+                }
+            }, { passive: true });
+
+            window.addEventListener('resize', () => {
+                if (!window.matchMedia('(max-width: 767px)').matches) {
+                    nav.classList.remove('nav-hidden-mobile', 'nav-shadow-mobile');
+                }
+            });
+        }
+
         function setupVideoFallback(videoId) {
             const video = document.getElementById(videoId);
             const fallback = document.getElementById(`${videoId}-fallback`);
@@ -1458,6 +1631,7 @@
 
             setupVideoFallback('video1');
             setupVideoFallback('video2');
+            setupMobileNavBehavior();
         });
 
         window.addEventListener('DOMContentLoaded', () => {
@@ -1706,9 +1880,14 @@
                 new THREE.Vector3(0.12, -0.92, 0.45)
             ], 0.014, 0x6fa9b6, 0.58, anatomy, 52);
 
-            // Scale the assembled anatomy to the hero viewport.
-            anatomy.scale.set(0.78, 0.78, 0.78);
-            anatomy.position.set(0.02, -0.16, 0.00);
+            // Scale the assembled anatomy responsively so the heart has breathing room on phones.
+            let anatomyBaseScale = canvas.clientWidth < 480 ? 0.66 : 0.78;
+            anatomy.scale.set(anatomyBaseScale, anatomyBaseScale, anatomyBaseScale);
+            anatomy.position.set(canvas.clientWidth < 480 ? 0.05 : 0.02, canvas.clientWidth < 480 ? -0.20 : -0.16, 0.00);
+            if (canvas.clientWidth < 480) {
+                group.position.x = 0.18;
+                group.position.y = -0.06;
+            }
             const ring1 = new THREE.Mesh(
                 new THREE.TorusGeometry(1.85, 0.008, 8, 180),
                 new THREE.MeshBasicMaterial({ color:0x38bdf8, transparent:true, opacity:0.16 })
@@ -1754,7 +1933,7 @@
                 scanPlane.position.x = Math.sin(t * 0.78) * 1.62;
                 scanPlane.material.opacity = 0.035 + (Math.sin(t * 1.6) + 1) * 0.012;
                 const pulse = 1 + Math.sin(t * 1.55) * 0.006;
-                anatomy.scale.set(0.78*pulse, 0.78*pulse, 0.78*pulse);
+                anatomy.scale.set(anatomyBaseScale*pulse, anatomyBaseScale*pulse, anatomyBaseScale*pulse);
                 controls.update();
                 renderer.render(scene, camera);
             }
@@ -1767,6 +1946,10 @@
                 camera.aspect = width / height;
                 camera.updateProjectionMatrix();
                 renderer.setSize(width, height);
+                anatomyBaseScale = width < 480 ? 0.66 : 0.78;
+                anatomy.position.set(width < 480 ? 0.05 : 0.02, width < 480 ? -0.20 : -0.16, 0.00);
+                group.position.x = width < 480 ? 0.18 : 0.38;
+                group.position.y = width < 480 ? -0.06 : -0.10;
             });
         });
     </script>
