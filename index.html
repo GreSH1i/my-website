@@ -28,7 +28,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
     <style>
-        html { scroll-behavior: smooth; }
+        :root {
+            --mobile-nav-h: 64px;
+            --mobile-bar-h: 48px;
+        }
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 104px;
+        }
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
             transition: background-color .3s, color .3s;
@@ -568,7 +575,9 @@
             border-color: rgba(255,255,255,.08);
         }
 
-        .mobile-action-bar { padding-bottom: max(10px, env(safe-area-inset-bottom)); }
+        .mobile-action-bar {
+            padding-bottom: max(4px, env(safe-area-inset-bottom));
+        }
 
         @media (max-width: 767px) {
             .stats-section { background-attachment: scroll; }
@@ -581,8 +590,9 @@
         }
 
         @media (max-width: 767px) {
-            body { padding-bottom: 62px; }
-            section { scroll-margin-top: 74px; }
+            html { scroll-padding-top: calc(var(--mobile-nav-h) + 12px); }
+            body { padding-bottom: calc(var(--mobile-bar-h) + 10px); }
+            section[id] { scroll-margin-top: calc(var(--mobile-nav-h) + 12px); }
 
             .top-info-bar {
                 padding: 6px 12px !important;
@@ -627,13 +637,13 @@
             }
 
             .hero-visual-card {
-                padding: 16px !important;
-                border-radius: 24px !important;
-                gap: 12px !important;
+                padding: 14px !important;
+                border-radius: 22px !important;
+                gap: 10px !important;
             }
             .hero-visual-card h3 { font-size: 1.42rem !important; line-height: 1.13 !important; }
             .hero-visual-card > .flex.items-start { gap: 9px !important; }
-            .hero-model-shell { height: 360px !important; border-radius: 22px !important; }
+            .hero-model-shell { height: 320px !important; border-radius: 20px !important; }
             .hero-model-shell > .absolute.top-4.right-4 { display: none !important; }
             .hero-model-shell > .absolute.top-4.left-4 { top: 10px !important; left: 10px !important; }
             .hero-model-shell > .absolute.top-4.left-4 span { font-size: 9px !important; padding: 6px 9px !important; }
@@ -678,16 +688,28 @@
             .contrast-cta .contrast-cta-button { width: 100%; justify-content: center; }
 
             .mobile-action-bar {
-                padding-top: 6px !important;
-                padding-left: 10px !important;
-                padding-right: 10px !important;
-                padding-bottom: max(7px, env(safe-area-inset-bottom)) !important;
-                box-shadow: 0 -12px 28px -22px rgba(15,23,42,.45);
+                padding-top: 4px !important;
+                padding-left: 8px !important;
+                padding-right: 8px !important;
+                padding-bottom: max(4px, env(safe-area-inset-bottom)) !important;
+                box-shadow: 0 -10px 24px -20px rgba(15,23,42,.42);
             }
-            .mobile-action-bar > div { gap: 8px !important; }
-            .mobile-action-bar a { height: 40px !important; border-radius: 14px !important; font-size: 13px !important; }
+            .mobile-action-bar > div { gap: 7px !important; }
+            .mobile-action-bar a {
+                height: 36px !important;
+                border-radius: 12px !important;
+                font-size: 12px !important;
+                gap: 6px !important;
+            }
+            .mobile-action-bar a i { font-size: 12px !important; }
 
             footer { padding-bottom: 14px; }
+        }
+
+        @media (max-width: 420px) {
+            .hero-model-shell { height: 300px !important; }
+            .hero-visual-card { padding: 12px !important; }
+            .hero-visual-card h3 { font-size: 1.32rem !important; }
         }
 
         @media (max-width: 380px) {
@@ -695,7 +717,7 @@
             .nav-brand-subtitle { font-size: 7.5px !important; }
             #siteNav .flex.items-center.gap-3 { gap: 7px !important; }
             #siteNav button { transform: scale(.9); }
-            .hero-model-shell { height: 340px !important; }
+            .hero-model-shell { height: 286px !important; }
             #vitrea h2 { font-size: 1.8rem !important; }
             .hero-analysis-grid .scan-data-pill p { font-size: 10.5px !important; }
         }
@@ -1507,6 +1529,25 @@
             const nav = document.getElementById('siteNav');
             if (!nav) return;
 
+            const root = document.documentElement;
+            const actionBar = document.querySelector('.mobile-action-bar');
+
+            const syncMobileMetrics = () => {
+                const mobile = window.matchMedia('(max-width: 767px)').matches;
+                if (!mobile) {
+                    root.style.removeProperty('--mobile-nav-h');
+                    root.style.removeProperty('--mobile-bar-h');
+                    return;
+                }
+
+                const navHeight = Math.ceil(nav.getBoundingClientRect().height || 64);
+                const barHeight = actionBar ? Math.ceil(actionBar.getBoundingClientRect().height || 48) : 48;
+                root.style.setProperty('--mobile-nav-h', `${navHeight}px`);
+                root.style.setProperty('--mobile-bar-h', `${barHeight}px`);
+            };
+
+            requestAnimationFrame(syncMobileMetrics);
+
             let lastY = Math.max(window.scrollY || 0, 0);
             let ticking = false;
 
@@ -1537,10 +1578,15 @@
             }, { passive: true });
 
             window.addEventListener('resize', () => {
+                syncMobileMetrics();
                 if (!window.matchMedia('(max-width: 767px)').matches) {
                     nav.classList.remove('nav-hidden-mobile', 'nav-shadow-mobile');
                 }
             });
+
+            if (window.visualViewport) {
+                window.visualViewport.addEventListener('resize', syncMobileMetrics, { passive: true });
+            }
         }
 
         function setupVideoFallback(videoId) {
@@ -1880,13 +1926,21 @@
                 new THREE.Vector3(0.12, -0.92, 0.45)
             ], 0.014, 0x6fa9b6, 0.58, anatomy, 52);
 
-            // Scale the assembled anatomy responsively so the heart has breathing room on phones.
-            let anatomyBaseScale = canvas.clientWidth < 480 ? 0.66 : 0.78;
+            // Scale the assembled anatomy responsively so the heart keeps breathing room
+            // inside the shorter mobile 3D stage.
+            const getAnatomyScale = (width, height) => {
+                if (width >= 480) return 0.78;
+                if (height <= 290) return 0.56;
+                if (height <= 305) return 0.58;
+                if (height <= 325) return 0.61;
+                return 0.64;
+            };
+            let anatomyBaseScale = getAnatomyScale(canvas.clientWidth, canvas.clientHeight);
             anatomy.scale.set(anatomyBaseScale, anatomyBaseScale, anatomyBaseScale);
-            anatomy.position.set(canvas.clientWidth < 480 ? 0.05 : 0.02, canvas.clientWidth < 480 ? -0.20 : -0.16, 0.00);
+            anatomy.position.set(canvas.clientWidth < 480 ? 0.04 : 0.02, canvas.clientWidth < 480 ? -0.11 : -0.16, 0.00);
             if (canvas.clientWidth < 480) {
-                group.position.x = 0.18;
-                group.position.y = -0.06;
+                group.position.x = 0.14;
+                group.position.y = -0.01;
             }
             const ring1 = new THREE.Mesh(
                 new THREE.TorusGeometry(1.85, 0.008, 8, 180),
@@ -1946,10 +2000,10 @@
                 camera.aspect = width / height;
                 camera.updateProjectionMatrix();
                 renderer.setSize(width, height);
-                anatomyBaseScale = width < 480 ? 0.66 : 0.78;
-                anatomy.position.set(width < 480 ? 0.05 : 0.02, width < 480 ? -0.20 : -0.16, 0.00);
-                group.position.x = width < 480 ? 0.18 : 0.38;
-                group.position.y = width < 480 ? -0.06 : -0.10;
+                anatomyBaseScale = getAnatomyScale(width, height);
+                anatomy.position.set(width < 480 ? 0.04 : 0.02, width < 480 ? -0.11 : -0.16, 0.00);
+                group.position.x = width < 480 ? 0.14 : 0.38;
+                group.position.y = width < 480 ? -0.01 : -0.10;
             });
         });
     </script>
