@@ -792,42 +792,96 @@
 
 
         /* --- Minimal redesign pass --- */
+        .network-mini-intro {
+            margin-top: 18px;
+            padding-top: 4px;
+        }
+        .network-mini-intro .eyebrow {
+            display:block;
+            color:#2563eb;
+            font-size:10px;
+            font-weight:800;
+            text-transform:uppercase;
+            letter-spacing:.18em;
+        }
+        .network-mini-intro h3 {
+            margin-top:5px;
+            color:#0f172a;
+            font-size:clamp(1rem,1.7vw,1.3rem);
+            line-height:1.2;
+            font-weight:800;
+        }
+        .dark .network-mini-intro h3 { color:#f8fafc; }
+
         .hero-network-stats {
             display:grid;
             grid-template-columns:repeat(4,minmax(0,1fr));
-            gap:10px;
-            margin-top:18px;
+            gap:14px;
+            margin-top:14px;
         }
         .hero-stat {
-            padding:14px 14px 13px;
-            border-radius:18px;
-            background:rgba(255,255,255,.72);
-            border:1px solid rgba(191,219,254,.74);
-            box-shadow:0 14px 34px -28px rgba(15,23,42,.28);
-            backdrop-filter:blur(12px);
+            min-height:106px;
+            padding:19px 18px 17px;
+            border-radius:22px;
+            background:rgba(255,255,255,.80);
+            border:1px solid rgba(191,219,254,.9);
+            box-shadow:0 18px 42px -30px rgba(15,23,42,.38);
+            backdrop-filter:blur(14px);
+            display:flex;
+            flex-direction:column;
+            justify-content:center;
         }
-        .dark .hero-stat { background:rgba(15,23,42,.55); border-color:rgba(255,255,255,.08); }
-        .hero-stat .stat-number { color:#2563eb; font-size:clamp(1.35rem,2.1vw,1.85rem); font-weight:800; }
-        .hero-stat .stat-label { color:#64748b; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.12em; margin-top:5px; line-height:1.35; }
+        .dark .hero-stat { background:rgba(15,23,42,.62); border-color:rgba(255,255,255,.09); }
+        .hero-stat .stat-number { color:#2563eb; font-size:clamp(1.65rem,2.5vw,2.25rem); line-height:1; font-weight:800; letter-spacing:-.035em; }
+        .hero-stat .stat-label { color:#64748b; font-size:10px; font-weight:800; text-transform:uppercase; letter-spacing:.12em; margin-top:9px; line-height:1.35; }
 
         .ct-mode-switch {
-            display:inline-grid;
-            grid-template-columns:1fr 1fr;
-            padding:4px;
-            border-radius:999px;
+            display:grid;
+            grid-template-columns:repeat(2,minmax(0,1fr));
+            gap:8px;
+            width:min(100%,310px);
+            padding:5px;
+            border-radius:18px;
             background:rgba(3,12,27,.72);
             border:1px solid rgba(125,211,252,.16);
         }
         .ct-mode-button {
-            min-width:64px;
-            padding:8px 14px;
-            border-radius:999px;
-            font-size:11px;
-            font-weight:800;
+            min-width:0;
+            padding:9px 11px;
+            border-radius:14px;
             color:#94a3b8;
             transition:.22s ease;
+            display:flex;
+            align-items:center;
+            gap:9px;
+            text-align:left;
+            border:1px solid transparent;
         }
-        .ct-mode-button.active { color:#fff; background:#2563eb; box-shadow:0 8px 22px -12px rgba(37,99,235,.9); }
+        .ct-mode-button .mode-icon {
+            width:34px;
+            height:34px;
+            border-radius:10px;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            flex:0 0 auto;
+            color:#67e8f9;
+            background:rgba(103,232,249,.07);
+            border:1px solid rgba(103,232,249,.12);
+            font-size:13px;
+        }
+        .ct-mode-button .mode-copy { display:flex; flex-direction:column; min-width:0; }
+        .ct-mode-button .mode-copy strong { color:#e2e8f0; font-size:11px; line-height:1.1; font-weight:800; }
+        .ct-mode-button .mode-copy small { color:#64748b; font-size:9px; line-height:1.2; margin-top:3px; font-weight:700; }
+        .ct-mode-button.active {
+            color:#fff;
+            background:linear-gradient(135deg,#2563eb,#1d4ed8);
+            border-color:rgba(147,197,253,.35);
+            box-shadow:0 10px 26px -16px rgba(37,99,235,.95);
+        }
+        .ct-mode-button.active .mode-icon { color:#fff; background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.16); }
+        .ct-mode-button.active .mode-copy strong,
+        .ct-mode-button.active .mode-copy small { color:#fff; }
         .ct-model-stage { position:relative; }
         .ct-model-stage #ct-3d-canvas { transition:opacity .28s ease, transform .28s ease; }
         .ct-2d-panel {
@@ -846,6 +900,24 @@
         }
         .ct-model-stage[data-mode="2d"] #ct-3d-canvas { opacity:0; transform:scale(.97); pointer-events:none; }
         .ct-model-stage[data-mode="2d"] .ct-2d-panel { opacity:1; transform:scale(1); }
+        .ct-model-stage[data-mode="2d"] .ct-story-stage { opacity:0; visibility:hidden; }
+        .ct-model-stage[data-mode="3d"] .ct-2d-panel { opacity:0; }
+        .ct-view-caption {
+            position:absolute;
+            left:50%;
+            bottom:15px;
+            transform:translateX(-50%);
+            z-index:2;
+            padding:7px 11px;
+            border-radius:999px;
+            background:rgba(4,12,26,.72);
+            border:1px solid rgba(125,211,252,.18);
+            color:#e2e8f0;
+            font-size:9px;
+            font-weight:800;
+            letter-spacing:.06em;
+            white-space:nowrap;
+        }
         .ct-slice-svg { width:min(78%,360px); filter:drop-shadow(0 24px 35px rgba(0,0,0,.32)); }
         .ct-info-accordion {
             border:1px solid rgba(125,211,252,.14);
@@ -922,10 +994,12 @@
         .phone-error.show { display:block; }
 
         @media (max-width: 767px) {
-            .hero-network-stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
-            .hero-stat { padding:12px; min-height:84px; }
+            .hero-network-stats { grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+            .hero-stat { padding:16px; min-height:100px; }
             .ct-2d-panel { padding:20px; }
-            .ct-mode-button { min-width:56px; padding:7px 11px; }
+            .ct-mode-switch { width:100%; }
+            .ct-mode-button { padding:8px 9px; }
+            .ct-mode-button .mode-icon { width:31px; height:31px; }
             .minimal-step { grid-template-columns:34px 1fr; gap:12px; }
             .minimal-step-index { width:34px;height:34px;border-radius:11px; }
             .doctor-minimal .doctor-photo-wrap { height:190px; }
@@ -999,10 +1073,14 @@
                     </a>
                 </div>
 
+                <div class="network-mini-intro reveal">
+                    <span class="eyebrow" data-lang-ua="Про нас" data-lang-en="About us">Про нас</span>
+                    <h3 data-lang-ua="Євро Сервіс Україна у цифрах" data-lang-en="Euro Service Ukraine in numbers">Євро Сервіс Україна у цифрах</h3>
+                </div>
                 <div class="hero-network-stats reveal" aria-label="Статистика мережі">
                     <div class="hero-stat"><div class="stat-number" data-count="4">4</div><div class="stat-label" data-lang-ua="центри" data-lang-en="centers">центри</div></div>
-                    <div class="hero-stat"><div class="stat-number" data-count="12">12</div><div class="stat-label" data-lang-ua="років досвіду" data-lang-en="years">років досвіду</div></div>
-                    <div class="hero-stat"><div class="stat-number" data-count="6">6</div><div class="stat-label" data-lang-ua="лікарів" data-lang-en="doctors">лікарів</div></div>
+                    <div class="hero-stat"><div class="stat-number" data-count="12">12</div><div class="stat-label" data-lang-ua="років досвіду" data-lang-en="years of experience">років досвіду</div></div>
+                    <div class="hero-stat"><div class="stat-number" data-count="6">6</div><div class="stat-label" data-lang-ua="лікарів-рентгенологів" data-lang-en="radiologists">лікарів-рентгенологів</div></div>
                     <div class="hero-stat"><div class="stat-number" data-count="200555">200 555</div><div class="stat-label" data-lang-ua="описів" data-lang-en="reports">описів</div></div>
                 </div>
             </div>
@@ -1015,8 +1093,14 @@
                             <h3 class="font-extrabold text-white text-xl md:text-2xl mt-1" data-lang-ua="Від 2D-зрізу до 3D-реконструкції" data-lang-en="From a 2D slice to 3D reconstruction">Від 2D-зрізу до 3D-реконструкції</h3>
                         </div>
                         <div class="ct-mode-switch" role="group" aria-label="2D або 3D режим">
-                            <button type="button" class="ct-mode-button" id="ctMode2D" onclick="setCTView('2d')">2D</button>
-                            <button type="button" class="ct-mode-button active" id="ctMode3D" onclick="setCTView('3d')">3D</button>
+                            <button type="button" class="ct-mode-button" id="ctMode2D" aria-pressed="false" onclick="setCTView('2d')">
+                                <span class="mode-icon"><i class="fa-solid fa-layer-group"></i></span>
+                                <span class="mode-copy"><strong>2D</strong><small data-lang-ua="КТ-зріз" data-lang-en="CT slice">КТ-зріз</small></span>
+                            </button>
+                            <button type="button" class="ct-mode-button active" id="ctMode3D" aria-pressed="true" onclick="setCTView('3d')">
+                                <span class="mode-icon"><i class="fa-solid fa-cube"></i></span>
+                                <span class="mode-copy"><strong>3D</strong><small data-lang-ua="Реконструкція" data-lang-en="Reconstruction">Реконструкція</small></span>
+                            </button>
                         </div>
                     </div>
 
@@ -1030,23 +1114,35 @@
                             <div class="ct-stage-label">VITREA · 3D</div>
                         </div>
                         <div class="ct-2d-panel" aria-hidden="true">
-                            <svg class="ct-slice-svg" viewBox="0 0 420 420" role="img" aria-label="Схематичний 2D КТ-зріз">
+                            <svg class="ct-slice-svg" viewBox="0 0 440 440" role="img" aria-label="2D КТ-зріз грудної клітки та серця">
                                 <defs>
-                                    <radialGradient id="ctBg" cx="50%" cy="45%" r="58%"><stop offset="0" stop-color="#dbe4ee"/><stop offset=".55" stop-color="#7f8b99"/><stop offset="1" stop-color="#1b2634"/></radialGradient>
-                                    <filter id="soft"><feGaussianBlur stdDeviation="3"/></filter>
+                                    <radialGradient id="ctBody" cx="50%" cy="46%" r="58%">
+                                        <stop offset="0" stop-color="#f1f5f9"/>
+                                        <stop offset=".42" stop-color="#b8c2cc"/>
+                                        <stop offset=".76" stop-color="#667382"/>
+                                        <stop offset="1" stop-color="#263241"/>
+                                    </radialGradient>
+                                    <radialGradient id="ctHeart" cx="44%" cy="38%" r="70%">
+                                        <stop offset="0" stop-color="#f8fafc"/>
+                                        <stop offset=".58" stop-color="#cbd5e1"/>
+                                        <stop offset="1" stop-color="#8d99a6"/>
+                                    </radialGradient>
                                 </defs>
-                                <circle cx="210" cy="210" r="174" fill="#071426" stroke="#38bdf8" stroke-opacity=".35" stroke-width="3"/>
-                                <ellipse cx="210" cy="210" rx="135" ry="151" fill="url(#ctBg)" opacity=".95"/>
-                                <ellipse cx="145" cy="200" rx="56" ry="82" fill="#263341" opacity=".88"/>
-                                <ellipse cx="275" cy="200" rx="56" ry="82" fill="#263341" opacity=".88"/>
-                                <ellipse cx="210" cy="235" rx="53" ry="70" fill="#c2cad2" opacity=".88"/>
-                                <ellipse cx="210" cy="236" rx="30" ry="45" fill="#8d98a5" opacity=".9"/>
-                                <circle cx="210" cy="116" r="18" fill="#f2f5f8" opacity=".9"/>
-                                <circle cx="210" cy="210" r="122" fill="none" stroke="#e2e8f0" stroke-opacity=".18" stroke-width="2"/>
-                                <line x1="70" y1="210" x2="350" y2="210" stroke="#22d3ee" stroke-opacity=".48" stroke-width="2"/>
-                                <line x1="210" y1="70" x2="210" y2="350" stroke="#22d3ee" stroke-opacity=".35" stroke-width="2"/>
-                                <text x="210" y="392" text-anchor="middle" fill="#cbd5e1" font-size="15" font-family="Montserrat, sans-serif" font-weight="700">AXIAL CT · 2D</text>
+                                <circle cx="220" cy="220" r="188" fill="#071426" stroke="#38bdf8" stroke-opacity=".28" stroke-width="3"/>
+                                <ellipse cx="220" cy="216" rx="150" ry="165" fill="url(#ctBody)" opacity=".97"/>
+                                <ellipse cx="147" cy="200" rx="58" ry="92" fill="#1d2936" opacity=".96"/>
+                                <ellipse cx="294" cy="200" rx="58" ry="92" fill="#1d2936" opacity=".96"/>
+                                <path d="M198 183 C230 160 278 180 285 224 C293 268 260 302 218 298 C181 294 158 267 162 231 C165 207 178 191 198 183Z" fill="url(#ctHeart)" opacity=".98"/>
+                                <ellipse cx="219" cy="309" rx="26" ry="22" fill="#f8fafc" opacity=".96"/>
+                                <circle cx="221" cy="133" r="16" fill="#eef2f7" opacity=".95"/>
+                                <circle cx="220" cy="220" r="134" fill="none" stroke="#e2e8f0" stroke-opacity=".12" stroke-width="2"/>
+                                <line x1="71" y1="220" x2="369" y2="220" stroke="#22d3ee" stroke-opacity=".52" stroke-width="2"/>
+                                <line x1="220" y1="71" x2="220" y2="369" stroke="#22d3ee" stroke-opacity=".35" stroke-width="2"/>
+                                <circle cx="220" cy="220" r="5" fill="#67e8f9"/>
+                                <text x="220" y="405" text-anchor="middle" fill="#e2e8f0" font-size="16" font-family="Montserrat, sans-serif" font-weight="800">2D КТ-ЗРІЗ</text>
+                                <text x="220" y="425" text-anchor="middle" fill="#64748b" font-size="10" font-family="Montserrat, sans-serif" font-weight="700">AXIAL • ГРУДНА КЛІТКА / СЕРЦЕ</text>
                             </svg>
+                            <div class="ct-view-caption" data-lang-ua="2D • пошаровий КТ-зріз" data-lang-en="2D • layered CT slice">2D • пошаровий КТ-зріз</div>
                         </div>
                         <canvas id="ct-3d-canvas"></canvas>
                     </div>
@@ -1122,7 +1218,7 @@
                 <div class="max-w-3xl">
                     <span class="text-xs font-bold text-blue-600 uppercase tracking-widest" data-lang-ua="Популярні дослідження" data-lang-en="Popular examinations">Популярні дослідження</span>
                     <h2 class="text-2xl md:text-4xl font-extrabold text-slate-900 dark:text-white mt-1" data-lang-ua="Послуги КТ-діагностики" data-lang-en="CT diagnostic services">Послуги КТ-діагностики</h2>
-                    <p class="text-slate-500 text-sm mt-3" data-lang-ua="Нижче — кілька найпопулярніших напрямків. За повним переліком послуг і цін можна перейти на основний сайт мережі." data-lang-en="Below are a few of the most popular directions. For the full list of services and prices, visit the network’s main website.">Нижче — кілька найпопулярніших напрямків. За повним переліком послуг і цін можна перейти на основний сайт мережі.</p>
+                    <p class="text-slate-500 text-sm mt-3" data-lang-ua="Найпопулярніші КТ-дослідження у Кардіоцентрі." data-lang-en="Popular CT examinations at the Cardio Center.">Найпопулярніші КТ-дослідження у Кардіоцентрі.</p>
                 </div>
                 <div class="relative w-full md:w-80 reveal">
                     <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xs"></i>
@@ -1190,13 +1286,6 @@
                         <a href="#booking" onclick="selectService('КТ з контрастним посиленням')" class="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm transition" data-lang-ua="Записатися" data-lang-en="Book">Записатися</a>
                     </div>
                 </div>
-            </div>
-
-            <div class="flex flex-wrap gap-4 reveal">
-                <a href="https://www.esu-center.com.ua/price/" target="_blank" rel="noopener" class="px-6 py-3 rounded-2xl bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm transition flex items-center gap-2">
-                    <span data-lang-ua="Повний актуальний прайс" data-lang-en="Full current price list">Повний актуальний прайс</span>
-                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
-                </a>
             </div>
         </div>
     </section>
@@ -1359,8 +1448,12 @@
             if (!stage) return;
             const normalized = mode === '2d' ? '2d' : '3d';
             stage.dataset.mode = normalized;
-            document.getElementById('ctMode2D')?.classList.toggle('active', normalized === '2d');
-            document.getElementById('ctMode3D')?.classList.toggle('active', normalized === '3d');
+            const btn2D = document.getElementById('ctMode2D');
+            const btn3D = document.getElementById('ctMode3D');
+            btn2D?.classList.toggle('active', normalized === '2d');
+            btn3D?.classList.toggle('active', normalized === '3d');
+            btn2D?.setAttribute('aria-pressed', normalized === '2d' ? 'true' : 'false');
+            btn3D?.setAttribute('aria-pressed', normalized === '3d' ? 'true' : 'false');
         }
 
         const uaMobilePrefixes = new Set(['39','50','63','66','67','68','73','75','77','89','91','92','93','94','95','96','97','98','99']);
