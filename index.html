@@ -1222,6 +1222,117 @@ body .service-item h3{font-size:22px!important;line-height:1.3}
             }
         }
 
+
+        /* Full "Ваш візит" form on the first screen */
+        .hero-visit-form {
+            width: min(100%, 640px);
+            margin-top: 18px;
+            padding: 20px;
+            border-radius: 24px;
+        }
+        .hero-visit-form-title {
+            margin: 0 0 14px;
+            font-size: 24px !important;
+            line-height: 1.15 !important;
+            font-weight: 700 !important;
+            letter-spacing: -0.025em !important;
+            color: #0f172a;
+        }
+        .dark .hero-visit-form-title { color: #fff; }
+        .hero-visit-form-fields {
+            display: grid;
+            gap: 13px;
+        }
+        .hero-visit-two {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+        }
+        .hero-visit-form label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 12px;
+            line-height: 1.3;
+            font-weight: 700;
+            color: #0f172a;
+        }
+        .dark .hero-visit-form label { color: #f8fafc; }
+        .hero-visit-form input,
+        .hero-visit-form select {
+            width: 100%;
+            min-height: 46px;
+            padding: 11px 13px;
+            border-radius: 14px;
+            border: 1px solid rgba(203,213,225,.9);
+            background: rgba(248,250,252,.92);
+            color: #0f172a;
+            font-size: 14px !important;
+            outline: none;
+            transition: border-color .2s ease, box-shadow .2s ease;
+        }
+        .hero-visit-form input:focus,
+        .hero-visit-form select:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37,99,235,.08);
+        }
+        .dark .hero-visit-form input,
+        .dark .hero-visit-form select {
+            background: rgba(30,41,59,.88);
+            border-color: rgba(100,116,139,.5);
+            color: #f8fafc;
+        }
+        .hero-visit-submit {
+            width: 100%;
+            min-height: 48px;
+            border: 0;
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            background: #2563eb;
+            color: #fff;
+            font-size: 14px;
+            font-weight: 800;
+            box-shadow: 0 14px 26px -18px rgba(37,99,235,.85);
+            transition: background .2s ease, transform .2s ease;
+        }
+        .hero-visit-submit:hover {
+            background: #1d4ed8;
+            transform: translateY(-1px);
+        }
+        .hero-visit-protected {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #64748b;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .hero-visit-protected i { color: #2563eb; }
+
+        @media (max-width: 767px) {
+            .hero-visit-form {
+                width: 100%;
+                margin-top: 16px;
+                padding: 16px;
+                border-radius: 20px;
+            }
+            .hero-visit-form-title {
+                font-size: 21px !important;
+                margin-bottom: 12px;
+            }
+            .hero-visit-two {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .hero-visit-form input,
+            .hero-visit-form select {
+                min-height: 48px;
+                font-size: 16px !important;
+            }
+        }
+
 </style>
 <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
@@ -1274,22 +1385,51 @@ body .service-item h3{font-size:22px!important;line-height:1.3}
     <section id="about" class="py-10 md:py-16 px-4">
         <div class="max-w-[1320px] mx-auto grid lg:grid-cols-12 gap-8 lg:gap-8 xl:gap-10 items-center hero-main-grid">
             <div class="hero-copy lg:col-span-7 space-y-5">
-                <div class="hero-visit-badge reveal">
-                    <div class="hero-visit-icon"><i class="fa-regular fa-calendar-check" aria-hidden="true"></i></div>
-                    <div class="min-w-0">
-                        <div class="hero-visit-kicker" data-lang-ua="Ваш візит" data-lang-en="Your visit">Ваш візит</div>
-                        <div class="hero-visit-sub" data-lang-ua="Запис на КТ у Кардіоцентрі" data-lang-en="CT booking at the Cardio Center">Запис на КТ у Кардіоцентрі</div>
-                    </div>
-                    <a href="#booking" class="hero-visit-link" aria-label="Перейти до запису">
-                        <span data-lang-ua="Записатись" data-lang-en="Book">Записатись</span>
-                        <i class="fa-solid fa-arrow-right text-[11px]" aria-hidden="true"></i>
-                    </a>
-                </div>
                 
                 <div class="reveal">
                     <span class="text-xs font-extrabold text-blue-600 uppercase tracking-[0.18em]" data-lang-ua="Євро Сервіс Україна · Кардіоцентр" data-lang-en="Euro Service Ukraine · Cardio Center">Євро Сервіс Україна · Кардіоцентр</span>
                     <h1 class="text-slate-900 dark:text-white mt-3"><span data-lang-ua="Комп’ютерна томографія у Дніпрі" data-lang-en="Computed tomography in Dnipro" >Комп’ютерна томографія у Дніпрі</span></h1>
                     <p class="hero-description text-slate-600 dark:text-slate-400 text-base md:text-lg leading-relaxed max-w-2xl mt-4" data-lang-ua="м. Дніпро, вул. Князя Володимира Великого, 28" data-lang-en="Dnipro, 28 Kniazia Volodymyra Velykoho St.">м. Дніпро, вул. Князя Володимира Великого, 28</p>
+                    <div class="hero-visit-form card-ui reveal">
+                        <h3 class="hero-visit-form-title" data-lang-ua="Ваш візит" data-lang-en="Your visit">Ваш візит</h3>
+                        <form onsubmit="handleHeroVisitSubmit(event)" class="hero-visit-form-fields" id="heroBookingForm">
+                            <div class="hero-visit-two">
+                                <div>
+                                    <label for="heroPatientName" data-lang-ua="Ім’я" data-lang-en="Name">Ім’я</label>
+                                    <input id="heroPatientName" data-placeholder-ua="Ваше ім’я" data-placeholder-en="Your name" type="text" required minlength="2" maxlength="50" autocomplete="name" placeholder="Ваше ім’я">
+                                </div>
+                                <div>
+                                    <label for="heroPatientPhone" data-lang-ua="Номер телефону" data-lang-en="Phone number">Номер телефону</label>
+                                    <input id="heroPatientPhone" aria-describedby="heroPhoneError" type="tel" required inputmode="tel" autocomplete="tel" maxlength="24" placeholder="+380 67 123 45 67">
+                                    <div id="heroPhoneError" class="phone-error" data-lang-ua="Введіть український номер: +380 та 9 цифр." data-lang-en="Enter a Ukrainian phone number: +380 and 9 digits.">Введіть український номер: +380 та 9 цифр.</div>
+                                </div>
+                            </div>
+                            <div>
+                                <label for="heroServiceSelect" data-lang-ua="Дослідження" data-lang-en="Examination">Дослідження</label>
+                                <select id="heroServiceSelect" required>
+                                    <option value="Потрібна допомога з вибором" data-lang-ua="Потрібна допомога з вибором" data-lang-en="I need help choosing">Потрібна допомога з вибором</option>
+                                    <option value="КТ головного мозку" data-lang-ua="КТ головного мозку" data-lang-en="Brain CT">КТ головного мозку</option>
+                                    <option value="КТ органів грудної клітки" data-lang-ua="КТ органів грудної клітки" data-lang-en="Chest CT">КТ органів грудної клітки</option>
+                                    <option value="КТ з контрастним посиленням" data-lang-ua="КТ з контрастним посиленням" data-lang-en="Contrast-enhanced CT">КТ з контрастним посиленням</option>
+                                    <option value="Інше КТ-дослідження" data-lang-ua="Інше КТ-дослідження" data-lang-en="Other CT examination">Інше КТ-дослідження</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="hero-visit-submit">
+                                <span data-lang-ua="Підготувати лист" data-lang-en="Prepare email">Підготувати лист</span>
+                                <i aria-hidden="true" class="fa-solid fa-arrow-up-right-from-square"></i>
+                            </button>
+                            <div class="hero-visit-protected">
+                                <i class="fa-solid fa-lock" aria-hidden="true"></i>
+                                <span data-lang-ua="Ваші дані під захистом" data-lang-en="Your data is protected">Ваші дані під захистом</span>
+                            </div>
+                            <div id="heroFormStatus" class="form-status" role="status" hidden
+                                 data-lang-ua="Якщо пошта не відкрилася, зателефонуйте: 0 800 33 03 64."
+                                 data-lang-en="If your email app did not open, call 0 800 33 03 64.">
+                                Якщо пошта не відкрилася, зателефонуйте: 0 800 33 03 64.
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
 
                 <div class="hero-actions flex flex-wrap gap-3 pt-2 reveal">
@@ -1986,6 +2126,53 @@ function phoneDigits(value) {
   else if (digits.startsWith('0')) digits = digits.slice(1);
   return digits;
 }
+
+function handleHeroVisitSubmit(event) {
+  event.preventDefault();
+
+  const nameInput = document.getElementById('heroPatientName');
+  const phoneInput = document.getElementById('heroPatientPhone');
+  const error = document.getElementById('heroPhoneError');
+  const service = document.getElementById('heroServiceSelect');
+
+  nameInput.setCustomValidity(
+    nameInput.value.trim().length < 2
+      ? (currentLang === 'en' ? 'Enter your name.' : 'Введіть ваше ім’я.')
+      : ''
+  );
+  if (!nameInput.reportValidity()) return;
+
+  const valid = /^\d{9}$/.test(phoneDigits(phoneInput.value));
+  phoneInput.setCustomValidity(
+    valid
+      ? ''
+      : (currentLang === 'en'
+          ? 'Enter a Ukrainian phone number: +380 and 9 digits.'
+          : 'Введіть український номер: +380 та 9 цифр.')
+  );
+  error.classList.toggle('show', !valid);
+  phoneInput.setAttribute('aria-invalid', String(!valid));
+
+  if (!valid) {
+    phoneInput.reportValidity();
+    return;
+  }
+
+  const english = currentLang === 'en';
+  const subject = english
+    ? 'CT appointment request — Dnipro Cardio Center'
+    : 'Запит на запис КТ — Кардіоцентр, Дніпро';
+
+  const body = english
+    ? `Hello!\n\nI would like to arrange a CT appointment.\n\nName: ${nameInput.value.trim()}\nPhone: +380${phoneDigits(phoneInput.value)}\nExamination: ${service.selectedOptions[0].textContent}\n\nLocation: 28 Kniazia Volodymyra Velykoho St., Dnipro.`
+    : `Доброго дня!\n\nХочу узгодити запис на КТ.\n\nІм’я: ${nameInput.value.trim()}\nТелефон: +380${phoneDigits(phoneInput.value)}\nДослідження: ${service.value}\n\nАдреса: м. Дніпро, вул. Князя Володимира Великого, 28.`;
+
+  window.location.href =
+    `mailto:esucenter.dp@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  document.getElementById('heroFormStatus').hidden = false;
+}
+
 function handleFormSubmit(event) {
   event.preventDefault();
   const nameInput = document.getElementById('patientName');
