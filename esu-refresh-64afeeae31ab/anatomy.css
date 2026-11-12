@@ -1,0 +1,42 @@
+html .hero-main-grid{align-items:start!important}
+html .hero-main-grid>.hero-copy{align-self:start!important}
+#anatomy{scroll-margin-top:110px}
+html .hero-visual-card .ct-scan-line{display:none!important}
+html .hero-visual-card .ct-grid-overlay{opacity:.23}
+.an-organ-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;position:relative;z-index:3}
+.an-organ-tab{min-height:44px;padding:10px 6px;border-radius:12px;border:1px solid #7aa9cf40;background:#0e2036;color:#abc0d5;font-size:13px;font-weight:600;line-height:1.2;transition:background .18s,color .18s,border-color .18s}
+.an-organ-tab:hover{background:#173551;color:#fff}
+.an-organ-tab[aria-selected=true]{background:#173d5b;border-color:#6ad5fb;color:#e4f7ff;box-shadow:inset 0 0 20px #40b9ec12}
+.an-organ-tab:focus-visible,.an-tools button:focus-visible,#ct-3d-canvas:focus-visible,.an-retry:focus-visible{outline:2px solid #8ce3ff;outline-offset:3px}
+.hero-visual-card .ct-model-stage{background:radial-gradient(ellipse at 50% 45%,#18344c 0%,#09172a 55%,#040c18 100%);border:1px solid #7faad72b;isolation:isolate}
+.hero-visual-card .ct-view{margin:0}
+#ct-3d-canvas{position:relative;z-index:1}
+#ct-3d-canvas[hidden],.ct-drag-hint[hidden]{display:none!important}
+.an-tools{position:absolute;left:12px;bottom:14px;z-index:5;display:flex;gap:8px}
+.an-tools button{display:flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:12px;border:1px solid #a0bed540;background:#071526d9;color:#e7f5ff;backdrop-filter:blur(8px);font-size:15px;transition:background .18s,border-color .18s}
+.an-tools button:hover{background:#234c68;border-color:#91daee}
+.an-tools button:disabled{opacity:.4;cursor:wait}
+.an-load-status{position:absolute;z-index:4;top:18px;left:16px;right:16px;text-align:center;font-size:13px;color:#bbd7e9;pointer-events:none}
+.an-load-status:empty{display:none}
+.an-retry{position:absolute;z-index:6;top:52px;left:50%;transform:translateX(-50%);min-height:44px;padding:9px 18px;border:1px solid #73c6e6;border-radius:12px;background:#15364e;color:#fff}
+.an-retry[hidden]{display:none!important}
+html .hero-visual-card .an-viewer-help{position:relative;z-index:2;font-size:11px!important;line-height:1.6;color:#a3b8ca;margin:10px 0 0}
+html .hero-visual-card .an-source{position:relative;z-index:2;font-size:10px!important;line-height:1.5;color:#849db4;margin:4px 0 0}
+.an-source a{color:#9ed4e8;text-decoration:underline;text-underline-offset:3px}
+.hero-visual-card .ct-drag-hint{top:14px;right:12px;font-size:10px;pointer-events:none}
+.hero-visual-card .ct-image-label{display:none}
+#ct-view-2d{background:#03070c;isolation:isolate}
+#an-ct-slice{position:absolute;inset:38px 10px 84px;width:calc(100% - 20px);height:calc(100% - 122px);object-fit:contain;filter:none;transform:none;opacity:1}
+#an-ct-slice[hidden]{display:none!important}
+.an-ct-caption{position:absolute;top:14px;left:14px;right:14px;text-align:center;font-size:11px;line-height:1.4;color:#9fb7c9}
+.an-ct-status{position:absolute;top:43%;left:15px;right:15px;text-align:center;font-size:13px;color:#bbd7e9}
+.an-ct-status:empty{display:none}
+.an-ct-tools{position:absolute;bottom:10px;left:12px;right:12px;display:flex;align-items:center;gap:12px;padding:7px;border-radius:14px;border:1px solid #90bddd30;background:#0d1c2e}
+.an-ct-tools button{flex:none;width:44px;height:44px;border:1px solid #80acc33d;border-radius:10px;background:#153149;color:#e8f6ff;font:26px/1 Arial;cursor:pointer}
+.an-ct-tools button:hover{background:#234c68}
+.an-ct-tools button:disabled{opacity:.35;cursor:default}
+.an-ct-slider{flex:1;min-width:0;display:flex;flex-direction:column;gap:3px;text-align:center;color:#b7cddd;font-size:11px}
+.an-ct-slider input{width:100%;height:24px;accent-color:#78d8f6;cursor:pointer}
+.an-ct-tools button:focus-visible,.an-ct-slider input:focus-visible{outline:2px solid #8ce3ff;outline-offset:3px}
+@media(max-width:767px){.an-organ-tab{font-size:12px;min-height:44px}.an-tools{left:10px;right:10px;bottom:10px;justify-content:center}.an-tools button{width:44px;height:44px}.an-load-status{top:44px;font-size:12px}.hero-visual-card .ct-drag-hint{font-size:10px}.an-viewer-help{font-size:11px}.an-source{font-size:10px}}
+@media(prefers-reduced-motion:reduce){.an-organ-tab,.an-tools button{transition:none}}
